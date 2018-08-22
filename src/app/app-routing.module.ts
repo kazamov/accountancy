@@ -1,12 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ChargesComponent } from './charges/charges/charges.component';
-import { ReportsComponent } from './reports/reports/reports.component';
-
 const routes: Routes = [
-	{ path: 'charges', component: ChargesComponent },
-	{ path: 'reports', component: ReportsComponent },
+	{ path: 'reports', loadChildren: './reports/reports.module#ReportsModule' },
 	{ path: '', redirectTo: 'charges', pathMatch: 'full' }
 ];
 

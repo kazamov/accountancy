@@ -3,12 +3,11 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
+import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { environment } from '../environments/environment';
 import { MaterialModule } from './material.module';
 import { ChargesModule } from './charges/charges.module';
-import { ReportsModule } from './reports/reports.module';
 import { HAMMERJS_PROVIDER } from './hammerjs.provider';
 
 @NgModule({
@@ -19,7 +18,6 @@ import { HAMMERJS_PROVIDER } from './hammerjs.provider';
 		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 		MaterialModule,
 		ChargesModule,
-		ReportsModule,
 		AppRoutingModule
 	],
 	providers: [HAMMERJS_PROVIDER],
