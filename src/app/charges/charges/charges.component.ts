@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { ChargesService } from '../charges.service';
 import { ICharge } from '../charge.interface';
@@ -8,12 +8,10 @@ import { ICharge } from '../charge.interface';
 	templateUrl: './charges.component.html',
 	styleUrls: ['./charges.component.css']
 })
-export class ChargesComponent implements OnInit {
+export class ChargesComponent {
 	charges: ICharge[] = [];
 
 	constructor(private chargesService: ChargesService) {
 		this.charges = this.chargesService.getCharges();
 	}
-
-	ngOnInit() {}
 }

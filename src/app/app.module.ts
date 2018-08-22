@@ -9,6 +9,7 @@ import { environment } from '../environments/environment';
 import { MaterialModule } from './material.module';
 import { ChargesModule } from './charges/charges.module';
 import { ReportsModule } from './reports/reports.module';
+import { HAMMERJS_PROVIDER } from './hammerjs.provider';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -21,7 +22,7 @@ import { ReportsModule } from './reports/reports.module';
 		ReportsModule,
 		AppRoutingModule
 	],
-	providers: [],
+	providers: [HAMMERJS_PROVIDER],
 	bootstrap: [AppComponent]
 })
 export class AppModule {}
