@@ -14,12 +14,12 @@ import { ReportsModule } from './reports/reports.module';
 	declarations: [AppComponent],
 	imports: [
 		BrowserModule,
-		AppRoutingModule,
 		BrowserAnimationsModule,
 		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 		MaterialModule,
 		ChargesModule,
-		ReportsModule
+		ReportsModule,
+		AppRoutingModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

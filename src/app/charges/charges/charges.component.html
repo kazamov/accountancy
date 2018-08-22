@@ -1,3 +1,28 @@
-<p>
-  charges works!
-</p>
+<section>
+    <mat-card *ngFor="let charge of charges">
+        <mat-card-title>
+            {{charge.price | currency:'UAH':'symbol-narrow' }}
+        </mat-card-title>
+        <mat-card-content>
+            <div class="charge-field">
+                <label>Дата:</label>
+                <span>{{charge.date}}</span>
+            </div>
+            <div class="charge-field">
+                <label>Категория:</label>
+                <span>{{charge.category}}</span>
+            </div>
+            <div *ngIf="charge.description" class="charge-field">
+                <label>Описание:</label>
+                <span>{{charge.description}}</span>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button [color]="'accent'">Изменить</button>
+            <button mat-button [color]="'warn'">Удалить</button>
+        </mat-card-actions>
+    </mat-card>
+    <button mat-mini-fab color="primary" class="add-new-charge-btn">
+        <mat-icon>add</mat-icon>
+    </button>
+</section>
