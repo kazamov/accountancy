@@ -6,7 +6,7 @@ import { NewChargeComponent } from './new-charge/new-charge.component';
 
 const routes: Routes = [
 	{ path: 'charges', component: ChargesComponent },
-	{ path: 'charges/add', component: NewChargeComponent }
+	{ path: 'charges/charge', component: NewChargeComponent }
 ];
 
 @NgModule({
