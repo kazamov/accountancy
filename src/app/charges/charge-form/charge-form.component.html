@@ -2,6 +2,7 @@
   <mat-form-field [appearance]="'standard'">
     <mat-label>Сумма</mat-label>
     <input type="number" matInput [formControlName]="'price'" required>
+    <span matSuffix>₴</span>
   </mat-form-field>
   <mat-form-field [appearance]="'standard'">
     <mat-label>Дата</mat-label>
@@ -11,11 +12,15 @@
   </mat-form-field>
   <mat-form-field [appearance]="'standard'">
     <mat-label>Категория</mat-label>
-    <input matInput [formControlName]="'category'" required>
+    <mat-select required>
+      <mat-option *ngFor="let category of categories" [value]="category">
+        {{category}}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
   <mat-form-field [appearance]="'standard'">
     <mat-label>Описание</mat-label>
     <textarea matInput [formControlName]="'description'"></textarea>
   </mat-form-field>
-  <button type="submit" mat-raised-button color="primary">Добавить</button>
+  <button type="submit" mat-raised-button color="primary">Сохранить</button>
 </form>

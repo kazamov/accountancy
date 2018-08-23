@@ -9,6 +9,14 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class ChargeFormComponent implements OnInit {
 	form: FormGroup;
 
+	categories = [
+		'Продукты',
+		'Проезд',
+		'Здоровье',
+		'Отдых и развлечения',
+		'Церковь'
+	];
+
 	ngOnInit() {
 		this.form = new FormGroup({
 			price: new FormControl(''),
