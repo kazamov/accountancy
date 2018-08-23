@@ -12,7 +12,7 @@
   </mat-form-field>
   <mat-form-field [appearance]="'standard'">
     <mat-label>Категория</mat-label>
-    <mat-select required>
+    <mat-select matInput [formControlName]="'category'" required>
       <mat-option *ngFor="let category of categories" [value]="category">
         {{category}}
       </mat-option>

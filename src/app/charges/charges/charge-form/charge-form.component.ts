@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { ICharge } from '../../charge.interface';
 
 @Component({
 	selector: 'app-charge-form',
@@ -8,6 +9,9 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class ChargeFormComponent implements OnInit {
 	form: FormGroup;
+
+	@Input()
+	data: ICharge | null = null;
 
 	categories = [
 		'Продукты',
@@ -24,5 +28,14 @@ export class ChargeFormComponent implements OnInit {
 			category: new FormControl(''),
 			description: new FormControl('')
 		});
+
+		if (this.data) {
+			this.form.setValue({
+				price: this.data.price,
+				date: this.data.date,
+				category: this.data.category,
+				description: this.data.description
+			});
+		}
 	}
 }

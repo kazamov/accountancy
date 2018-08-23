@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { ChargesComponent } from './charges/charges.component';
-import { NewChargeComponent } from './new-charge/new-charge.component';
 import { ChargesService } from './charges.service';
 import { MaterialModule } from '../material.module';
 import { ChargesRoutingModule } from './charges-routing.module';
-import { ChargeFormComponent } from './charge-form/charge-form.component';
+import { EditChargeComponent } from './charges/edit-charge/edit-charge.component';
+import { NewChargeComponent } from './charges/new-charge/new-charge.component';
+import { ChargeFormComponent } from './charges/charge-form/charge-form.component';
 
 @NgModule({
 	imports: [
@@ -16,7 +17,12 @@ import { ChargeFormComponent } from './charge-form/charge-form.component';
 		ChargesRoutingModule,
 		ReactiveFormsModule
 	],
-	declarations: [ChargesComponent, NewChargeComponent, ChargeFormComponent],
+	declarations: [
+		ChargesComponent,
+		NewChargeComponent,
+		ChargeFormComponent,
+		EditChargeComponent
+	],
 	providers: [ChargesService]
 })
 export class ChargesModule {}
