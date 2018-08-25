@@ -25,4 +25,4 @@ import { ChargeFormComponent } from './charges/charge-form/charge-form.component
 	],
 	providers: [ChargesService]
 })
-export class ChargesModule {}
+export class ChargesModule { }
