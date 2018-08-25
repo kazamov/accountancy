@@ -21,14 +21,16 @@ export class ChargeFormComponent implements OnInit {
 		'Церковь'
 	];
 
-	ngOnInit() {
+	constructor() {
 		this.form = new FormGroup({
 			price: new FormControl(''),
 			date: new FormControl(''),
 			category: new FormControl(''),
 			description: new FormControl('')
 		});
+	}
 
+	ngOnInit() {
 		if (this.data) {
 			this.form.setValue({
 				price: this.data.price,

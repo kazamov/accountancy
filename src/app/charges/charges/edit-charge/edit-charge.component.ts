@@ -10,14 +10,14 @@ import { ChargesService } from '../../charges.service';
 	styleUrls: ['./edit-charge.component.css']
 })
 export class EditChargeComponent {
-	data: ICharge;
+	data: ICharge | null;
 
 	constructor(
 		activatedRoute: ActivatedRoute,
 		chargesService: ChargesService
 	) {
 		this.data = chargesService.getCharge(
-			activatedRoute.snapshot.paramMap.get('id')
+			activatedRoute.snapshot.paramMap.get('id') || ''
 		);
 	}
 }
