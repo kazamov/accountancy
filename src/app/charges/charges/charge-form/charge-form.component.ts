@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ICharge } from '../../charge.interface';
+import { MatDatepicker } from '@angular/material';
 
 @Component({
 	selector: 'app-charge-form',
@@ -9,10 +10,6 @@ import { ICharge } from '../../charge.interface';
 })
 export class ChargeFormComponent implements OnInit {
 	form: FormGroup;
-
-	@Input()
-	data: ICharge | null = null;
-
 	categories = [
 		'Продукты',
 		'Проезд',
@@ -20,6 +17,11 @@ export class ChargeFormComponent implements OnInit {
 		'Отдых и развлечения',
 		'Церковь'
 	];
+	@ViewChild(MatDatepicker)
+	picker: MatDatepicker<Date> | null = null;
+
+	@Input()
+	data: ICharge | null = null;
 
 	constructor() {
 		this.form = new FormGroup({
@@ -39,5 +41,16 @@ export class ChargeFormComponent implements OnInit {
 				description: this.data.description
 			});
 		}
+	}
+
+	onDateMouseDown(event: MouseEvent) {
+		event.cancelBubble = true;
+		event.preventDefault();
+
+		if (this.picker) {
+			this.picker.open();
+		}
+
+		return false;
 	}
 }

@@ -6,7 +6,7 @@
   </mat-form-field>
   <mat-form-field [appearance]="'standard'">
     <mat-label>Дата</mat-label>
-    <input matInput [matDatepicker]="picker" [formControlName]="'date'" required>
+    <input matInput [matDatepicker]="picker" [formControlName]="'date'" (mousedown)="onDateMouseDown($event)" required>
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker [touchUi]="true" [color]="'accent'" #picker></mat-datepicker>
   </mat-form-field>
