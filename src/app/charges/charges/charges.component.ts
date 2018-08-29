@@ -14,4 +14,8 @@ export class ChargesComponent {
 	constructor(private chargesService: ChargesService) {
 		this.charges = this.chargesService.getCharges();
 	}
+
+	onDeleteCard(chargeId: string) {
+		console.log(chargeId);
+	}
 }

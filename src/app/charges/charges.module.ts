@@ -9,6 +9,7 @@ import { ChargesRoutingModule } from './charges-routing.module';
 import { EditChargeComponent } from './charges/edit-charge/edit-charge.component';
 import { NewChargeComponent } from './charges/new-charge/new-charge.component';
 import { ChargeFormComponent } from './charges/charge-form/charge-form.component';
+import { ChargeCardComponent } from './charges/charge-card/charge-card.component';
 
 @NgModule({
 	imports: [
@@ -21,7 +22,8 @@ import { ChargeFormComponent } from './charges/charge-form/charge-form.component
 		ChargesComponent,
 		NewChargeComponent,
 		ChargeFormComponent,
-		EditChargeComponent
+		EditChargeComponent,
+		ChargeCardComponent
 	],
 	providers: [ChargesService]
 })

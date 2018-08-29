@@ -7,18 +7,3 @@ export interface Charge {
   price: number;
   description?: string;
 }
-
-/**
- * A factory function that creates Charges
- */
-export function createCharge({
-  id = null, date, category, price, description
-}: Partial<Charge>) {
-  return {
-    id,
-    date,
-    category,
-    price,
-    description
-  } as Charge;
-}

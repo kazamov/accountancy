@@ -1,0 +1,23 @@
+<mat-card>
+  <mat-card-title>
+    {{charge!.price | currency:'UAH':'symbol-narrow' }}
+  </mat-card-title>
+  <mat-card-content>
+    <div class="charge-field">
+      <label>Дата:</label>
+      <span>{{charge!.date | date}}</span>
+    </div>
+    <div class="charge-field">
+      <label>Категория:</label>
+      <span>{{charge!.category}}</span>
+    </div>
+    <div *ngIf="charge!.description" class="charge-field">
+      <label>Описание:</label>
+      <span>{{charge!.description}}</span>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <a [routerLink]="['/charges', 'charge', charge!.id]" mat-button [color]="'accent'">Изменить</a>
+    <button mat-button [color]="'warn'" (click)="onDelete()">Удалить</button>
+  </mat-card-actions>
+</mat-card>
