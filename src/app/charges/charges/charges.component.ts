@@ -13,20 +13,22 @@ import { UiService } from '../../ui.service';
 })
 export class ChargesComponent implements OnInit {
 	charges$: Observable<ICharge[]>;
+	isEmpty = false;
 
 	constructor(
 		private chargesService: ChargesService,
 		private chargesQuery: ChargesQuery,
 		private uiService: UiService
 	) {
-		this.chargesQuery
-			.selectLoading()
-			.subscribe(
-				isLoading =>
-					isLoading
-						? this.uiService.showLoading()
-						: this.uiService.hideLoading()
-			);
+		this.chargesQuery.selectLoading().subscribe(isLoading => {
+			if (isLoading) {
+				this.uiService.showLoading();
+				this.isEmpty = false;
+			} else {
+				this.uiService.hideLoading();
+				this.isEmpty = this.chargesQuery.isEmpty();
+			}
+		});
 		this.charges$ = this.chargesQuery.selectAll();
 	}
 
