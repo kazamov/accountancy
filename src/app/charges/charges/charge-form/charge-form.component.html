@@ -3,12 +3,14 @@
     <mat-label>Сумма</mat-label>
     <input type="number" matInput [formControlName]="'price'" required>
     <span matSuffix>₴</span>
+    <mat-error>Обязательное поле</mat-error>
   </mat-form-field>
   <mat-form-field [appearance]="'standard'">
     <mat-label>Дата</mat-label>
     <input matInput [matDatepicker]="picker" [formControlName]="'date'" (mousedown)="onDateMouseDown($event)" required>
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker [touchUi]="true" [color]="'accent'" #picker></mat-datepicker>
+    <mat-error>Обязательное поле</mat-error>
   </mat-form-field>
   <mat-form-field [appearance]="'standard'">
     <mat-label>Категория</mat-label>
@@ -17,6 +19,7 @@
         {{category}}
       </mat-option>
     </mat-select>
+    <mat-error>Обязательное поле</mat-error>
   </mat-form-field>
   <mat-form-field [appearance]="'standard'">
     <mat-label>Описание</mat-label>
