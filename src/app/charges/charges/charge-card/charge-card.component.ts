@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { ID } from '@datorama/akita';
 
-import { ICharge } from '../../charge.interface';
+import { ICharge } from '../../state/charge.model';
 
 @Component({
 	selector: 'app-charge-card',
@@ -11,7 +12,7 @@ export class ChargeCardComponent {
 	@Input()
 	charge: ICharge | null = null;
 	@Output()
-	deleteCard = new EventEmitter<string>();
+	deleteCard = new EventEmitter<ID>();
 
 	onDelete() {
 		if (this.charge) {

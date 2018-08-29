@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import { timer } from 'rxjs';
+import { mapTo } from 'rxjs/operators';
 
-import { ICharge } from './charge.interface';
+import { ICharge } from './charge.model';
 
 const charges: ICharge[] = [
 	{
@@ -48,12 +50,8 @@ const charges: ICharge[] = [
 ];
 
 @Injectable()
-export class ChargesService {
+export class ChargesDataService {
 	getCharges() {
-		return charges.slice();
-	}
-
-	getCharge(id: string) {
-		return charges.find(charge => charge.id === id) || null;
+		return timer(1000).pipe(mapTo(charges));
 	}
 }

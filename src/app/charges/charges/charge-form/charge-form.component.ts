@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { ICharge } from '../../charge.interface';
 import { MatDatepicker } from '@angular/material';
+
+import { ICharge } from '../../state/charge.model';
 
 @Component({
 	selector: 'app-charge-form',

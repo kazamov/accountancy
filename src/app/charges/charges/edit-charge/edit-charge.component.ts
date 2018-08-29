@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { ICharge } from '../../charge.interface';
-import { ChargesService } from '../../charges.service';
+import { ICharge } from '../../state/charge.model';
+import { ChargesQuery } from '../../state/charges.query';
 
 @Component({
 	selector: 'app-edit-charge',
@@ -12,11 +12,8 @@ import { ChargesService } from '../../charges.service';
 export class EditChargeComponent {
 	data: ICharge | null;
 
-	constructor(
-		activatedRoute: ActivatedRoute,
-		chargesService: ChargesService
-	) {
-		this.data = chargesService.getCharge(
+	constructor(activatedRoute: ActivatedRoute, chargesQuery: ChargesQuery) {
+		this.data = chargesQuery.getEntity(
 			activatedRoute.snapshot.paramMap.get('id') || ''
 		);
 	}

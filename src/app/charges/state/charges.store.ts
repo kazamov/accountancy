@@ -1,18 +1,14 @@
 import { Injectable } from '@angular/core';
 import { EntityState, EntityStore, StoreConfig } from '@datorama/akita';
 
-import { Charge } from './charge.model';
-import { ChargesModule } from '../charges.module';
+import { ICharge } from './charge.model';
 
-export interface ChargesState extends EntityState<Charge> { }
+export interface ChargesState extends EntityState<ICharge> {}
 
-@Injectable({ providedIn: ChargesModule })
+@Injectable()
 @StoreConfig({ name: 'charges' })
-export class ChargesStore extends EntityStore<ChargesState, Charge> {
-
-  constructor() {
-    super();
-  }
-
+export class ChargesStore extends EntityStore<ChargesState, ICharge> {
+	constructor() {
+		super();
+	}
 }
-

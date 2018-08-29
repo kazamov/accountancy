@@ -1,24 +1,18 @@
 import { Injectable } from '@angular/core';
-//import { HttpClient } from '@angular/common/http';
 
-//import { ChargesStore } from './charges.store';
-import { ChargesModule } from '../charges.module';
+import { ChargesStore } from './charges.store';
+import { ChargesDataService } from './charges-data.service';
 
-@Injectable({ providedIn: ChargesModule })
-export class ChargesDataService {
-	/*constructor(private chargesStore: ChargesStore,
-    private http: HttpClient) {
-    }*/
+@Injectable()
+export class ChargesService {
+	constructor(
+		private chargesStore: ChargesStore,
+		private chargesDataService: ChargesDataService
+	) {}
 
-	get() {
-		// this.http.get(url).subscribe((entities) => {
-		// this.{chargesStore.set(entities);
-		// });
-	}
-
-	add() {
-		// this.http.post().subscribe((entity) => {
-		// this.{chargesStore.add(entity);
-		// });
+	getCharges() {
+		this.chargesDataService.getCharges().subscribe(charges => {
+			this.chargesStore.set(charges);
+		});
 	}
 }

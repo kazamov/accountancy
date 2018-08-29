@@ -1,0 +1,11 @@
+mat-card {
+	margin-bottom: 6px;
+}
+
+.charge-field {
+	margin-bottom: 5px;
+}
+
+.charge-field > label {
+	margin-right: 5px;
+}
