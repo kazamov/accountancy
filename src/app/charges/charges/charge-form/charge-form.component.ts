@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import {
+	Component,
+	OnInit,
+	Input,
+	ViewChild,
+	Output,
+	EventEmitter
+} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatDatepicker } from '@angular/material';
 
@@ -23,6 +30,9 @@ export class ChargeFormComponent implements OnInit {
 
 	@Input()
 	data: ICharge | null = null;
+
+	@Output()
+	submit = new EventEmitter<ICharge>();
 
 	constructor() {
 		this.form = new FormGroup({
@@ -54,4 +64,6 @@ export class ChargeFormComponent implements OnInit {
 
 		return false;
 	}
+
+	onSubmit() {}
 }

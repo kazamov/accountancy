@@ -13,6 +13,7 @@ import { ChargesService } from './state/charges.service';
 import { ChargesDataService } from './state/charges-data.service';
 import { ChargesQuery } from './state/charges.query';
 import { ChargesStore } from './state/charges.store';
+import { ChargeResolver } from './state/charge.resolver';
 
 @NgModule({
 	imports: [
@@ -28,6 +29,12 @@ import { ChargesStore } from './state/charges.store';
 		EditChargeComponent,
 		ChargeCardComponent
 	],
-	providers: [ChargesService, ChargesDataService, ChargesQuery, ChargesStore]
+	providers: [
+		ChargesService,
+		ChargesDataService,
+		ChargesQuery,
+		ChargesStore,
+		ChargeResolver
+	]
 })
 export class ChargesModule {}

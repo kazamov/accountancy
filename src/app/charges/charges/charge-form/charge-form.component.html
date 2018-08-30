@@ -25,5 +25,5 @@
     <mat-label>Описание</mat-label>
     <textarea matInput [formControlName]="'description'"></textarea>
   </mat-form-field>
-  <button type="submit" mat-raised-button color="primary">Сохранить</button>
+  <button mat-raised-button type="submit" color="primary" [disabled]="form.invalid || form.pristine">Сохранить</button>
 </form>

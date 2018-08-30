@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ICharge } from '../../state/charge.model';
-import { ChargesQuery } from '../../state/charges.query';
 
 @Component({
 	selector: 'app-edit-charge',
@@ -12,9 +11,7 @@ import { ChargesQuery } from '../../state/charges.query';
 export class EditChargeComponent {
 	data: ICharge | null;
 
-	constructor(activatedRoute: ActivatedRoute, chargesQuery: ChargesQuery) {
-		this.data = chargesQuery.getEntity(
-			activatedRoute.snapshot.paramMap.get('id') || ''
-		);
+	constructor(activatedRoute: ActivatedRoute) {
+		this.data = activatedRoute.snapshot.data['chargeData'];
 	}
 }

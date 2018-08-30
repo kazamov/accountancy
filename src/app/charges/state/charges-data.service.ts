@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ID } from '@datorama/akita';
 import { timer } from 'rxjs';
 import { mapTo } from 'rxjs/operators';
 
@@ -10,7 +11,7 @@ const charges: ICharge[] = [
 		date: new Date(),
 		category: 'Продукты',
 		price: 158.6,
-		description: 'Apples, cheese, milk'
+		description: 'Blabla'
 	},
 	{
 		id: '122',
@@ -53,5 +54,11 @@ const charges: ICharge[] = [
 export class ChargesDataService {
 	getCharges() {
 		return timer(1000).pipe(mapTo(charges));
+	}
+
+	getCharge(id: ID) {
+		const foundCharge = charges.find(charge => charge.id === id) || null;
+
+		return timer(1000).pipe(mapTo(foundCharge ? { ...foundCharge } : null));
 	}
 }
