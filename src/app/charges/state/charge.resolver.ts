@@ -21,10 +21,7 @@ export class ChargeResolver implements Resolve<ICharge | null> {
 		} else {
 			this.chargesService.getCharge(id);
 			return this.chargesQuery.selectEntity<ICharge>(id).pipe(
-				filter(ch => {
-					console.log(ch);
-					return Boolean(ch);
-				}),
+				filter(ch => Boolean(ch)),
 				take(1)
 			);
 		}
