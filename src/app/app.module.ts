@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +20,7 @@ import { UiService } from './ui.service';
 		ServiceWorkerModule.register('ngsw-worker.js', {
 			enabled: environment.production
 		}),
+		environment.production ? [] : AkitaNgDevtools.forRoot(),
 		MaterialModule,
 		ChargesModule,
 		AppRoutingModule
