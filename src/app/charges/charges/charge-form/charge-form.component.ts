@@ -32,7 +32,7 @@ export class ChargeFormComponent implements OnInit {
 	data: ICharge | null = null;
 
 	@Output()
-	submit = new EventEmitter<ICharge>();
+	submitCharge = new EventEmitter<Partial<ICharge>>();
 
 	constructor() {
 		this.form = new FormGroup({
@@ -65,5 +65,9 @@ export class ChargeFormComponent implements OnInit {
 		return false;
 	}
 
-	onSubmit() {}
+	onSubmit() {
+		this.submitCharge.emit({
+			...this.form.value
+		});
+	}
 }

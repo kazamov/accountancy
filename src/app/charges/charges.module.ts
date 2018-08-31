@@ -14,6 +14,7 @@ import { ChargesDataService } from './state/charges-data.service';
 import { ChargesQuery } from './state/charges.query';
 import { ChargesStore } from './state/charges.store';
 import { ChargeResolver } from './state/charge.resolver';
+import { ChargesResolver } from './state/charges.resolver';
 
 @NgModule({
 	imports: [
@@ -34,7 +35,8 @@ import { ChargeResolver } from './state/charge.resolver';
 		ChargesDataService,
 		ChargesQuery,
 		ChargesStore,
-		ChargeResolver
+		ChargeResolver,
+		ChargesResolver
 	]
 })
 export class ChargesModule {}
