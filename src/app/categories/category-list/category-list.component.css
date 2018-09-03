@@ -1,0 +1,9 @@
+.add-new-category-btn {
+	position: fixed;
+	bottom: 12px;
+	right: 12px;
+}
+
+p {
+	text-align: center;
+}

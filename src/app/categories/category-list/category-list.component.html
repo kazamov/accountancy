@@ -1,0 +1,7 @@
+<mat-list role="list">
+  <app-category-list-item *ngFor="let category of categories$ | async" [category]="category" (deleteCategory)="onCategoryDelete($event)"></app-category-list-item>
+  <p *ngIf="!(count$ | async)">У вас нет ни одной категории</p>
+  <button mat-fab color="primary" class="add-new-category-btn">
+    <mat-icon>add</mat-icon>
+  </button>
+</mat-list>

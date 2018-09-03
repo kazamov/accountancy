@@ -9,42 +9,42 @@ let charges: ICharge[] = [
 	{
 		id: '121',
 		date: new Date(),
-		category: 'Продукты',
+		category: '223',
 		price: 158.6,
 		description: 'Blabla'
 	},
 	{
 		id: '122',
 		date: new Date(),
-		category: 'Продукты',
+		category: '224',
 		price: 188.1,
 		description: 'Apples, cheese, milk'
 	},
 	{
 		id: '123',
 		date: new Date(),
-		category: 'Продукты',
+		category: '224',
 		price: 198.7,
 		description: 'Apples, cheese, milk'
 	},
 	{
 		id: '124',
 		date: new Date(),
-		category: 'Продукты',
+		category: '225',
 		price: 118.98,
 		description: 'Apples, cheese, milk'
 	},
 	{
 		id: '125',
 		date: new Date(),
-		category: 'Продукты',
+		category: '223',
 		price: 138.9,
 		description: 'Apples, cheese, milk'
 	},
 	{
 		id: '126',
 		date: new Date(),
-		category: 'Продукты',
+		category: '225',
 		price: 148.78,
 		description: 'Apples, cheese, milk'
 	}
@@ -53,13 +53,13 @@ let charges: ICharge[] = [
 @Injectable()
 export class ChargesDataService {
 	getCharges() {
-		return timer(2000).pipe(mapTo([...charges]));
+		return timer(500).pipe(mapTo([...charges]));
 	}
 
 	getCharge(id: ID) {
 		const foundCharge = charges.find(charge => charge.id === id) || null;
 
-		return timer(2000).pipe(mapTo(foundCharge ? { ...foundCharge } : null));
+		return timer(500).pipe(mapTo(foundCharge ? { ...foundCharge } : null));
 	}
 
 	deleteCharge(id: ID) {
@@ -79,6 +79,6 @@ export class ChargesDataService {
 		const chargeIndex = charges.findIndex(ch => ch.id === chargeData.id);
 		charges = update(charges, chargeIndex, chargeData);
 
-		return timer(4000).pipe(mapTo(true));
+		return timer(500).pipe(mapTo(true));
 	}
 }

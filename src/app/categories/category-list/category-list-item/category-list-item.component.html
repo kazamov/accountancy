@@ -1,0 +1,12 @@
+<mat-list-item role="listitem">
+  <div>{{category!.name}}</div>
+  <div class="category-actions-container">
+    <button mat-icon-button color="basic" (click)="onUpdate()">
+      <mat-icon>create</mat-icon>
+    </button>
+    <button mat-icon-button (click)="onDelete()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+</mat-list-item>
+<mat-divider></mat-divider>

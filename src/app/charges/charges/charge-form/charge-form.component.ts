@@ -10,6 +10,9 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { MatDatepicker } from '@angular/material';
 
 import { ICharge } from '../../state/charge.model';
+import { Observable } from 'rxjs';
+import { ICategory } from '../../../categories/state/category.model';
+import { CategoriesQuery } from '../../../categories/state/categories.query';
 
 @Component({
 	selector: 'app-charge-form',
@@ -18,13 +21,8 @@ import { ICharge } from '../../state/charge.model';
 })
 export class ChargeFormComponent implements OnInit {
 	form: FormGroup;
-	categories = [
-		'Продукты',
-		'Проезд',
-		'Здоровье',
-		'Отдых и развлечения',
-		'Церковь'
-	];
+	categories$: Observable<ICategory[]>;
+
 	@ViewChild(MatDatepicker)
 	picker: MatDatepicker<Date> | null = null;
 
@@ -34,7 +32,9 @@ export class ChargeFormComponent implements OnInit {
 	@Output()
 	submitCharge = new EventEmitter<Partial<ICharge>>();
 
-	constructor() {
+	constructor(private categoriesQuery: CategoriesQuery) {
+		this.categories$ = this.categoriesQuery.selectAll();
+
 		this.form = new FormGroup({
 			price: new FormControl(''),
 			date: new FormControl(''),

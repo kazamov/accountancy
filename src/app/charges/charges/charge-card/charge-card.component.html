@@ -9,7 +9,7 @@
     </div>
     <div class="charge-field">
       <label>Категория:</label>
-      <span>{{charge!.category}}</span>
+      <span>{{charge!.category | categoryName}}</span>
     </div>
     <div *ngIf="charge!.description" class="charge-field">
       <label>Описание:</label>

@@ -15,8 +15,8 @@
   <mat-form-field [appearance]="'standard'">
     <mat-label>Категория</mat-label>
     <mat-select matInput [formControlName]="'category'" required>
-      <mat-option *ngFor="let category of categories" [value]="category">
-        {{category}}
+      <mat-option *ngFor="let category of categories$ | async" [value]="category.id">
+        {{category.name}}
       </mat-option>
     </mat-select>
     <mat-error>Обязательное поле</mat-error>
