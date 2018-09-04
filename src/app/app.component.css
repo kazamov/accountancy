@@ -10,9 +10,9 @@ mat-toolbar > mat-icon {
 	margin-right: 11px;
 }
 
-/*mat-sidenav-container {
+mat-sidenav-container {
 	height: 100%;
-}*/
+}
 
 mat-sidenav {
 	width: 200px;

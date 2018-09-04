@@ -26,6 +26,8 @@ export class CategoryListItemComponent {
 	}
 
 	onUpdate() {
-		console.log('Update clicked');
+		if (this.category) {
+			this.updateCategory.emit(this.category);
+		}
 	}
 }

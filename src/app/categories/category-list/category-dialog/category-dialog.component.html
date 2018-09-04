@@ -1,0 +1,13 @@
+<h2 mat-dialog-title *ngIf="!data">Создать категорию</h2>
+<h2 mat-dialog-title *ngIf="data">Редактировать категорию</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="standard">
+    <mat-label>Имя группы</mat-label>
+    <input type="text" matInput [formControl]="categoryNameInput" required />
+    <mat-error>Обязательное поле</mat-error>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Отмена</button>
+  <button mat-button [mat-dialog-close]="categoryNameInput.value" cdkFocusInitial color="primary" [disabled]="categoryNameInput.invalid || categoryNameInput.pristine">Сохранить</button>
+</mat-dialog-actions>
