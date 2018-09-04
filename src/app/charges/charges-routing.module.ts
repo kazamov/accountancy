@@ -6,6 +6,7 @@ import { EditChargeComponent } from './charges/edit-charge/edit-charge.component
 import { NewChargeComponent } from './charges/new-charge/new-charge.component';
 import { ChargeResolver } from './state/charge.resolver';
 import { ChargesResolver } from './state/charges.resolver';
+import { NewChargeResolver } from './state/new-charge.resolver';
 
 const routes: Routes = [
 	{
@@ -15,7 +16,13 @@ const routes: Routes = [
 			chargesData: ChargesResolver
 		}
 	},
-	{ path: 'charges/charge', component: NewChargeComponent },
+	{
+		path: 'charges/charge',
+		component: NewChargeComponent,
+		resolve: {
+			chargeData: NewChargeResolver
+		}
+	},
 	{
 		path: 'charges/charge/:id',
 		component: EditChargeComponent,

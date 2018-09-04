@@ -22,6 +22,10 @@ main {
 	padding: 66px 10px 10px 10px;
 }
 
+.nav-item-icon {
+	margin-right: 5px;
+}
+
 .loading-container {
 	display: flex;
 	position: fixed;

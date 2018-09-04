@@ -14,6 +14,7 @@ import { ChargesQuery } from './state/charges.query';
 import { ChargesStore } from './state/charges.store';
 import { ChargeResolver } from './state/charge.resolver';
 import { ChargesResolver } from './state/charges.resolver';
+import { NewChargeResolver } from './state/new-charge.resolver';
 
 @NgModule({
 	imports: [SharedModule, ChargesRoutingModule, ReactiveFormsModule],
@@ -30,7 +31,8 @@ import { ChargesResolver } from './state/charges.resolver';
 		ChargesQuery,
 		ChargesStore,
 		ChargeResolver,
-		ChargesResolver
+		ChargesResolver,
+		NewChargeResolver
 	]
 })
 export class ChargesModule {}
