@@ -23,7 +23,7 @@ export class CategoryListComponent {
 		public dialog: MatDialog
 	) {
 		this.count$ = this.categoriesQuery.selectCount();
-		this.categories$ = this.categoriesQuery.selectAll();
+		this.categories$ = this.categoriesQuery.selectAllSortedByName();
 	}
 
 	onCategoryDelete(id: ID) {

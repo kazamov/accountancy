@@ -33,7 +33,7 @@ export class ChargeFormComponent implements OnInit {
 	submitCharge = new EventEmitter<Partial<ICharge>>();
 
 	constructor(private categoriesQuery: CategoriesQuery) {
-		this.categories$ = this.categoriesQuery.selectAll();
+		this.categories$ = this.categoriesQuery.selectAllSortedByName();
 
 		this.form = new FormGroup({
 			price: new FormControl(''),
