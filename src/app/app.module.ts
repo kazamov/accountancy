@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
+import { AngularFireModule } from 'angularfire2';
 
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -27,6 +28,7 @@ import { CategoriesResolver } from './categories/state/categories.resolver';
 			enabled: environment.production
 		}),
 		environment.production ? [] : AkitaNgDevtools.forRoot(),
+		AngularFireModule.initializeApp(environment.firebaseConfig),
 		MaterialModule,
 		ChargesModule,
 		CategoriesModule,
