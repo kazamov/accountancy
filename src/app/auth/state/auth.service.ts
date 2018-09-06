@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AuthStore } from './auth.store';
-import { HttpClient } from '@angular/common/http';
+/*import { AuthStore } from './auth.store';
+import { HttpClient } from '@angular/common/http';*/
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-
-  constructor(private authStore: AuthStore,
+	/*constructor(private authStore: AuthStore,
               private http: HttpClient) {
   }
 
@@ -19,6 +18,5 @@ export class AuthService {
     // this.http.post().subscribe((entity) => {
       // this.{authStore.add(entity);
     // });
-  }
-
+  }*/
 }
