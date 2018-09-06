@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { ID, guid } from '@datorama/akita';
+import { ID } from '@datorama/akita';
 import { Observable } from 'rxjs';
 
 import { ICategory } from '../state/category.model';
@@ -35,16 +35,13 @@ export class CategoryListComponent {
 
 		dialogRef.afterClosed().subscribe((categoryName: string) => {
 			if (categoryName) {
-				this.onCategoryCreateEnd(guid(), categoryName);
+				this.onCategoryCreateEnd(categoryName);
 			}
 		});
 	}
 
-	onCategoryCreateEnd(id: ID, name: string) {
-		this.categoriesService.addCategory({
-			id,
-			name
-		});
+	onCategoryCreateEnd(name: string) {
+		this.categoriesService.addCategory(name);
 	}
 
 	onCategoryUpdateStart(category: ICategory) {
@@ -60,9 +57,6 @@ export class CategoryListComponent {
 	}
 
 	onCategoryUpdateEnd(id: ID, name: string) {
-		this.categoriesService.updateCategory({
-			id,
-			name
-		});
+		this.categoriesService.updateCategory(id, name);
 	}
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ID, remove, push, update } from '@datorama/akita';
+import { ID, remove, push, update, guid } from '@datorama/akita';
 
 import { timer } from 'rxjs';
 import { mapTo } from 'rxjs/operators';
@@ -36,17 +36,21 @@ export class CategoriesDataService {
 		return timer(500).pipe(mapTo(true));
 	}
 
-	addCategory(categoryData: ICategory) {
-		categories = push(categories, categoryData);
+	addCategory(name: string) {
+		const newCategoryId = guid();
+		categories = push(categories, {
+			id: newCategoryId,
+			name: name
+		});
 
-		return timer(500).pipe(mapTo(true));
+		return timer(500).pipe(mapTo(newCategoryId));
 	}
 
-	updateCategory(categoryData: ICategory) {
+	updateCategory(id: ID, name: string) {
 		const categoryIndex = categories.findIndex(
-			category => category.id === categoryData.id
+			category => category.id === id
 		);
-		categories = update(categories, categoryIndex, categoryData);
+		categories = update(categories, categoryIndex, { id, name });
 
 		return timer(500).pipe(mapTo(true));
 	}

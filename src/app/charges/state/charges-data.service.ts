@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ID, remove, push, update } from '@datorama/akita';
+import { ID, remove, push, update, guid } from '@datorama/akita';
 import { timer } from 'rxjs';
 import { mapTo } from 'rxjs/operators';
 
-import { ICharge } from './charge.model';
+import { ICharge, IChargeData } from './charge.model';
 
 let charges: ICharge[] = [
 	{
@@ -69,15 +69,22 @@ export class ChargesDataService {
 		return timer(500).pipe(mapTo(true));
 	}
 
-	addCharge(chargeData: ICharge) {
-		charges = push(charges, chargeData);
+	addCharge(chargeData: IChargeData) {
+		const newChargeId = guid();
+		charges = push(charges, {
+			id: newChargeId,
+			...chargeData
+		});
 
-		return timer(500).pipe(mapTo(true));
+		return timer(500).pipe(mapTo(newChargeId));
 	}
 
-	updateCharge(chargeData: ICharge) {
-		const chargeIndex = charges.findIndex(ch => ch.id === chargeData.id);
-		charges = update(charges, chargeIndex, chargeData);
+	updateCharge(id: ID, chargeData: IChargeData) {
+		const chargeIndex = charges.findIndex(charge => charge.id === id);
+		charges = update(charges, chargeIndex, {
+			id,
+			...chargeData
+		});
 
 		return timer(500).pipe(mapTo(true));
 	}

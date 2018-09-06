@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { ICharge } from '../../state/charge.model';
+import { ICharge, IChargeData } from '../../state/charge.model';
 import { ChargesService } from '../../state/charges.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { ChargesService } from '../../state/charges.service';
 	styleUrls: ['./edit-charge.component.css']
 })
 export class EditChargeComponent {
-	data: ICharge | null = null;
+	data: ICharge;
 
 	constructor(
 		activatedRoute: ActivatedRoute,
@@ -19,11 +19,7 @@ export class EditChargeComponent {
 		this.data = activatedRoute.snapshot.data['chargeData'];
 	}
 
-	onUpdateCharge(chargeData: ICharge) {
-		const updatedCharge = {
-			...this.data,
-			...chargeData
-		};
-		this.chargesService.updateCharge(updatedCharge);
+	onUpdateCharge(chargeData: IChargeData) {
+		this.chargesService.updateCharge(this.data.id, chargeData);
 	}
 }

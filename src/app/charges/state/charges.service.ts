@@ -4,7 +4,7 @@ import { ID } from '@datorama/akita';
 
 import { ChargesStore } from './charges.store';
 import { ChargesDataService } from './charges-data.service';
-import { ICharge } from './charge.model';
+import { IChargeData, createCharge } from './charge.model';
 
 @Injectable()
 export class ChargesService {
@@ -51,13 +51,13 @@ export class ChargesService {
 		);
 	}
 
-	addCharge(chargeData: ICharge) {
+	addCharge(chargeData: IChargeData) {
 		this.chargesStore.setLoading(true);
 		this.chargesDataService.addCharge(chargeData).subscribe(
-			result => {
-				if (result) {
+			id => {
+				if (id) {
 					this.chargesStore.setLoading(false);
-					this.chargesStore.add(chargeData);
+					this.chargesStore.add(createCharge(id, chargeData));
 					this.router.navigate(['charges']);
 				}
 			},
@@ -65,13 +65,13 @@ export class ChargesService {
 		);
 	}
 
-	updateCharge(chargeData: ICharge) {
+	updateCharge(id: ID, chargeData: IChargeData) {
 		this.chargesStore.setLoading(true);
-		this.chargesDataService.updateCharge(chargeData).subscribe(
+		this.chargesDataService.updateCharge(id, chargeData).subscribe(
 			result => {
 				if (result) {
 					this.chargesStore.setLoading(false);
-					this.chargesStore.update(chargeData.id, chargeData);
+					this.chargesStore.update(id, chargeData);
 					this.router.navigate(['charges']);
 				}
 			},
