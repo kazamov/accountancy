@@ -19,6 +19,14 @@
         <mat-icon class="nav-item-icon">font_download</mat-icon>
         <span class="nav-caption">Категории</span>
       </a>
+      <a mat-list-item routerLink="/signin" (click)="sidenav.close()">
+        <mat-icon class="nav-item-icon">exit_to_app</mat-icon>
+        <span class="nav-caption">Войти в аккаунт</span>
+      </a>
+      <a mat-list-item routerLink="/signup" (click)="sidenav.close()">
+        <mat-icon class="nav-item-icon">account_box</mat-icon>
+        <span class="nav-caption">Регистрация</span>
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

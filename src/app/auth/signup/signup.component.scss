@@ -1,0 +1,17 @@
+.mat-card {
+    margin: 20px;
+}
+
+mat-form-field {
+    display: block;
+}
+
+.space-top{
+    margin-top: 20px;
+}
+
+.cut-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

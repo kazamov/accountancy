@@ -16,6 +16,7 @@ import { CategoriesStore } from './categories/state/categories.store';
 import { CategoriesService } from './categories/state/categories.service';
 import { CategoriesDataService } from './categories/state/categories-data.service';
 import { CategoriesResolver } from './categories/state/categories.resolver';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -28,6 +29,7 @@ import { CategoriesResolver } from './categories/state/categories.resolver';
 		environment.production ? [] : AkitaNgDevtools.forRoot(),
 		AngularFireModule.initializeApp(environment.firebaseConfig),
 		MaterialModule,
+		AuthModule,
 		AppRoutingModule
 	],
 	providers: [
