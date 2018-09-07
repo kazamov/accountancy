@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
-import { EntityState, EntityStore, StoreConfig } from '@datorama/akita';
-import { Auth } from './auth.model';
+import { Store, StoreConfig } from '@datorama/akita';
 
-export interface AuthState extends EntityState<Auth> {}
+export interface AuthState {
+	isAuthenticated: boolean;
+}
+
+export function createInitialState(): AuthState {
+	return {
+		isAuthenticated: false
+	};
+}
 
 @Injectable({ providedIn: 'root' })
 @StoreConfig({ name: 'auth' })
-export class AuthStore extends EntityStore<AuthState, Auth> {
-
-  constructor() {
-    super();
-  }
-
+export class AuthStore extends Store<AuthState> {
+	constructor() {
+		super(createInitialState());
+	}
 }
-
