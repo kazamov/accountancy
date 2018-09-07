@@ -24,7 +24,7 @@
             Обязательное поле
           </mat-error>
         </mat-form-field>
-        <button mat-raised-button type="submit" class="space-top" color="primary">
+        <button mat-raised-button type="submit" class="space-top" color="primary" [disabled]="signInForm!.invalid">
           Войти
         </button>
       </div>
