@@ -6,7 +6,7 @@ import { ICategory } from '../../state/category.model';
 @Component({
 	selector: 'app-category-list-item',
 	templateUrl: './category-list-item.component.html',
-	styleUrls: ['./category-list-item.component.css']
+	styleUrls: ['./category-list-item.component.scss']
 })
 export class CategoryListItemComponent {
 	@Input()

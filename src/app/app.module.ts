@@ -9,10 +9,8 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './shared/material.module';
-import { ChargesModule } from './charges/charges.module';
 import { HAMMERJS_PROVIDER } from './hammerjs.provider';
 import { UiService } from './ui.service';
-import { CategoriesModule } from './categories/categories.module';
 import { CategoriesQuery } from './categories/state/categories.query';
 import { CategoriesStore } from './categories/state/categories.store';
 import { CategoriesService } from './categories/state/categories.service';
@@ -30,8 +28,6 @@ import { CategoriesResolver } from './categories/state/categories.resolver';
 		environment.production ? [] : AkitaNgDevtools.forRoot(),
 		AngularFireModule.initializeApp(environment.firebaseConfig),
 		MaterialModule,
-		ChargesModule,
-		CategoriesModule,
 		AppRoutingModule
 	],
 	providers: [

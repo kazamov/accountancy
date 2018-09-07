@@ -7,7 +7,7 @@ import { ICategory } from '../../state/category.model';
 @Component({
 	selector: 'app-category-dialog',
 	templateUrl: './category-dialog.component.html',
-	styleUrls: ['./category-dialog.component.css']
+	styleUrls: ['./category-dialog.component.scss']
 })
 export class CategoryDialogComponent implements OnInit {
 	categoryNameInput: FormControl;

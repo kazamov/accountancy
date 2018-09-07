@@ -8,7 +8,7 @@ import { ChargesService } from '../state/charges.service';
 @Component({
 	selector: 'app-charges',
 	templateUrl: './charges.component.html',
-	styleUrls: ['./charges.component.css']
+	styleUrls: ['./charges.component.scss']
 })
 export class ChargesComponent {
 	charges$: Observable<ICharge[]>;

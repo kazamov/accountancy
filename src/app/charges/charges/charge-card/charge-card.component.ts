@@ -6,7 +6,7 @@ import { ICharge } from '../../state/charge.model';
 @Component({
 	selector: 'app-charge-card',
 	templateUrl: './charge-card.component.html',
-	styleUrls: ['./charge-card.component.css']
+	styleUrls: ['./charge-card.component.scss']
 })
 export class ChargeCardComponent {
 	@Input()

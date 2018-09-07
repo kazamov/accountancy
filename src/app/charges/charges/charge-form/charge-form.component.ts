@@ -17,7 +17,7 @@ import { CategoriesQuery } from '../../../categories/state/categories.query';
 @Component({
 	selector: 'app-charge-form',
 	templateUrl: './charge-form.component.html',
-	styleUrls: ['./charge-form.component.css']
+	styleUrls: ['./charge-form.component.scss']
 })
 export class ChargeFormComponent implements OnInit {
 	form: FormGroup;

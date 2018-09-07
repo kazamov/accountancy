@@ -6,7 +6,7 @@ import { CategoriesResolver } from './state/categories.resolver';
 
 const routes: Routes = [
 	{
-		path: 'categories',
+		path: '',
 		component: CategoryListComponent,
 		resolve: {
 			categoriesData: CategoriesResolver

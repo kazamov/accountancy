@@ -7,7 +7,7 @@ import { ChargesService } from '../../state/charges.service';
 @Component({
 	selector: 'app-new-charge',
 	templateUrl: './new-charge.component.html',
-	styleUrls: ['./new-charge.component.css']
+	styleUrls: ['./new-charge.component.scss']
 })
 export class NewChargeComponent {
 	isLoading$: Subscription | null = null;

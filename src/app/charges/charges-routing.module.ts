@@ -10,21 +10,21 @@ import { NewChargeResolver } from './state/new-charge.resolver';
 
 const routes: Routes = [
 	{
-		path: 'charges',
+		path: '',
 		component: ChargesComponent,
 		resolve: {
 			chargesData: ChargesResolver
 		}
 	},
 	{
-		path: 'charges/charge',
+		path: 'charge',
 		component: NewChargeComponent,
 		resolve: {
 			chargeData: NewChargeResolver
 		}
 	},
 	{
-		path: 'charges/charge/:id',
+		path: 'charge/:id',
 		component: EditChargeComponent,
 		resolve: {
 			chargeData: ChargeResolver
