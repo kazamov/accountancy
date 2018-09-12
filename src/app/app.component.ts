@@ -8,6 +8,8 @@ import {
 
 import { UiService } from './ui.service';
 import { Observable } from 'rxjs';
+import { AuthQuery } from './auth/state/auth.query';
+import { AuthService } from './auth/state/auth.service';
 
 @Component({
 	selector: 'app-root',
@@ -16,8 +18,18 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent implements OnInit, AfterViewInit {
 	isLoading$: Observable<boolean> | null = null;
+	isAuthenticated$: Observable<boolean>;
 
-	constructor(private uiService: UiService, private router: Router) {}
+	constructor(
+		private uiService: UiService,
+		private router: Router,
+		private authQuery: AuthQuery,
+		private authService: AuthService
+	) {
+		this.isAuthenticated$ = this.authQuery.select(state =>
+			Boolean(state.userId)
+		);
+	}
 
 	ngOnInit() {
 		this.isLoading$ = this.uiService.isLoading$;
@@ -35,5 +47,9 @@ export class AppComponent implements OnInit, AfterViewInit {
 				this.uiService.hideLoading();
 			}
 		});
+	}
+
+	onLogout() {
+		this.authService.signOut();
 	}
 }

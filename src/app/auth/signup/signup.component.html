@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-title>Регистрация</mat-card-title>
   <mat-card-content fxLayout="column" fxLayoutAlign="center">
-    <form [formGroup]="signUpForm">
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
       <div fxLayout="column" fxLayoutAlign="center">
         <!--name-->
         <mat-form-field [appearance]="'standard'">

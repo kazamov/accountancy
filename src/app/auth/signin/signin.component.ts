@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
+import { AuthService } from '../state/auth.service';
+
 @Component({
 	selector: 'app-signin',
 	templateUrl: './signin.component.html',
@@ -11,6 +13,8 @@ export class SigninComponent implements OnInit {
 	emailControl: FormControl | null = null;
 	passwordControl: FormControl | null = null;
 
+	constructor(private authService: AuthService) {}
+
 	ngOnInit() {
 		this.signInForm = new FormGroup({});
 
@@ -19,5 +23,14 @@ export class SigninComponent implements OnInit {
 
 		this.passwordControl = new FormControl('', [Validators.required]);
 		this.signInForm.registerControl('password', this.passwordControl);
+	}
+
+	onSubmit() {
+		if (this.emailControl && this.passwordControl) {
+			this.authService.signIn(
+				this.emailControl.value,
+				this.passwordControl.value
+			);
+		}
 	}
 }

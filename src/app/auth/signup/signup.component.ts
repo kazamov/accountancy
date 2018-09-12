@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
+import { AuthService } from '../state/auth.service';
+
 @Component({
 	selector: 'app-signup',
 	templateUrl: './signup.component.html',
@@ -11,6 +13,8 @@ export class SignupComponent implements OnInit {
 	usernameControl: FormControl | null = null;
 	emailControl: FormControl | null = null;
 	passwordControl: FormControl | null = null;
+
+	constructor(private authService: AuthService) {}
 
 	ngOnInit() {
 		this.signUpForm = new FormGroup({});
@@ -30,5 +34,15 @@ export class SignupComponent implements OnInit {
 			Validators.maxLength(25)
 		]);
 		this.signUpForm.registerControl('password', this.passwordControl);
+	}
+
+	onSubmit() {
+		if (this.usernameControl && this.emailControl && this.passwordControl) {
+			this.authService.signUp(
+				this.usernameControl.value,
+				this.emailControl.value,
+				this.passwordControl.value
+			);
+		}
 	}
 }
