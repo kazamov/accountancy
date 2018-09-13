@@ -23,42 +23,41 @@ export class CategoriesService {
 		);
 	}
 
-	deleteCategory(id: ID) {
-		this.categoriesStore.setLoading(true);
-		this.categoriesDataService.deleteCategory(id).subscribe(
-			result => {
-				if (result) {
-					this.categoriesStore.setLoading(false);
-					this.categoriesStore.remove(id);
-				}
-			},
-			() => this.categoriesStore.setLoading(false)
-		);
+	async deleteCategory(id: ID) {
+		try {
+			this.categoriesStore.setLoading(true);
+			await this.categoriesDataService.deleteCategory(id);
+			this.categoriesStore.remove(id);
+		} catch (error) {
+			console.log(error);
+		} finally {
+			this.categoriesStore.setLoading(false);
+		}
 	}
 
-	addCategory(name: string) {
-		this.categoriesStore.setLoading(true);
-		this.categoriesDataService.addCategory(name).subscribe(
-			newId => {
-				if (newId) {
-					this.categoriesStore.setLoading(false);
-					this.categoriesStore.add(createCategory(newId, name));
-				}
-			},
-			() => this.categoriesStore.setLoading(false)
-		);
+	async addCategory(name: string) {
+		try {
+			this.categoriesStore.setLoading(true);
+			const newId = await this.categoriesDataService.addCategory(name);
+			if (newId) {
+				this.categoriesStore.add(createCategory(newId, name));
+			}
+		} catch (error) {
+			console.log(error);
+		} finally {
+			this.categoriesStore.setLoading(false);
+		}
 	}
 
-	updateCategory(id: ID, name: string) {
-		this.categoriesStore.setLoading(true);
-		this.categoriesDataService.updateCategory(id, name).subscribe(
-			result => {
-				if (result) {
-					this.categoriesStore.setLoading(false);
-					this.categoriesStore.update(id, { name });
-				}
-			},
-			() => this.categoriesStore.setLoading(false)
-		);
+	async updateCategory(id: ID, name: string) {
+		try {
+			this.categoriesStore.setLoading(true);
+			await this.categoriesDataService.updateCategory(id, name);
+			this.categoriesStore.update(id, { name });
+		} catch (error) {
+			console.log(error);
+		} finally {
+			this.categoriesStore.setLoading(false);
+		}
 	}
 }

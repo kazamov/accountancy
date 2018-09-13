@@ -6,7 +6,7 @@ import { mapTo } from 'rxjs/operators';
 import { ICharge, IChargeData } from './charge.model';
 
 let charges: ICharge[] = [
-	{
+	/*{
 		id: '121',
 		date: new Date(),
 		category: '223',
@@ -47,7 +47,7 @@ let charges: ICharge[] = [
 		category: '225',
 		price: 148.78,
 		description: 'Apples, cheese, milk'
-	}
+	}*/
 ];
 
 @Injectable()

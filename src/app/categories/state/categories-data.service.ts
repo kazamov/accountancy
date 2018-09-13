@@ -1,57 +1,61 @@
 import { Injectable } from '@angular/core';
-import { ID, remove, push, update, guid } from '@datorama/akita';
-
-import { timer } from 'rxjs';
-import { mapTo } from 'rxjs/operators';
+import { ID } from '@datorama/akita';
+import { take } from 'rxjs/operators';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 import { ICategory } from './category.model';
-
-let categories: ICategory[] = [
-	{
-		id: '223',
-		name: 'Продукты'
-	},
-	{
-		id: '224',
-		name: 'Здоровье'
-	},
-	{
-		id: '225',
-		name: 'Проезд'
-	}
-];
+import { AuthQuery } from '../../auth/state/auth.query';
 
 @Injectable()
 export class CategoriesDataService {
+	constructor(private db: AngularFirestore, private authQuery: AuthQuery) {}
+
 	getCategories() {
-		return timer(2000).pipe(mapTo([...categories]));
+		const userId = this.authQuery.getSnapshot().userId;
+
+		return this.db
+			.collection<ICategory>(`users/${userId}/categories`)
+			.valueChanges()
+			.pipe(take(1));
 	}
 
 	deleteCategory(id: ID) {
-		const categoryIndex = categories.findIndex(
-			category => category.id === id
-		);
-		categories = remove(categories, categoryIndex);
+		const userId = this.authQuery.getSnapshot().userId;
 
-		return timer(500).pipe(mapTo(true));
+		const categoryDoc = this.db
+			.collection<ICategory>(`users/${userId}/categories`)
+			.doc<ICategory>(id as string);
+
+		return categoryDoc.delete();
 	}
 
 	addCategory(name: string) {
-		const newCategoryId = guid();
-		categories = push(categories, {
-			id: newCategoryId,
-			name: name
-		});
+		const userId = this.authQuery.getSnapshot().userId;
+		const newCategoryId = this.db.createId();
 
-		return timer(500).pipe(mapTo(newCategoryId));
+		const newCategoryDoc = this.db
+			.collection<ICategory>(`users/${userId}/categories`)
+			.doc<ICategory>(newCategoryId);
+
+		return newCategoryDoc
+			.set({
+				id: newCategoryId,
+				name: name
+			})
+			.then(() => {
+				return newCategoryId;
+			});
 	}
 
 	updateCategory(id: ID, name: string) {
-		const categoryIndex = categories.findIndex(
-			category => category.id === id
-		);
-		categories = update(categories, categoryIndex, { id, name });
+		const userId = this.authQuery.getSnapshot().userId;
 
-		return timer(500).pipe(mapTo(true));
+		const categoryDoc = this.db
+			.collection<ICategory>(`users/${userId}/categories`)
+			.doc<ICategory>(id as string);
+
+		return categoryDoc.update({
+			name
+		});
 	}
 }
