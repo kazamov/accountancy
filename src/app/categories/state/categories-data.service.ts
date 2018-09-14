@@ -5,6 +5,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 
 import { ICategory } from './category.model';
 import { AuthQuery } from '../../auth/state/auth.query';
+import { BackendCollections } from '../../shared/backend-collections.enum';
 
 @Injectable()
 export class CategoriesDataService {
@@ -14,7 +15,11 @@ export class CategoriesDataService {
 		const userId = this.authQuery.getSnapshot().userId;
 
 		return this.db
-			.collection<ICategory>(`users/${userId}/categories`)
+			.collection<ICategory>(
+				`${BackendCollections.USERS}/${userId}/${
+					BackendCollections.CATEGORIES
+				}`
+			)
 			.valueChanges()
 			.pipe(take(1));
 	}
@@ -23,7 +28,11 @@ export class CategoriesDataService {
 		const userId = this.authQuery.getSnapshot().userId;
 
 		const categoryDoc = this.db
-			.collection<ICategory>(`users/${userId}/categories`)
+			.collection<ICategory>(
+				`${BackendCollections.USERS}/${userId}/${
+					BackendCollections.CATEGORIES
+				}`
+			)
 			.doc<ICategory>(id as string);
 
 		return categoryDoc.delete();
@@ -34,7 +43,11 @@ export class CategoriesDataService {
 		const newCategoryId = this.db.createId();
 
 		const newCategoryDoc = this.db
-			.collection<ICategory>(`users/${userId}/categories`)
+			.collection<ICategory>(
+				`${BackendCollections.USERS}/${userId}/${
+					BackendCollections.CATEGORIES
+				}`
+			)
 			.doc<ICategory>(newCategoryId);
 
 		return newCategoryDoc
@@ -51,7 +64,11 @@ export class CategoriesDataService {
 		const userId = this.authQuery.getSnapshot().userId;
 
 		const categoryDoc = this.db
-			.collection<ICategory>(`users/${userId}/categories`)
+			.collection<ICategory>(
+				`${BackendCollections.USERS}/${userId}/${
+					BackendCollections.CATEGORIES
+				}`
+			)
 			.doc<ICategory>(id as string);
 
 		return categoryDoc.update({
