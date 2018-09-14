@@ -18,7 +18,8 @@ export class CategoriesDataService {
 			.collection<ICategory>(
 				`${BackendCollections.USERS}/${userId}/${
 					BackendCollections.CATEGORIES
-				}`
+				}`,
+				collectionRef => collectionRef.orderBy('name')
 			)
 			.valueChanges()
 			.pipe(take(1));
@@ -56,7 +57,7 @@ export class CategoriesDataService {
 				name: name
 			})
 			.then(() => {
-				return newCategoryId;
+				return newCategoryId as ID;
 			});
 	}
 

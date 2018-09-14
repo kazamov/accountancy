@@ -6,6 +6,10 @@ service cloud.firestore {
       match /categories/{document=**} {
       	allow read, write;
       }
+
+      match /charges/{document=**} {
+      	allow read, write;
+      }
     }
   }
 }

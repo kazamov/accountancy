@@ -38,44 +38,43 @@ export class ChargesService {
 		);
 	}
 
-	deleteCharge(id: ID) {
-		this.chargesStore.setLoading(true);
-		this.chargesDataService.deleteCharge(id).subscribe(
-			deleteResult => {
-				if (deleteResult) {
-					this.chargesStore.setLoading(false);
-					this.chargesStore.remove(id);
-				}
-			},
-			() => this.chargesStore.setLoading(false)
-		);
+	async deleteCharge(id: ID) {
+		try {
+			this.chargesStore.setLoading(true);
+			await this.chargesDataService.deleteCharge(id);
+			this.chargesStore.remove(id);
+		} catch (error) {
+			console.log(error);
+		} finally {
+			this.chargesStore.setLoading(false);
+		}
 	}
 
-	addCharge(chargeData: IChargeData) {
-		this.chargesStore.setLoading(true);
-		this.chargesDataService.addCharge(chargeData).subscribe(
-			id => {
-				if (id) {
-					this.chargesStore.setLoading(false);
-					this.chargesStore.add(createCharge(id, chargeData));
-					this.router.navigate(['charges']);
-				}
-			},
-			() => this.chargesStore.setLoading(false)
-		);
+	async addCharge(chargeData: IChargeData) {
+		try {
+			this.chargesStore.setLoading(true);
+			const newId = await this.chargesDataService.addCharge(chargeData);
+			if (newId) {
+				this.chargesStore.add(createCharge(newId, chargeData));
+				this.router.navigate(['charges']);
+			}
+		} catch (error) {
+			console.log(error);
+		} finally {
+			this.chargesStore.setLoading(false);
+		}
 	}
 
-	updateCharge(id: ID, chargeData: IChargeData) {
-		this.chargesStore.setLoading(true);
-		this.chargesDataService.updateCharge(id, chargeData).subscribe(
-			result => {
-				if (result) {
-					this.chargesStore.setLoading(false);
-					this.chargesStore.update(id, chargeData);
-					this.router.navigate(['charges']);
-				}
-			},
-			() => this.chargesStore.setLoading(false)
-		);
+	async updateCharge(id: ID, chargeData: IChargeData) {
+		try {
+			this.chargesStore.setLoading(true);
+			await this.chargesDataService.updateCharge(id, chargeData);
+			this.chargesStore.update(id, chargeData);
+			this.router.navigate(['charges']);
+		} catch (error) {
+			console.log(error);
+		} finally {
+			this.chargesStore.setLoading(false);
+		}
 	}
 }

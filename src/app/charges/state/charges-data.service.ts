@@ -1,91 +1,113 @@
 import { Injectable } from '@angular/core';
-import { ID, remove, push, update, guid } from '@datorama/akita';
-import { timer } from 'rxjs';
-import { mapTo } from 'rxjs/operators';
+import { ID } from '@datorama/akita';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { take, map } from 'rxjs/operators';
 
 import { ICharge, IChargeData } from './charge.model';
-
-let charges: ICharge[] = [
-	/*{
-		id: '121',
-		date: new Date(),
-		category: '223',
-		price: 158.6,
-		description: 'Blabla'
-	},
-	{
-		id: '122',
-		date: new Date(),
-		category: '224',
-		price: 188.1,
-		description: 'Apples, cheese, milk'
-	},
-	{
-		id: '123',
-		date: new Date(),
-		category: '224',
-		price: 198.7,
-		description: 'Apples, cheese, milk'
-	},
-	{
-		id: '124',
-		date: new Date(),
-		category: '225',
-		price: 118.98,
-		description: 'Apples, cheese, milk'
-	},
-	{
-		id: '125',
-		date: new Date(),
-		category: '223',
-		price: 138.9,
-		description: 'Apples, cheese, milk'
-	},
-	{
-		id: '126',
-		date: new Date(),
-		category: '225',
-		price: 148.78,
-		description: 'Apples, cheese, milk'
-	}*/
-];
+import { AuthQuery } from '../../auth/state/auth.query';
+import { BackendCollections } from '../../shared/backend-collections.enum';
 
 @Injectable()
 export class ChargesDataService {
+	constructor(private db: AngularFirestore, private authQuery: AuthQuery) {}
+
 	getCharges() {
-		return timer(500).pipe(mapTo([...charges]));
+		const userId = this.authQuery.getSnapshot().userId;
+
+		return this.db
+			.collection<ICharge>(
+				`${BackendCollections.USERS}/${userId}/${
+					BackendCollections.CHARGES
+				}`,
+				collectionRef => collectionRef.orderBy('date')
+			)
+			.valueChanges()
+			.pipe(
+				map(chargesData =>
+					chargesData.map(charge => {
+						return {
+							...charge,
+							date: (charge.date as any).toDate()
+						};
+					})
+				),
+				take(1)
+			);
 	}
 
 	getCharge(id: ID) {
-		const foundCharge = charges.find(charge => charge.id === id) || null;
+		const userId = this.authQuery.getSnapshot().userId;
+		const chargeDocRef = this.db
+			.collection<ICharge>(
+				`${BackendCollections.USERS}/${userId}/${
+					BackendCollections.CHARGES
+				}`
+			)
+			.doc<ICharge>(id as string);
 
-		return timer(500).pipe(mapTo(foundCharge ? { ...foundCharge } : null));
+		return chargeDocRef.valueChanges().pipe(
+			map(chargeData => {
+				if (chargeData) {
+					return {
+						...chargeData,
+						date: (chargeData.date as any).toDate()
+					};
+				}
+				return chargeData;
+			}),
+			take(1)
+		);
 	}
 
 	deleteCharge(id: ID) {
-		const chargeIndex = charges.findIndex(ch => ch.id === id);
-		charges = remove(charges, chargeIndex);
+		const userId = this.authQuery.getSnapshot().userId;
 
-		return timer(500).pipe(mapTo(true));
+		const chargeDoc = this.db
+			.collection<ICharge>(
+				`${BackendCollections.USERS}/${userId}/${
+					BackendCollections.CHARGES
+				}`
+			)
+			.doc<ICharge>(id as string);
+
+		return chargeDoc.delete();
 	}
 
 	addCharge(chargeData: IChargeData) {
-		const newChargeId = guid();
-		charges = push(charges, {
-			id: newChargeId,
-			...chargeData
-		});
+		const userId = this.authQuery.getSnapshot().userId;
+		const newChargeId = this.db.createId();
 
-		return timer(500).pipe(mapTo(newChargeId));
+		const newChargeDoc = this.db
+			.collection<ICharge>(
+				`${BackendCollections.USERS}/${userId}/${
+					BackendCollections.CHARGES
+				}`
+			)
+			.doc<ICharge>(newChargeId);
+
+		return newChargeDoc
+			.set({
+				id: newChargeId,
+				...chargeData
+			})
+			.then(() => {
+				return newChargeId as ID;
+			});
 	}
 
 	updateCharge(id: ID, chargeData: IChargeData) {
-		const chargeIndex = charges.findIndex(charge => charge.id === id);
-		charges = update(charges, chargeIndex, {
-			id,
+		const userId = this.authQuery.getSnapshot().userId;
+
+		const chargeDoc = this.db
+			.collection<ICharge>(
+				`${BackendCollections.USERS}/${userId}/${
+					BackendCollections.CHARGES
+				}`
+			)
+			.doc<ICharge>(id as string);
+
+		return chargeDoc.update({
 			...chargeData
 		});
-
-		return timer(500).pipe(mapTo(true));
 	}
 }

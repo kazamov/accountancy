@@ -21,11 +21,6 @@ export class ChargesResolver implements Resolve<boolean> {
 		this.chargesService.getCharges();
 		this.categoriesService.getCategories();
 
-		/*return this.chargesQuery.selectLoading().pipe(
-			filter(isLoading => !isLoading),
-			take(1)
-		);*/
-
 		return combineLatest(
 			this.chargesQuery.selectLoading().pipe(
 				filter(isLoading => !isLoading),
