@@ -23,6 +23,7 @@ import { AuthService } from './auth/state/auth.service';
 import { AuthStore } from './auth/state/auth.store';
 import { AuthQuery } from './auth/state/auth.query';
 import { AuthGuard } from './auth/state/auth.guard';
+import { LoginGuard } from './auth/state/login.guard';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -52,6 +53,7 @@ import { AuthGuard } from './auth/state/auth.guard';
 		AuthQuery,
 		AngularFireAuth,
 		AuthGuard,
+		LoginGuard,
 		AngularFirestore
 	],
 	bootstrap: [AppComponent]

@@ -22,9 +22,15 @@ export class AuthService {
 		});
 
 		this.authQuery.isAuthenticated$.subscribe(isAuthenticated => {
-			this.router.navigate([
-				`/${isAuthenticated ? 'charges' : 'signin'}`
-			]);
+			if (isAuthenticated) {
+				if (this.router.url.search(/signin|signup/i) !== -1) {
+					this.router.navigate(['/charges']);
+				}
+			} else {
+				if (this.router.url.search(/signin|signup/i) === -1) {
+					this.router.navigate(['/signin']);
+				}
+			}
 		});
 	}
 
@@ -42,10 +48,7 @@ export class AuthService {
 
 	async signIn(email: string, password: string) {
 		try {
-			await this.afAuth.auth.signInAndRetrieveDataWithEmailAndPassword(
-				email,
-				password
-			);
+			await this.afAuth.auth.signInWithEmailAndPassword(email, password);
 		} catch (error) {
 			console.log(error);
 		}
