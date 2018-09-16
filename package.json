@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build --configuration=production && firebase deploy"
+    "deploy": "ng build --configuration=production && firebase deploy",
+    "pretty-quick": "pretty-quick"
   },
   "private": true,
   "dependencies": {
@@ -46,6 +47,7 @@
     "@types/node": "~8.9.4",
     "akita-schematics": "^1.0.0-rc.3",
     "codelyzer": "~4.2.1",
+    "husky": "^0.14.3",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~1.7.1",
@@ -53,9 +55,19 @@
     "karma-coverage-istanbul-reporter": "~2.0.0",
     "karma-jasmine": "~1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "lint-staged": "^7.2.2",
+    "prettier": "^1.14.2",
     "protractor": "~5.4.0",
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1",
     "typescript": "~2.9.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,scss,json,css,md,html}": ["prettier --write", "git add"]
   }
 }
