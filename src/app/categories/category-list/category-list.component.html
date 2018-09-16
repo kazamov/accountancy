@@ -1,8 +1,8 @@
 <section>
   <p *ngIf="!(count$ | async)">У вас нет ни одной категории</p>
   <mat-list role="list">
-    <app-category-list-item *ngFor="let category of categories$ | async" [category]="category" (deleteCategory)="onCategoryDelete($event)"
-      (updateCategory)="onCategoryUpdateStart($event)"></app-category-list-item>
+    <app-category-list-item *ngFor="let category of categories$ | async" [category]="category" (deleteCategory)="onCategoryDeleteStart($event)"
+                            (updateCategory)="onCategoryUpdateStart($event)"></app-category-list-item>
   </mat-list>
   <button mat-fab color="primary" class="add-new-category-btn" (click)="onCategoryCreateStart()">
     <mat-icon>add</mat-icon>

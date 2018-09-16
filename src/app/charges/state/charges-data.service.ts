@@ -19,7 +19,7 @@ export class ChargesDataService {
 				`${BackendCollections.USERS}/${userId}/${
 					BackendCollections.CHARGES
 				}`,
-				collectionRef => collectionRef.orderBy('date')
+				collectionRef => collectionRef.orderBy('date', 'desc')
 			)
 			.valueChanges()
 			.pipe(

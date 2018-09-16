@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { ID } from '@datorama/akita';
 
 import { ICategory } from '../../state/category.model';
 
@@ -13,7 +12,7 @@ export class CategoryListItemComponent {
 	category: ICategory | null = null;
 
 	@Output()
-	deleteCategory = new EventEmitter<ID>();
+	deleteCategory = new EventEmitter<ICategory>();
 	@Output()
 	updateCategory = new EventEmitter<ICategory>();
 
@@ -21,7 +20,7 @@ export class CategoryListItemComponent {
 
 	onDelete() {
 		if (this.category) {
-			this.deleteCategory.emit(this.category.id);
+			this.deleteCategory.emit(this.category);
 		}
 	}
 

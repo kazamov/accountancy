@@ -8,6 +8,6 @@
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button (click)="onCancelClick()">Отмена</button>
+  <button mat-button [mat-dialog-close]="null">Отмена</button>
   <button mat-button [mat-dialog-close]="categoryNameInput.value" cdkFocusInitial color="primary" [disabled]="categoryNameInput.invalid || categoryNameInput.pristine">Сохранить</button>
 </mat-dialog-actions>

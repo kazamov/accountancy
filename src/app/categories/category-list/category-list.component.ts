@@ -7,6 +7,7 @@ import { ICategory } from '../state/category.model';
 import { CategoriesQuery } from '../state/categories.query';
 import { CategoriesService } from '../state/categories.service';
 import { CategoryDialogComponent } from './category-dialog/category-dialog.component';
+import { DeleteCategoryDialogComponent } from './delete-category-dialog/delete-category-dialog.component';
 
 @Component({
 	selector: 'app-category-list',
@@ -26,7 +27,19 @@ export class CategoryListComponent {
 		this.categories$ = this.categoriesQuery.selectAllSortedByName();
 	}
 
-	onCategoryDelete(id: ID) {
+	onCategoryDeleteStart(category: ICategory) {
+		const dialogRef = this.dialog.open(DeleteCategoryDialogComponent, {
+			data: { name: category.name }
+		});
+
+		dialogRef.afterClosed().subscribe((result: boolean) => {
+			if (result) {
+				this.onCategoryDeleteEnd(category.id);
+			}
+		});
+	}
+
+	onCategoryDeleteEnd(id: ID) {
 		this.categoriesService.deleteCategory(id);
 	}
 
@@ -49,7 +62,7 @@ export class CategoryListComponent {
 			data: { ...category }
 		});
 
-		dialogRef.afterClosed().subscribe((categoryName: string) => {
+		dialogRef.afterClosed().subscribe((categoryName: string | null) => {
 			if (categoryName) {
 				this.onCategoryUpdateEnd(category.id, categoryName);
 			}

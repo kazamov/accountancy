@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, Optional } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material';
 
 import { ICategory } from '../../state/category.model';
 
@@ -13,7 +13,6 @@ export class CategoryDialogComponent implements OnInit {
 	categoryNameInput: FormControl;
 
 	constructor(
-		public dialogRef: MatDialogRef<CategoryDialogComponent>,
 		@Inject(MAT_DIALOG_DATA)
 		@Optional()
 		public data: Partial<ICategory> | null
@@ -25,9 +24,5 @@ export class CategoryDialogComponent implements OnInit {
 		if (this.data) {
 			this.categoryNameInput.setValue(this.data.name);
 		}
-	}
-
-	onCancelClick() {
-		this.dialogRef.close();
 	}
 }
