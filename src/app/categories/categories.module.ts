@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 
 import { CategoryListComponent } from './category-list/category-list.component';
 import { CategoriesRoutingModule } from './categories-routing.module';
@@ -9,7 +8,7 @@ import { CategoryDialogComponent } from './category-list/category-dialog/categor
 import { DeleteCategoryDialogComponent } from './category-list/delete-category-dialog/delete-category-dialog.component';
 
 @NgModule({
-	imports: [SharedModule, CategoriesRoutingModule, ReactiveFormsModule],
+	imports: [SharedModule, CategoriesRoutingModule],
 	declarations: [
 		CategoryListComponent,
 		CategoryListItemComponent,

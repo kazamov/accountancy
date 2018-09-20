@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { SignupComponent } from './signup/signup.component';
@@ -9,12 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AuthRoutingModule } from './auth-routing.module';
 
 @NgModule({
-	imports: [
-		SharedModule,
-		AuthRoutingModule,
-		ReactiveFormsModule,
-		FlexLayoutModule
-	],
+	imports: [SharedModule, AuthRoutingModule, FlexLayoutModule],
 	declarations: [SignupComponent, SigninComponent, PasswordResetComponent]
 })
 export class AuthModule {}

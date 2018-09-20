@@ -32,3 +32,10 @@ export const onUserCreate = functions
 			console.log(error);
 		}
 	});
+
+export const onCreateChargesReport = functions
+	.region('europe-west1')
+	.https.onCall(async (data, context) => {
+		console.log(data);
+		console.log(context);
+	});

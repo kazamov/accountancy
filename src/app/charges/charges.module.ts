@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule } from '../shared/shared.module';
 import { ChargesComponent } from './charges/charges.component';
@@ -17,7 +16,7 @@ import { ChargesResolver } from './state/charges.resolver';
 import { NewChargeResolver } from './state/new-charge.resolver';
 
 @NgModule({
-	imports: [SharedModule, ChargesRoutingModule, ReactiveFormsModule],
+	imports: [SharedModule, ChargesRoutingModule],
 	declarations: [
 		ChargesComponent,
 		NewChargeComponent,
