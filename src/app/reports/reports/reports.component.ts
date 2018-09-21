@@ -12,16 +12,21 @@ import { take } from 'rxjs/operators';
 })
 export class ReportsComponent {
 	form: FormGroup;
+	startDateControl: FormControl;
+	endDateControl: FormControl;
 	onCreateChargesReportFunction: (data: any) => Observable<any>;
 
 	@ViewChild(MatDatepicker)
 	picker: MatDatepicker<Date> | null = null;
 
 	constructor(private afFunctions: AngularFireFunctions) {
-		this.form = new FormGroup({
-			startDate: new FormControl(''),
-			endDate: new FormControl('')
-		});
+		this.form = new FormGroup({});
+
+		this.startDateControl = new FormControl('');
+		this.form.registerControl('startDate', this.startDateControl);
+
+		this.endDateControl = new FormControl('');
+		this.form.registerControl('endDate', this.endDateControl);
 
 		this.onCreateChargesReportFunction = this.afFunctions.httpsCallable(
 			'onCreateChargesReport'
@@ -40,9 +45,19 @@ export class ReportsComponent {
 	onSubmit() {
 		console.log(this.form.value);
 
+		let startDate: number | null = null;
+		if (this.startDateControl.value) {
+			startDate = (this.startDateControl.value as Date).getTime();
+		}
+
+		let endDate: number | null = null;
+		if (this.endDateControl.value) {
+			endDate = (this.endDateControl.value as Date).getTime();
+		}
+
 		this.onCreateChargesReportFunction({
-			startDate: (this.form.value['startDate'] as Date).getTime(),
-			endDate: (this.form.value['endDate'] as Date).getTime()
+			startDate: startDate,
+			endDate: endDate
 		})
 			.pipe(take(1))
 			.subscribe(
