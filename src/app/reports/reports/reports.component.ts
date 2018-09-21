@@ -40,11 +40,13 @@ export class ReportsComponent {
 	onSubmit() {
 		console.log(this.form.value);
 
-		this.onCreateChargesReportFunction(this.form.value)
+		this.onCreateChargesReportFunction({
+			startDate: (this.form.value['startDate'] as Date).getTime(),
+			endDate: (this.form.value['endDate'] as Date).getTime()
+		})
 			.pipe(take(1))
 			.subscribe(
 				report => {
-					debugger;
 					console.log(report);
 				},
 				error => console.log(error)

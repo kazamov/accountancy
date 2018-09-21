@@ -38,7 +38,7 @@ export const onUserCreate = functions
 	});
 
 export const onCreateChargesReport = functions.https.onCall(
-	async (data: { startDate?: Date; endDate?: Date }, context) => {
+	async (data: { startDate?: number; endDate?: number }, context) => {
 		console.log(data);
 		console.log(context);
 
@@ -54,10 +54,18 @@ export const onCreateChargesReport = functions.https.onCall(
 			let chargesQuery = userDocRef.collection('charges').orderBy('date');
 
 			if (data.startDate) {
-				chargesQuery = chargesQuery.where('date', '>=', data.startDate);
+				chargesQuery = chargesQuery.where(
+					'date',
+					'>=',
+					new Date(data.startDate)
+				);
 			}
 			if (data.endDate) {
-				chargesQuery = chargesQuery.where('date', '<=', data.endDate);
+				chargesQuery = chargesQuery.where(
+					'date',
+					'<=',
+					new Date(data.endDate)
+				);
 			}
 
 			const charges: ICharge[] = [];
