@@ -1,0 +1,15 @@
+<form [formGroup]="form" (submit)="onSubmit()">
+  <mat-form-field [appearance]="'standard'" (mousedown)="onDateMouseDown($event, startDatePicker)">
+    <mat-label>Начальная дата</mat-label>
+    <input matInput [matDatepicker]="startDatePicker" [formControlName]="'startDate'">
+    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker [touchUi]="true" [color]="'accent'" #startDatePicker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field [appearance]="'standard'" (mousedown)="onDateMouseDown($event, endDatePicker)">
+    <mat-label>Конечная дата</mat-label>
+    <input matInput [matDatepicker]="endDatePicker" [formControlName]="'endDate'">
+    <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker [touchUi]="true" [color]="'accent'" #endDatePicker></mat-datepicker>
+  </mat-form-field>
+  <button mat-raised-button type="submit" color="primary">Получить отчет</button>
+</form>
