@@ -11,10 +11,22 @@ import { ReportsSearchFormComponent } from './reports/reports-search-form/report
 import { ReportQuery } from './state/report.query';
 import { ReportStore } from './state/report.store';
 import { ReportService } from './state/report.service';
+import { SummaryReportComponent } from './reports/summary-report/summary-report.component';
+import { ReportResolver } from './state/report.resolver';
 
 @NgModule({
 	imports: [SharedModule, ReportsRoutingModule, AngularFireFunctionsModule],
-	declarations: [ReportsComponent, ReportsSearchFormComponent],
-	providers: [AngularFireFunctions, ReportQuery, ReportStore, ReportService]
+	declarations: [
+		ReportsComponent,
+		ReportsSearchFormComponent,
+		SummaryReportComponent
+	],
+	providers: [
+		AngularFireFunctions,
+		ReportQuery,
+		ReportStore,
+		ReportService,
+		ReportResolver
+	]
 })
 export class ReportsModule {}

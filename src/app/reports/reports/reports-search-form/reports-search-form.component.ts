@@ -1,8 +1,8 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatDatepicker } from '@angular/material';
 
-import { ISearchCriteria } from '../../state/report.service';
+import { ReportService } from '../../state/report.service';
 
 @Component({
 	selector: 'app-reports-search-form',
@@ -14,10 +14,7 @@ export class ReportsSearchFormComponent {
 	startDateControl: FormControl;
 	endDateControl: FormControl;
 
-	@Output()
-	searchCriteriaChanged = new EventEmitter<ISearchCriteria>();
-
-	constructor() {
+	constructor(private reportService: ReportService) {
 		this.form = new FormGroup({});
 
 		this.startDateControl = new FormControl('');
@@ -47,7 +44,7 @@ export class ReportsSearchFormComponent {
 			endDate = (this.endDateControl.value as Date).getTime();
 		}
 
-		this.searchCriteriaChanged.emit({
+		this.reportService.forwardToReport({
 			startDate: startDate,
 			endDate: endDate
 		});

@@ -1,1 +1,4 @@
-<app-reports-search-form (searchCriteriaChanged)="onSearchCriteriaChanged($event)"></app-reports-search-form>
+<!--<app-reports-search-form (searchCriteriaChanged)="onSearchCriteriaChanged($event)" *ngIf="!report"></app-reports-search-form>
+<app-summary-report *ngIf="report" [report]="report" (backToSearchForm)="onBackToSearchForm()"></app-summary-report>-->
+
+<router-outlet></router-outlet>
