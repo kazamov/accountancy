@@ -7,6 +7,7 @@ import { filter, take, map } from 'rxjs/operators';
 import { CategoriesService } from '../../categories/state/categories.service';
 import { combineLatest } from 'rxjs';
 import { CategoriesQuery } from '../../categories/state/categories.query';
+import { ChargesStore } from './charges.store';
 
 @Injectable()
 export class ChargesResolver implements Resolve<boolean> {
@@ -14,10 +15,23 @@ export class ChargesResolver implements Resolve<boolean> {
 		private chargesQuery: ChargesQuery,
 		private categoriesQuery: CategoriesQuery,
 		private chargesService: ChargesService,
-		private categoriesService: CategoriesService
+		private categoriesService: CategoriesService,
+		private chargesStore: ChargesStore
 	) {}
 
 	resolve() {
+		this.chargesStore.updateRoot(state => {
+			return {
+				...state,
+				ui: {
+					...state.ui,
+					allItemsLoaded: false,
+					lastItem: null
+				}
+			};
+		});
+		this.chargesStore.set([]);
+
 		this.chargesService.getCharges();
 		this.categoriesService.getCategories();
 

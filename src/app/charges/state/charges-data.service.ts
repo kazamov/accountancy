@@ -11,7 +11,7 @@ import { BackendCollections } from '../../shared/backend-collections.enum';
 export class ChargesDataService {
 	constructor(private db: AngularFirestore, private authQuery: AuthQuery) {}
 
-	getCharges() {
+	getCharges(pageSize: number, lastItem: ICharge | null) {
 		const userId = this.authQuery.getSnapshot().userId;
 
 		return this.db
@@ -19,7 +19,19 @@ export class ChargesDataService {
 				`${BackendCollections.USERS}/${userId}/${
 					BackendCollections.CHARGES
 				}`,
-				collectionRef => collectionRef.orderBy('date', 'desc')
+				collectionRef => {
+					let query = collectionRef.orderBy('date', 'desc');
+
+					if (lastItem) {
+						query = query.startAfter(lastItem.date);
+					}
+
+					if (typeof pageSize === 'number') {
+						query = query.limit(pageSize);
+					}
+
+					return query;
+				}
 			)
 			.valueChanges()
 			.pipe(
