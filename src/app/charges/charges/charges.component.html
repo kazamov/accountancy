@@ -4,7 +4,7 @@
     <a routerLink="/charges/charge" mat-fab color="primary" class="add-new-charge-btn">
         <mat-icon>add</mat-icon>
     </a>
-    <button *ngIf="!(allChargesLoaded$ | async)" mat-stroked-button type="button" color="primary" class="load-more-charges-btn"
+    <button *ngIf="!(allChargesLoaded$ | async)" mat-button type="button" color="primary" class="load-more-charges-btn"
             (click)="onLoadMoreCharges()">Смотреть
         еще</button>
 </section>

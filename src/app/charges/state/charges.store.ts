@@ -13,7 +13,7 @@ export interface ChargesState extends EntityState<ICharge> {
 
 const initialState = {
 	ui: {
-		pageSize: 4,
+		pageSize: 20,
 		lastItem: null,
 		allItemsLoaded: false
 	}
