@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { ChargesQuery } from '../state/charges.query';
@@ -17,7 +18,8 @@ export class ChargesComponent {
 
 	constructor(
 		private chargesService: ChargesService,
-		private chargesQuery: ChargesQuery
+		private chargesQuery: ChargesQuery,
+		private router: Router
 	) {
 		this.count$ = this.chargesQuery.selectCount();
 		this.charges$ = this.chargesQuery.selectAll();
@@ -26,6 +28,14 @@ export class ChargesComponent {
 
 	onDeleteCard(chargeId: string) {
 		this.chargesService.deleteCharge(chargeId);
+	}
+
+	onEditCharge(chargeId: string) {
+		this.router.navigate(['/charges', 'charge', chargeId]);
+	}
+
+	log(event: any) {
+		console.log('Event name:', event);
 	}
 
 	onLoadMoreCharges() {

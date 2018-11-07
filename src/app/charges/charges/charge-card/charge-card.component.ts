@@ -12,11 +12,11 @@ export class ChargeCardComponent {
 	@Input()
 	charge: ICharge | null = null;
 	@Output()
-	deleteCard = new EventEmitter<ID>();
+	deleteCharge = new EventEmitter<ID>();
 
 	onDelete() {
 		if (this.charge) {
-			this.deleteCard.emit(this.charge.id);
+			this.deleteCharge.emit(this.charge.id);
 		}
 	}
 }
