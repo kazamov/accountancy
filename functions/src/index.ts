@@ -37,63 +37,73 @@ export const onUserCreate = functions
 		}
 	});
 
-export const onCreateChargesReport = functions.https.onCall(
-	async (data: { startDate?: number; endDate?: number }, context) => {
-		console.log(data);
-		console.log(context);
+export const onCreateChargesReport = functions
+	.region('europe-west1')
+	.https.onCall(
+		async (data: { startDate?: number; endDate?: number }, context) => {
+			console.log(data);
+			console.log(context);
 
-		if (!context.auth) {
-			throw new functions.https.HttpsError(
-				'failed-precondition',
-				'The function must be called while authenticated.'
-			);
-		}
-
-		try {
-			const userDocRef = db.collection('users').doc(context.auth.uid);
-			let chargesQuery = userDocRef.collection('charges').orderBy('date');
-
-			if (data.startDate) {
-				chargesQuery = chargesQuery.where(
-					'date',
-					'>=',
-					new Date(data.startDate)
-				);
-			}
-			if (data.endDate) {
-				chargesQuery = chargesQuery.where(
-					'date',
-					'<=',
-					new Date(data.endDate)
+			if (!context.auth) {
+				throw new functions.https.HttpsError(
+					'failed-precondition',
+					'The function must be called while authenticated.'
 				);
 			}
 
-			const charges: ICharge[] = [];
-			const chargesQuerySnapshot = await chargesQuery.get();
-			chargesQuerySnapshot.forEach(chargeDocSnapshot => {
-				charges.push(chargeDocSnapshot.data() as ICharge);
-			});
+			try {
+				const userDocRef = db.collection('users').doc(context.auth.uid);
+				let chargesQuery = userDocRef
+					.collection('charges')
+					.orderBy('date');
 
-			const groupedData = groupBy(charges, 'category');
+				if (data.startDate) {
+					chargesQuery = chargesQuery.where(
+						'date',
+						'>=',
+						new Date(data.startDate)
+					);
+				}
+				if (data.endDate) {
+					chargesQuery = chargesQuery.where(
+						'date',
+						'<=',
+						new Date(data.endDate)
+					);
+				}
 
-			const groupsIterator = groupedData.entries();
-
-			const report: IReport = {
-				groups: [],
-				total: 0
-			};
-			for (const [groupId, chargesData] of groupsIterator) {
-				report.groups.push({
-					groupId,
-					total: aggregateSum(chargesData, charge => charge.price)
+				const charges: ICharge[] = [];
+				const chargesQuerySnapshot = await chargesQuery.get();
+				chargesQuerySnapshot.forEach(chargeDocSnapshot => {
+					charges.push(chargeDocSnapshot.data() as ICharge);
 				});
-			}
-			report.total = aggregateSum(report.groups, group => group.total);
 
-			return report;
-		} catch (error) {
-			console.log(error);
-			throw new functions.https.HttpsError('unknown', 'Unknown error');
+				const groupedData = groupBy(charges, 'category');
+
+				const groupsIterator = groupedData.entries();
+
+				const report: IReport = {
+					groups: [],
+					total: 0
+				};
+				for (const [groupId, chargesData] of groupsIterator) {
+					report.groups.push({
+						groupId,
+						total: aggregateSum(chargesData, charge => charge.price)
+					});
+				}
+				report.total = aggregateSum(
+					report.groups,
+					group => group.total
+				);
+
+				return report;
+			} catch (error) {
+				console.log(error);
+				throw new functions.https.HttpsError(
+					'unknown',
+					'Unknown error'
+				);
+			}
 		}
-	}
-);
+	);

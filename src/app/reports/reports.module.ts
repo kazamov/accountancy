@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import {
 	AngularFireFunctionsModule,
-	AngularFireFunctions
+	AngularFireFunctions,
+	FunctionsRegionToken
 } from '@angular/fire/functions';
 
 import { ReportsComponent } from './reports/reports.component';
@@ -26,7 +27,8 @@ import { ReportResolver } from './state/report.resolver';
 		ReportQuery,
 		ReportStore,
 		ReportService,
-		ReportResolver
+		ReportResolver,
+		{ provide: FunctionsRegionToken, useValue: 'europe-west1' }
 	]
 })
 export class ReportsModule {}
