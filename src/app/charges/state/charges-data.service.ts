@@ -20,10 +20,12 @@ export class ChargesDataService {
 					BackendCollections.CHARGES
 				}`,
 				collectionRef => {
-					let query = collectionRef.orderBy('date', 'desc');
+					let query = collectionRef
+						.orderBy('date', 'desc')
+						.orderBy('id');
 
 					if (lastItem) {
-						query = query.startAfter(lastItem.date);
+						query = query.startAfter(lastItem.date, lastItem.id);
 					}
 
 					if (typeof pageSize === 'number') {

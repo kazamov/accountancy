@@ -1,3 +1,17 @@
 {
-  "indexes": []
+  "indexes": [
+    {
+      "collectionId": "charges",
+      "fields": [
+        {
+          "fieldPath": "date",
+          "mode": "DESCENDING"
+        },
+        {
+          "fieldPath": "id",
+          "mode": "ASCENDING"
+        }
+      ]
+    }
+  ]
 }
