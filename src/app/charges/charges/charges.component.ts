@@ -1,6 +1,12 @@
-import { Component } from '@angular/core';
+import {
+	Component,
+	TrackByFunction,
+	ViewChild,
+	OnDestroy
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { Observable, Subscription } from 'rxjs';
 
 import { ChargesQuery } from '../state/charges.query';
 import { ICharge } from '../state/charge.model';
@@ -11,10 +17,16 @@ import { ChargesService } from '../state/charges.service';
 	templateUrl: './charges.component.html',
 	styleUrls: ['./charges.component.scss']
 })
-export class ChargesComponent {
+export class ChargesComponent implements OnDestroy {
 	charges$: Observable<ICharge[]>;
 	count$: Observable<number>;
 	allChargesLoaded$: Observable<boolean>;
+	chargesSubscription: Subscription;
+
+	@ViewChild(CdkVirtualScrollViewport)
+	viewport: CdkVirtualScrollViewport | null = null;
+
+	private processingLoading = false;
 
 	constructor(
 		private chargesService: ChargesService,
@@ -23,6 +35,9 @@ export class ChargesComponent {
 	) {
 		this.count$ = this.chargesQuery.selectCount();
 		this.charges$ = this.chargesQuery.selectAll();
+		this.chargesSubscription = this.charges$.subscribe(
+			() => (this.processingLoading = false)
+		);
 		this.allChargesLoaded$ = this.chargesQuery.allChargesLoaded$;
 	}
 
@@ -34,11 +49,30 @@ export class ChargesComponent {
 		this.router.navigate(['/charges', 'charge', chargeId]);
 	}
 
-	log(event: any) {
-		console.log('Event name:', event);
+	onLoadMoreCharges() {
+		if (this.viewport) {
+			if (
+				this.chargesQuery.getSnapshot().ui.allItemsLoaded ||
+				this.processingLoading
+			) {
+				return;
+			}
+
+			const end = this.viewport.getRenderedRange().end;
+			const total = this.viewport.getDataLength();
+
+			if (end >= total - 2 || end === total) {
+				this.processingLoading = true;
+				this.chargesService.getCharges();
+			}
+		}
 	}
 
-	onLoadMoreCharges() {
-		this.chargesService.getCharges();
+	trackBy: TrackByFunction<ICharge> = (_: number, item: ICharge) => {
+		return item.id;
+	};
+
+	ngOnDestroy() {
+		this.chargesSubscription.unsubscribe();
 	}
 }

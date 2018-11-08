@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { SharedModule } from '../shared/shared.module';
 import { ChargesComponent } from './charges/charges.component';
@@ -16,7 +17,7 @@ import { ChargesResolver } from './state/charges.resolver';
 import { NewChargeResolver } from './state/new-charge.resolver';
 
 @NgModule({
-	imports: [SharedModule, ChargesRoutingModule],
+	imports: [SharedModule, ChargesRoutingModule, ScrollingModule],
 	declarations: [
 		ChargesComponent,
 		NewChargeComponent,
