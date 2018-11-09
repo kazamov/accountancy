@@ -3,9 +3,9 @@ import { Resolve } from '@angular/router';
 
 import { ChargesQuery } from './charges.query';
 import { ChargesService } from './charges.service';
-import { filter, take, map } from 'rxjs/operators';
+import { filter, take, map, catchError } from 'rxjs/operators';
 import { CategoriesService } from '../../categories/state/categories.service';
-import { combineLatest } from 'rxjs';
+import { combineLatest, of } from 'rxjs';
 import { CategoriesQuery } from '../../categories/state/categories.query';
 import { ChargesStore } from './charges.store';
 
@@ -49,7 +49,11 @@ export class ChargesResolver implements Resolve<boolean> {
 			map(
 				([isChargesLoaded, isCategoriesLoaded]) =>
 					isChargesLoaded && isCategoriesLoaded
-			)
+			),
+			catchError(error => {
+				console.log(error);
+				return of(false);
+			})
 		);
 	}
 }

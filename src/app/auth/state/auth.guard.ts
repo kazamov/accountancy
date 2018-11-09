@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { CanLoad, Router } from '@angular/router';
+import { of } from 'rxjs';
+import { tap, take, catchError } from 'rxjs/operators';
 
 import { AuthQuery } from './auth.query';
-import { tap, take } from 'rxjs/operators';
 
 @Injectable()
 export class AuthGuard implements CanLoad {
@@ -15,6 +16,10 @@ export class AuthGuard implements CanLoad {
 				if (!isAuthenticated) {
 					this.router.navigate(['/signin']);
 				}
+			}),
+			catchError(error => {
+				console.log(error);
+				return of(false);
 			})
 		);
 	}
