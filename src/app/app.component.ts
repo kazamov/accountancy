@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { SwUpdate } from '@angular/service-worker';
 import {
 	Router,
 	NavigationStart,
@@ -24,11 +25,19 @@ export class AppComponent implements OnInit, AfterViewInit {
 		private uiService: UiService,
 		private router: Router,
 		private authQuery: AuthQuery,
-		private authService: AuthService
+		private authService: AuthService,
+		private swUpdate: SwUpdate
 	) {
 		this.isAuthenticated$ = this.authQuery.select(state =>
 			Boolean(state.userId)
 		);
+		if (this.swUpdate.isEnabled) {
+			this.swUpdate.available.subscribe(() => {
+				if (confirm('Доступна новая версия приложения. Обновить?')) {
+					window.location.reload();
+				}
+			});
+		}
 	}
 
 	ngOnInit() {
