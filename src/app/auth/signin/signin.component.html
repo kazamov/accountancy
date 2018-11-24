@@ -2,7 +2,7 @@
   <mat-card-title>Вход в аккаунт</mat-card-title>
   <mat-card-content>
     <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
-      <div fxLayout="column" fxLayoutAlign="center">
+      <div class="form-content">
 
         <mat-form-field [appearance]="'standard'">
           <mat-label>E-mail</mat-label>
@@ -26,7 +26,7 @@
         </button>
       </div>
     </form>
-    <div fxLayoutAlign="center">
+    <div class="button-wrapper">
       <button mat-button class="space-top" color="primary">
         Забыли пароль?
       </button>
