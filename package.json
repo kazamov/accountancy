@@ -9,7 +9,9 @@
 		"lint": "ng lint",
 		"e2e": "ng e2e",
 		"deploy": "ng build --configuration=production && firebase deploy",
-		"format": "prettier --write src/**/*.{ts,js,html,json,scss,css}"
+		"format:app": "prettier --write src/**/*.{ts,html,json,scss,css}",
+		"format:functions": "prettier --write functions/**/*.{ts}",
+		"format": "npm run format:app && npm run format:functions"
 	},
 	"private": true,
 	"dependencies": {
