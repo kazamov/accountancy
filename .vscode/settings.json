@@ -1,4 +1,4 @@
 {
-  "editor.formatOnSave": true,
-  "html.format.wrapAttributes": "aligned-multiple"
+	"editor.formatOnSave": false,
+	"html.format.wrapAttributes": "auto"
 }
