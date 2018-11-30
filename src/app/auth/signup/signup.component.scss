@@ -1,24 +1,24 @@
 .mat-card {
-    margin: 20px;
+	margin: 20px;
 }
 
-.space-top{
-    margin-top: 20px;
+.space-top {
+	margin-top: 20px;
 }
 
 .cut-text {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }
 
 mat-card-content,
 .form-content,
 .password-field-wrapper {
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 mat-form-field {
-    display: block;
+	display: block;
 }

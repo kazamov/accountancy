@@ -1,8 +1,18 @@
 <h2 mat-dialog-title>Удалить категорию</h2>
 <mat-dialog-content>
-  <p>Вы действительно хотите удалить категорию <b>{{categoryName}}</b>?</p>
+	<p>
+		Вы действительно хотите удалить категорию <b>{{ categoryName }}</b
+		>?
+	</p>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="false">Отмена</button>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial color="primary">Удалить</button>
+	<button mat-button [mat-dialog-close]="false">Отмена</button>
+	<button
+		mat-button
+		[mat-dialog-close]="true"
+		cdkFocusInitial
+		color="primary"
+	>
+		Удалить
+	</button>
 </mat-dialog-actions>

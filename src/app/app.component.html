@@ -1,44 +1,79 @@
-<div class="progress-bar-container" *ngIf="isLoading$ | async">
-  <mat-progress-bar [mode]="'indeterminate'" [color]="'accent'"></mat-progress-bar>
+<div class="progress-bar-container" *ngIf="(isLoading$ | async)">
+	<mat-progress-bar
+		[mode]="'indeterminate'"
+		[color]="'accent'"
+	></mat-progress-bar>
 </div>
 <mat-toolbar color="primary">
-  <button mat-icon-button (click)="sidenav.toggle()">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>Бухгалтерия</span>
+	<button mat-icon-button (click)="sidenav.toggle()">
+		<mat-icon>menu</mat-icon>
+	</button>
+	<span>Бухгалтерия</span>
 </mat-toolbar>
 <mat-sidenav-container>
-  <mat-sidenav [fixedInViewport]="true" [fixedTopGap]="56" #sidenav role="navigation">
-    <mat-nav-list>
-      <a *ngIf="isAuthenticated$ | async" mat-list-item routerLink="/charges" (click)="sidenav.close()">
-        <mat-icon class="nav-item-icon">monetization_on</mat-icon>
-        <span class="nav-caption">Расходы</span>
-      </a>
-      <a *ngIf="isAuthenticated$ | async" mat-list-item routerLink="/reports" (click)="sidenav.close()">
-        <mat-icon class="nav-item-icon">assessment</mat-icon>
-        <span class="nav-caption">Отчет</span>
-      </a>
-      <a *ngIf="isAuthenticated$ | async" mat-list-item routerLink="/categories" (click)="sidenav.close()">
-        <mat-icon class="nav-item-icon">font_download</mat-icon>
-        <span class="nav-caption">Категории</span>
-      </a>
-      <a *ngIf="isAuthenticated$ | async" mat-list-item (click)="sidenav.close() && onLogout()">
-        <mat-icon class="nav-item-icon">exit_to_app</mat-icon>
-        <span class="nav-caption">Выйти</span>
-      </a>
-      <a *ngIf="!(isAuthenticated$ | async)" mat-list-item routerLink="/signin" (click)="sidenav.close()">
-        <mat-icon class="nav-item-icon">exit_to_app</mat-icon>
-        <span class="nav-caption">Войти в аккаунт</span>
-      </a>
-      <a *ngIf="!(isAuthenticated$ | async)" mat-list-item routerLink="/signup" (click)="sidenav.close()">
-        <mat-icon class="nav-item-icon">account_box</mat-icon>
-        <span class="nav-caption">Регистрация</span>
-      </a>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <main>
-      <router-outlet></router-outlet>
-    </main>
-  </mat-sidenav-content>
+	<mat-sidenav
+		[fixedInViewport]="true"
+		[fixedTopGap]="56"
+		#sidenav
+		role="navigation"
+	>
+		<mat-nav-list>
+			<a
+				*ngIf="(isAuthenticated$ | async)"
+				mat-list-item
+				routerLink="/charges"
+				(click)="sidenav.close()"
+			>
+				<mat-icon class="nav-item-icon">monetization_on</mat-icon>
+				<span class="nav-caption">Расходы</span>
+			</a>
+			<a
+				*ngIf="(isAuthenticated$ | async)"
+				mat-list-item
+				routerLink="/reports"
+				(click)="sidenav.close()"
+			>
+				<mat-icon class="nav-item-icon">assessment</mat-icon>
+				<span class="nav-caption">Отчет</span>
+			</a>
+			<a
+				*ngIf="(isAuthenticated$ | async)"
+				mat-list-item
+				routerLink="/categories"
+				(click)="sidenav.close()"
+			>
+				<mat-icon class="nav-item-icon">font_download</mat-icon>
+				<span class="nav-caption">Категории</span>
+			</a>
+			<a
+				*ngIf="(isAuthenticated$ | async)"
+				mat-list-item
+				(click)="sidenav.close() && onLogout()"
+			>
+				<mat-icon class="nav-item-icon">exit_to_app</mat-icon>
+				<span class="nav-caption">Выйти</span>
+			</a>
+			<a
+				*ngIf="!(isAuthenticated$ | async)"
+				mat-list-item
+				routerLink="/signin"
+				(click)="sidenav.close()"
+			>
+				<mat-icon class="nav-item-icon">exit_to_app</mat-icon>
+				<span class="nav-caption">Войти в аккаунт</span>
+			</a>
+			<a
+				*ngIf="!(isAuthenticated$ | async)"
+				mat-list-item
+				routerLink="/signup"
+				(click)="sidenav.close()"
+			>
+				<mat-icon class="nav-item-icon">account_box</mat-icon>
+				<span class="nav-caption">Регистрация</span>
+			</a>
+		</mat-nav-list>
+	</mat-sidenav>
+	<mat-sidenav-content>
+		<main><router-outlet></router-outlet></main>
+	</mat-sidenav-content>
 </mat-sidenav-container>

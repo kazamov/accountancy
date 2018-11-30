@@ -1,7 +1,10 @@
 <nav>
-  <a routerLink="/charges" mat-icon-button>
-    <mat-icon>keyboard_backspace</mat-icon>
-  </a>
-  <span>Расходы</span>
+	<a routerLink="/charges" mat-icon-button>
+		<mat-icon>keyboard_backspace</mat-icon>
+	</a>
+	<span>Расходы</span>
 </nav>
-<app-charge-form [data]="data" (submitCharge)="onUpdateCharge($event)"></app-charge-form>
+<app-charge-form
+	[data]="data"
+	(submitCharge)="onUpdateCharge($event)"
+></app-charge-form>

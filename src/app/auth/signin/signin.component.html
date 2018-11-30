@@ -1,35 +1,51 @@
 <mat-card>
-  <mat-card-title>Вход в аккаунт</mat-card-title>
-  <mat-card-content>
-    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
-      <div class="form-content">
+	<mat-card-title>Вход в аккаунт</mat-card-title>
+	<mat-card-content>
+		<form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+			<div class="form-content">
+				<mat-form-field [appearance]="'standard'">
+					<mat-label>E-mail</mat-label>
+					<input
+						matInput
+						placeholder="E-mail"
+						[formControlName]="'email'"
+						required
+					/>
+					<mat-icon matSuffix>email</mat-icon>
+					<mat-error *ngIf="emailControl!.hasError('required')">
+						Обязательное поле
+					</mat-error>
+				</mat-form-field>
 
-        <mat-form-field [appearance]="'standard'">
-          <mat-label>E-mail</mat-label>
-          <input matInput placeholder="E-mail" [formControlName]="'email'" required>
-          <mat-icon matSuffix>email</mat-icon>
-          <mat-error *ngIf="emailControl!.hasError('required')">
-            Обязательное поле
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field [appearance]="'standard'">
-          <mat-label>Пароль</mat-label>
-          <input matInput type="password" placeholder="Пароль" [formControlName]="'password'" required>
-          <mat-icon matSuffix>lock</mat-icon>
-          <mat-error *ngIf="passwordControl!.hasError('required')">
-            Обязательное поле
-          </mat-error>
-        </mat-form-field>
-        <button mat-raised-button type="submit" class="space-top" color="primary" [disabled]="signInForm!.invalid">
-          Войти
-        </button>
-      </div>
-    </form>
-    <div class="button-wrapper">
-      <button mat-button class="space-top" color="primary">
-        Забыли пароль?
-      </button>
-    </div>
-  </mat-card-content>
+				<mat-form-field [appearance]="'standard'">
+					<mat-label>Пароль</mat-label>
+					<input
+						matInput
+						type="password"
+						placeholder="Пароль"
+						[formControlName]="'password'"
+						required
+					/>
+					<mat-icon matSuffix>lock</mat-icon>
+					<mat-error *ngIf="passwordControl!.hasError('required')">
+						Обязательное поле
+					</mat-error>
+				</mat-form-field>
+				<button
+					mat-raised-button
+					type="submit"
+					class="space-top"
+					color="primary"
+					[disabled]="signInForm!.invalid"
+				>
+					Войти
+				</button>
+			</div>
+		</form>
+		<div class="button-wrapper">
+			<button mat-button class="space-top" color="primary">
+				Забыли пароль?
+			</button>
+		</div>
+	</mat-card-content>
 </mat-card>

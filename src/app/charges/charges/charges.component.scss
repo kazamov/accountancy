@@ -1,18 +1,18 @@
 .add-new-charge-btn {
-    position: fixed;
-    bottom: 16px;
-    right: 16px;
+	position: fixed;
+	bottom: 16px;
+	right: 16px;
 }
 
 p {
-    text-align: center;
+	text-align: center;
 }
 
 .load-more-charges-btn {
-    display: block;
-    margin: 10px auto 0 auto;
+	display: block;
+	margin: 10px auto 0 auto;
 }
 
 cdk-virtual-scroll-viewport {
-    height: calc(100vh - 56px - 10px);
+	height: calc(100vh - 56px - 10px);
 }
