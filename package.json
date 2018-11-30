@@ -10,7 +10,7 @@
 		"e2e": "ng e2e",
 		"deploy": "ng build --configuration=production && firebase deploy",
 		"format:app": "prettier --write src/**/*.{ts,html,json,scss,css}",
-		"format:functions": "prettier --write functions/**/*.{ts}",
+		"format:functions": "prettier --write functions/**/*.{ts,json}",
 		"format": "npm run format:app && npm run format:functions"
 	},
 	"private": true,
