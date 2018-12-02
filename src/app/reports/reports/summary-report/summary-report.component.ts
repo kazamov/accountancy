@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IGroup } from 'data';
 
-import { IGroup } from '../../state/report.store';
 import { ReportQuery } from '../../state/report.query';
 import { ReportService } from '../../state/report.service';
 

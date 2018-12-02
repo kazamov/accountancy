@@ -3,9 +3,9 @@ import { AngularFireFunctions } from '@angular/fire/functions';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { IReport } from 'data';
 
 import {
-	IReport,
 	ReportStore,
 	ISearchCriteria,
 	createInitialState

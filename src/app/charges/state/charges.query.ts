@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { QueryEntity } from '@datorama/akita';
+import { ICharge } from 'data';
 
 import { ChargesStore, ChargesState } from './charges.store';
-import { ICharge } from './charge.model';
 
 @Injectable()
 export class ChargesQuery extends QueryEntity<ChargesState, ICharge> {

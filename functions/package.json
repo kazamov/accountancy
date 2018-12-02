@@ -15,7 +15,8 @@
 	"main": "lib/index.js",
 	"dependencies": {
 		"firebase-admin": "^6.3.0",
-		"firebase-functions": "^2.1.0"
+		"firebase-functions": "^2.1.0",
+		"data": "file:../../data/"
 	},
 	"devDependencies": {
 		"@types/node": "^10.9.4",

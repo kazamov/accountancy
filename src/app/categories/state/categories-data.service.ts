@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ID } from '@datorama/akita';
 import { take } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { ICategory } from 'data';
 
-import { ICategory } from './category.model';
 import { AuthQuery } from '../../auth/state/auth.query';
 import { BackendCollections } from '../../shared/backend-collections.enum';
 
@@ -25,7 +24,7 @@ export class CategoriesDataService {
 			.pipe(take(1));
 	}
 
-	deleteCategory(id: ID) {
+	deleteCategory(id: string) {
 		const userId = this.authQuery.getSnapshot().userId;
 
 		const categoryDoc = this.db
@@ -57,11 +56,11 @@ export class CategoriesDataService {
 				name: name
 			})
 			.then(() => {
-				return newCategoryId as ID;
+				return newCategoryId;
 			});
 	}
 
-	updateCategory(id: ID, name: string) {
+	updateCategory(id: string, name: string) {
 		const userId = this.authQuery.getSnapshot().userId;
 
 		const categoryDoc = this.db

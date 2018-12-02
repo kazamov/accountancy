@@ -17,6 +17,7 @@ install:
 
 script:
     - npm run build -- --configuration=production
+    - npm --prefix functions run build
 
 after_success:
     - npx firebase deploy --token $FIREBASE_TOKEN

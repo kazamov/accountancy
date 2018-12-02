@@ -1,11 +1,6 @@
-import { ID } from '@datorama/akita';
+import { ICategory } from 'data';
 
-export interface ICategory {
-	id: ID;
-	name: string;
-}
-
-export function createCategory(id: ID, name: string): ICategory {
+export function createCategory(id: string, name: string): ICategory {
 	return {
 		id,
 		name

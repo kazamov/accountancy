@@ -8,10 +8,9 @@ import {
 } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatDatepicker } from '@angular/material';
-
-import { ICharge } from '../../state/charge.model';
 import { Observable } from 'rxjs';
-import { ICategory } from '../../../categories/state/category.model';
+import { ICategory, ICharge } from 'data';
+
 import { CategoriesQuery } from '../../../categories/state/categories.query';
 
 @Component({

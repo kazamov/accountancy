@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { of, combineLatest } from 'rxjs';
 import { filter, take, map } from 'rxjs/operators';
+import { ICharge } from 'data';
 
-import { ICharge } from './charge.model';
 import { ChargesQuery } from './charges.query';
 import { ChargesService } from './charges.service';
 import { CategoriesService } from '../../categories/state/categories.service';

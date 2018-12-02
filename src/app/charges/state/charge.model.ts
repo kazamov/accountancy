@@ -1,23 +1,13 @@
-import { ID } from '@datorama/akita';
-
-import { ICategory } from '../../categories/state/category.model';
-
-export interface ICharge {
-	id: ID;
-	date: Date;
-	category: ICategory['id'];
-	price: number;
-	description?: string;
-}
+import { ICharge } from 'data';
 
 export interface IChargeData {
-	date: Date;
-	category: ICategory['id'];
-	price: number;
-	description?: string;
+	date: ICharge['date'];
+	category: ICharge['category'];
+	price: ICharge['price'];
+	description?: ICharge['description'];
 }
 
-export function createCharge(id: ID, chargeData: IChargeData) {
+export function createCharge(id: string, chargeData: IChargeData) {
 	return {
 		id,
 		...chargeData

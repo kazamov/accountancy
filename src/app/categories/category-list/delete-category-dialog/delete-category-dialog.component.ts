@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
-
-import { ICategory } from '../../state/category.model';
+import { ICategory } from 'data';
 
 @Component({
 	selector: 'app-delete-category-dialog',

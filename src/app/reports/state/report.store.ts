@@ -1,16 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store, StoreConfig } from '@datorama/akita';
+import { IReport } from 'data';
 
-import { ICategory } from '../../categories/state/category.model';
-
-export interface IGroup {
-	groupId: ICategory['id'];
-	total: number;
-}
-export interface IReport {
-	groups: IGroup[];
-	total: number;
-}
 export interface ISearchCriteria {
 	startDate: null | number;
 	endDate: null | number;

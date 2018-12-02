@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { ICharge, IChargeData } from '../../state/charge.model';
+import { ICharge } from 'data';
+import { IChargeData } from '../../state/charge.model';
 import { ChargesService } from '../../state/charges.service';
 
 @Component({

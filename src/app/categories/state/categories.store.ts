@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { EntityState, EntityStore, StoreConfig } from '@datorama/akita';
-
-import { ICategory } from './category.model';
+import { ICategory } from 'data';
 
 export interface CategoriesState extends EntityState<ICategory> {}
 

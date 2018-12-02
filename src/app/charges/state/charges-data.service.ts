@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ID } from '@datorama/akita';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { take, map } from 'rxjs/operators';
+import { ICharge } from 'data';
 
-import { ICharge, IChargeData } from './charge.model';
+import { IChargeData } from './charge.model';
 import { AuthQuery } from '../../auth/state/auth.query';
 import { BackendCollections } from '../../shared/backend-collections.enum';
 
@@ -49,7 +49,7 @@ export class ChargesDataService {
 			);
 	}
 
-	getCharge(id: ID) {
+	getCharge(id: string) {
 		const userId = this.authQuery.getSnapshot().userId;
 		const chargeDocRef = this.db
 			.collection<ICharge>(
@@ -73,7 +73,7 @@ export class ChargesDataService {
 		);
 	}
 
-	deleteCharge(id: ID) {
+	deleteCharge(id: string) {
 		const userId = this.authQuery.getSnapshot().userId;
 
 		const chargeDoc = this.db
@@ -105,11 +105,11 @@ export class ChargesDataService {
 				...chargeData
 			})
 			.then(() => {
-				return newChargeId as ID;
+				return newChargeId;
 			});
 	}
 
-	updateCharge(id: ID, chargeData: IChargeData) {
+	updateCharge(id: string, chargeData: IChargeData) {
 		const userId = this.authQuery.getSnapshot().userId;
 
 		const chargeDoc = this.db

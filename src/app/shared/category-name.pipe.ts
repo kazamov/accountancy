@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ID } from '@datorama/akita';
 
 import { CategoriesQuery } from '../categories/state/categories.query';
 
@@ -10,7 +9,7 @@ import { CategoriesQuery } from '../categories/state/categories.query';
 export class CategoryNamePipe implements PipeTransform {
 	constructor(private categoriesQuery: CategoriesQuery) {}
 
-	transform(categoryId: ID): string {
+	transform(categoryId: string): string {
 		const category = this.categoriesQuery.getEntity(categoryId);
 		return category.name;
 	}

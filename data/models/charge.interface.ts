@@ -1,7 +1,9 @@
+import { ICategory } from './category.interface';
+
 export interface ICharge {
 	id: string;
 	date: Date;
-	category: string;
+	category: ICategory['id'];
 	price: number;
 	description?: string;
 }

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ID } from '@datorama/akita';
 
 import { ChargesStore } from './charges.store';
 import { ChargesDataService } from './charges-data.service';
@@ -40,7 +39,7 @@ export class ChargesService {
 			);
 	}
 
-	getCharge(id: ID) {
+	getCharge(id: string) {
 		this.chargesStore.setLoading(true);
 		this.chargesDataService.getCharge(id).subscribe(
 			charge => {
@@ -53,7 +52,7 @@ export class ChargesService {
 		);
 	}
 
-	async deleteCharge(id: ID) {
+	async deleteCharge(id: string) {
 		try {
 			this.chargesStore.setLoading(true);
 			await this.chargesDataService.deleteCharge(id);
@@ -80,7 +79,7 @@ export class ChargesService {
 		}
 	}
 
-	async updateCharge(id: ID, chargeData: IChargeData) {
+	async updateCharge(id: string, chargeData: IChargeData) {
 		try {
 			this.chargesStore.setLoading(true);
 			await this.chargesDataService.updateCharge(id, chargeData);

@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { ID } from '@datorama/akita';
 import { Observable } from 'rxjs';
+import { ICategory } from 'data';
 
-import { ICategory } from '../state/category.model';
 import { CategoriesQuery } from '../state/categories.query';
 import { CategoriesService } from '../state/categories.service';
 import { CategoryDialogComponent } from './category-dialog/category-dialog.component';
@@ -39,7 +38,7 @@ export class CategoryListComponent {
 		});
 	}
 
-	onCategoryDeleteEnd(id: ID) {
+	onCategoryDeleteEnd(id: string) {
 		this.categoriesService.deleteCategory(id);
 	}
 
@@ -69,7 +68,7 @@ export class CategoryListComponent {
 		});
 	}
 
-	onCategoryUpdateEnd(id: ID, name: string) {
+	onCategoryUpdateEnd(id: string, name: string) {
 		this.categoriesService.updateCategory(id, name);
 	}
 }

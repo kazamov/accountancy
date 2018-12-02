@@ -7,9 +7,9 @@ import {
 import { Router } from '@angular/router';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { Observable, Subscription } from 'rxjs';
+import { ICharge } from 'data';
 
 import { ChargesQuery } from '../state/charges.query';
-import { ICharge } from '../state/charge.model';
 import { ChargesService } from '../state/charges.service';
 
 @Component({

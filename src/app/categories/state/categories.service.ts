@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ID } from '@datorama/akita';
 
 import { CategoriesDataService } from './categories-data.service';
 import { CategoriesStore } from './categories.store';
@@ -23,7 +22,7 @@ export class CategoriesService {
 		);
 	}
 
-	async deleteCategory(id: ID) {
+	async deleteCategory(id: string) {
 		try {
 			this.categoriesStore.setLoading(true);
 			await this.categoriesDataService.deleteCategory(id);
@@ -49,7 +48,7 @@ export class CategoriesService {
 		}
 	}
 
-	async updateCategory(id: ID, name: string) {
+	async updateCategory(id: string, name: string) {
 		try {
 			this.categoriesStore.setLoading(true);
 			await this.categoriesDataService.updateCategory(id, name);
