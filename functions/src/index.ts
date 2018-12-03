@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+import { ISearchCriteria } from 'data';
 
 import { onUserCreateFunction } from './user-create.function';
 import { onCreateChargesFunction } from './create-charges.function';
@@ -16,8 +17,6 @@ export const onUserCreate = functions
 
 export const onCreateChargesReport = functions
 	.region('europe-west1')
-	.https.onCall(
-		async (data: { startDate?: number; endDate?: number }, context) => {
-			onCreateChargesFunction(data, context, db);
-		}
-	);
+	.https.onCall(async (data: ISearchCriteria, context) => {
+		onCreateChargesFunction(data, context, db);
+	});

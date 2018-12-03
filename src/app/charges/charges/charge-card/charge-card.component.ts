@@ -12,9 +12,14 @@ export class ChargeCardComponent {
 	@Output()
 	deleteCharge = new EventEmitter<string>();
 
-	onDelete() {
+	onDelete(event: MouseEvent) {
 		if (this.charge) {
 			this.deleteCharge.emit(this.charge.id);
 		}
+
+		event.cancelBubble = true;
+		event.stopPropagation();
+
+		return false;
 	}
 }
