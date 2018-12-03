@@ -3,7 +3,6 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { take, map } from 'rxjs/operators';
 import { ICharge } from 'data';
 
-import { IChargeData } from './charge.model';
 import { AuthQuery } from '../../auth/state/auth.query';
 import { BackendCollections } from '../../shared/backend-collections.enum';
 
@@ -87,7 +86,7 @@ export class ChargesDataService {
 		return chargeDoc.delete();
 	}
 
-	addCharge(chargeData: IChargeData) {
+	addCharge(chargeData: Partial<ICharge>) {
 		const userId = this.authQuery.getSnapshot().userId;
 		const newChargeId = this.db.createId();
 
@@ -99,17 +98,26 @@ export class ChargesDataService {
 			)
 			.doc<ICharge>(newChargeId);
 
-		return newChargeDoc
-			.set({
-				id: newChargeId,
-				...chargeData
-			})
-			.then(() => {
-				return newChargeId;
+		if (chargeData.category && chargeData.date && chargeData.price) {
+			return newChargeDoc
+				.set({
+					id: newChargeId,
+					category: chargeData.category,
+					date: chargeData.date,
+					price: chargeData.price,
+					description: chargeData.description
+				})
+				.then(() => {
+					return newChargeId;
+				});
+		} else {
+			return Promise.reject({
+				message: 'Some required field is empty'
 			});
+		}
 	}
 
-	updateCharge(id: string, chargeData: IChargeData) {
+	updateCharge(id: string, chargeData: Partial<ICharge>) {
 		const userId = this.authQuery.getSnapshot().userId;
 
 		const chargeDoc = this.db

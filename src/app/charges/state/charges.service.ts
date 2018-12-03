@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ICharge } from 'data';
 
 import { ChargesStore } from './charges.store';
 import { ChargesDataService } from './charges-data.service';
-import { IChargeData, createCharge } from './charge.model';
+import { createCharge } from './charge.model';
 import { ChargesQuery } from './charges.query';
 
 @Injectable()
@@ -64,7 +65,7 @@ export class ChargesService {
 		}
 	}
 
-	async addCharge(chargeData: IChargeData) {
+	async addCharge(chargeData: Partial<ICharge>) {
 		try {
 			this.chargesStore.setLoading(true);
 			const newId = await this.chargesDataService.addCharge(chargeData);
@@ -79,7 +80,7 @@ export class ChargesService {
 		}
 	}
 
-	async updateCharge(id: string, chargeData: IChargeData) {
+	async updateCharge(id: string, chargeData: Partial<ICharge>) {
 		try {
 			this.chargesStore.setLoading(true);
 			await this.chargesDataService.updateCharge(id, chargeData);

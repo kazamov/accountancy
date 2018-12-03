@@ -1,9 +1,9 @@
 import * as functions from 'firebase-functions';
-import { ICharge, IReport } from 'data';
+import { ICharge, IReport, ISearchCriteria } from 'data';
 import { groupBy, aggregateSum } from './report-helpers';
 
 export async function onCreateChargesFunction(
-	data: { startDate?: number; endDate?: number },
+	data: ISearchCriteria,
 	context: functions.https.CallableContext,
 	db: FirebaseFirestore.Firestore
 ) {

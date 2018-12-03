@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ICharge } from 'data';
-import { IChargeData } from '../../state/charge.model';
 import { ChargesService } from '../../state/charges.service';
 
 @Component({
@@ -20,7 +19,7 @@ export class EditChargeComponent {
 		this.data = activatedRoute.snapshot.data['chargeData'];
 	}
 
-	onUpdateCharge(chargeData: IChargeData) {
+	onUpdateCharge(chargeData: Partial<ICharge>) {
 		this.chargesService.updateCharge(this.data.id, chargeData);
 	}
 }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { ICharge } from 'data';
 
-import { IChargeData } from '../../state/charge.model';
 import { ChargesService } from '../../state/charges.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class NewChargeComponent {
 
 	constructor(private chargesService: ChargesService) {}
 
-	onCreateCharge(chargeData: IChargeData) {
+	onCreateCharge(chargeData: Partial<ICharge>) {
 		this.chargesService.addCharge(chargeData);
 	}
 }

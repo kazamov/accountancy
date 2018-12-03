@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { filter, take, map } from 'rxjs/operators';
+import { ISearchCriteria } from 'data';
 
 import { CategoriesService } from '../../categories/state/categories.service';
 import { CategoriesQuery } from '../../categories/state/categories.query';
 import { ReportQuery } from './report.query';
 import { ReportService } from './report.service';
-import { ISearchCriteria } from './report.store';
 
 @Injectable()
 export class ReportResolver implements Resolve<boolean> {

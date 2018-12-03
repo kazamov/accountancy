@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store, StoreConfig } from '@datorama/akita';
-import { IReport } from 'data';
+import { IReport, ISearchCriteria } from 'data';
 
-export interface ISearchCriteria {
-	startDate: null | number;
-	endDate: null | number;
-}
 export interface ReportState {
 	criteria: ISearchCriteria;
 	report: IReport;
