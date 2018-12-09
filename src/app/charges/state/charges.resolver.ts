@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
+import { combineLatest, of } from 'rxjs';
 import { filter, take, map, catchError } from 'rxjs/operators';
 
 import { ChargesQuery } from './charges.query';
 import { ChargesService } from './charges.service';
 import { CategoriesService } from '../../categories/state/categories.service';
-import { combineLatest, of } from 'rxjs';
 import { CategoriesQuery } from '../../categories/state/categories.query';
 import { ChargesStore } from './charges.store';
 
