@@ -11,12 +11,16 @@ const db = admin.firestore();
 export const onUserCreate = functions
 	.region('europe-west1')
 	.auth.user()
-	.onCreate(async (user, context) => {
-		onUserCreateFunction(user, context, db);
+	.onCreate((user, context) => {
+		onUserCreateFunction(user, context, db).catch(error =>
+			console.log(error)
+		);
 	});
 
 export const onCreateChargesReport = functions
 	.region('europe-west1')
-	.https.onCall(async (data: ISearchCriteria, context) => {
-		onCreateChargesFunction(data, context, db);
+	.https.onCall((data: ISearchCriteria, context) => {
+		onCreateChargesFunction(data, context, db).catch(error =>
+			console.log(error)
+		);
 	});
