@@ -1,5 +1,5 @@
 import * as functions from 'firebase-functions';
-import { ICharge, IReport, ISearchCriteria } from 'data';
+import { ICharge, IReport, ISearchCriteria } from './data';
 import { groupBy, aggregateSum } from './report-helpers';
 
 export async function onCreateChargesFunction(
