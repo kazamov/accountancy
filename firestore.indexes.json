@@ -1,17 +1,30 @@
 {
-  "indexes": [
-    {
-      "collectionId": "charges",
-      "fields": [
-        {
-          "fieldPath": "date",
-          "mode": "DESCENDING"
-        },
-        {
-          "fieldPath": "id",
-          "mode": "ASCENDING"
-        }
-      ]
-    }
-  ]
+	"indexes": [
+		{
+			"collectionId": "charges",
+			"fields": [
+				{
+					"fieldPath": "date",
+					"mode": "DESCENDING"
+				},
+				{
+					"fieldPath": "id",
+					"mode": "ASCENDING"
+				}
+			]
+		},
+		{
+			"collectionId": "charges",
+			"fields": [
+				{
+					"fieldPath": "date",
+					"mode": "ASCENDING"
+				},
+				{
+					"fieldPath": "id",
+					"mode": "ASCENDING"
+				}
+			]
+		}
+	]
 }

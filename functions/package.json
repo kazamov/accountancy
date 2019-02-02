@@ -19,6 +19,7 @@
 	},
 	"devDependencies": {
 		"@types/node": "^10.9.4",
+		"firebase-tools": "^6.3.1",
 		"tslint": "^5.11.0",
 		"typescript": "^3.2.1"
 	},

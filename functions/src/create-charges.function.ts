@@ -19,7 +19,10 @@ export async function onCreateChargesFunction(
 
 	try {
 		const userDocRef = db.collection('users').doc(context.auth.uid);
-		let chargesQuery = userDocRef.collection('charges').orderBy('date');
+		let chargesQuery = userDocRef
+			.collection('charges')
+			.orderBy('date')
+			.orderBy('id');
 
 		if (data.startDate) {
 			chargesQuery = chargesQuery.where(
