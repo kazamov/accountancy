@@ -29,7 +29,6 @@ export class ReportService {
 			.pipe(take(1))
 			.subscribe(
 				report => {
-					console.log(report);
 					this.reportStore.setState(state => {
 						return {
 							...state,
