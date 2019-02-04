@@ -4,8 +4,14 @@ mat-card {
 
 .charge-field {
 	margin-bottom: 5px;
-}
-
-.charge-field > label {
-	margin-right: 5px;
+	display: flex;
+	label {
+		margin-right: 5px;
+	}
+	span {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		flex: 1;
+	}
 }
