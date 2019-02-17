@@ -2,6 +2,7 @@
 	<cdk-virtual-scroll-viewport
 		itemSize="160"
 		(scrolledIndexChange)="onLoadMoreCharges()"
+		*ngIf="charges.length > 0"
 	>
 		<app-charge-card
 			*cdkVirtualFor="let charge of charges; trackBy: trackBy"

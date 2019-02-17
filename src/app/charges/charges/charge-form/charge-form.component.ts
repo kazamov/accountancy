@@ -50,6 +50,10 @@ export class ChargeFormComponent implements OnInit {
 				category: this.data.category,
 				description: this.data.description
 			});
+		} else {
+			this.form.patchValue({
+				date: new Date()
+			});
 		}
 	}
 

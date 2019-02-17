@@ -29,7 +29,6 @@ export class SummaryReportComponent implements OnInit {
 		if (report) {
 			this.dataSource = new MatTableDataSource(report.groups);
 			if (this.sort) {
-				debugger;
 				this.dataSource.sort = this.sort;
 			}
 			this.total = report.total;
