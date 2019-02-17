@@ -15,7 +15,8 @@ import {
 	MatDividerModule,
 	MatDialogModule,
 	MatTableModule,
-	MatProgressBarModule
+	MatProgressBarModule,
+	MatSortModule
 } from '@angular/material';
 
 @NgModule({
@@ -34,7 +35,8 @@ import {
 		MatDividerModule,
 		MatDialogModule,
 		MatTableModule,
-		MatProgressBarModule
+		MatProgressBarModule,
+		MatSortModule
 	],
 	exports: [
 		MatSidenavModule,
@@ -51,7 +53,8 @@ import {
 		MatDividerModule,
 		MatDialogModule,
 		MatTableModule,
-		MatProgressBarModule
+		MatProgressBarModule,
+		MatSortModule
 	]
 })
 export class MaterialModule {}

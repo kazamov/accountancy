@@ -4,9 +4,9 @@
 	</button>
 	<span>К форме поиска</span>
 </nav>
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 	<ng-container matColumnDef="category">
-		<th mat-header-cell *matHeaderCellDef>Категория</th>
+		<th mat-header-cell *matHeaderCellDef mat-sort-header>Категория</th>
 		<td mat-cell *matCellDef="let element">
 			{{ element.groupId | categoryName }}
 		</td>
@@ -14,7 +14,7 @@
 	</ng-container>
 
 	<ng-container matColumnDef="sum">
-		<th mat-header-cell *matHeaderCellDef>Сумма</th>
+		<th mat-header-cell *matHeaderCellDef mat-sort-header>Сумма</th>
 		<td mat-cell *matCellDef="let element">
 			{{ element.total | currency: 'UAH':'symbol-narrow' }}
 		</td>

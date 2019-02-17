@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort, MatTableDataSource } from '@angular/material';
 import { IGroup } from 'data';
 
 import { ReportQuery } from '../../state/report.query';
@@ -11,18 +12,26 @@ import { ReportService } from '../../state/report.service';
 })
 export class SummaryReportComponent implements OnInit {
 	displayedColumns = ['category', 'sum'];
-	dataSource: IGroup[] = [];
+	dataSource: MatTableDataSource<IGroup>;
 	total = 0;
+
+	@ViewChild(MatSort) sort: MatSort | null = null;
 
 	constructor(
 		private reportQuery: ReportQuery,
 		private reportService: ReportService
-	) {}
+	) {
+		this.dataSource = new MatTableDataSource([] as IGroup[]);
+	}
 
 	ngOnInit() {
 		const report = this.reportQuery.getSnapshot().report;
 		if (report) {
-			this.dataSource = report.groups;
+			this.dataSource = new MatTableDataSource(report.groups);
+			if (this.sort) {
+				debugger;
+				this.dataSource.sort = this.sort;
+			}
 			this.total = report.total;
 		}
 	}
