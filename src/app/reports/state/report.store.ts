@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Store, StoreConfig } from '@datorama/akita';
-import { IReport, ISearchCriteria } from 'data';
+import { ISearchCriteria, IPreparedReport } from 'data';
 
 export interface ReportState {
 	criteria: ISearchCriteria;
-	report: IReport;
+	report: IPreparedReport;
 }
 
 export function createInitialState(): ReportState {

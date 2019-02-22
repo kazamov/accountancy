@@ -3,9 +3,10 @@ import { AngularFireFunctions } from '@angular/fire/functions';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { IReport, ISearchCriteria } from 'data';
+import { IReport, ISearchCriteria, IPreparedReport } from 'data';
 
 import { ReportStore, createInitialState } from './report.store';
+import { CategoryNamePipe } from '../../shared/category-name.pipe';
 
 @Injectable()
 export class ReportService {
@@ -16,7 +17,8 @@ export class ReportService {
 	constructor(
 		private afFunctions: AngularFireFunctions,
 		private reportStore: ReportStore,
-		private router: Router
+		private router: Router,
+		private categoryNamePipe: CategoryNamePipe
 	) {
 		this.onCreateChargesReportFunction = this.afFunctions.httpsCallable(
 			'onCreateChargesReport'
@@ -29,10 +31,22 @@ export class ReportService {
 			.pipe(take(1))
 			.subscribe(
 				report => {
+					const preparedReport: IPreparedReport = {
+						groups: report.groups.map(group => {
+							return {
+								groupName: this.categoryNamePipe.transform(
+									group.groupId
+								),
+								total: group.total
+							};
+						}),
+						total: report.total
+					};
+
 					this.reportStore.setState(state => {
 						return {
 							...state,
-							report
+							report: preparedReport
 						};
 					});
 					this.reportStore.setLoading(false);

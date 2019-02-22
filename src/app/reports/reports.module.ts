@@ -14,6 +14,7 @@ import { ReportStore } from './state/report.store';
 import { ReportService } from './state/report.service';
 import { SummaryReportComponent } from './reports/summary-report/summary-report.component';
 import { ReportResolver } from './state/report.resolver';
+import { CategoryNamePipe } from '../shared/category-name.pipe';
 
 @NgModule({
 	imports: [SharedModule, ReportsRoutingModule, AngularFireFunctionsModule],
@@ -28,6 +29,7 @@ import { ReportResolver } from './state/report.resolver';
 		ReportStore,
 		ReportService,
 		ReportResolver,
+		CategoryNamePipe,
 		{ provide: FunctionsRegionToken, useValue: 'europe-west1' }
 	]
 })
