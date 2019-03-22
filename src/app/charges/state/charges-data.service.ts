@@ -11,7 +11,7 @@ export class ChargesDataService {
 	constructor(private db: AngularFirestore, private authQuery: AuthQuery) {}
 
 	getCharges(pageSize: number, lastItem: ICharge | null) {
-		const userId = this.authQuery.getSnapshot().userId;
+		const userId = this.authQuery.getValue().userId;
 
 		return this.db
 			.collection<ICharge>(
@@ -49,7 +49,7 @@ export class ChargesDataService {
 	}
 
 	getCharge(id: string) {
-		const userId = this.authQuery.getSnapshot().userId;
+		const userId = this.authQuery.getValue().userId;
 		const chargeDocRef = this.db
 			.collection<ICharge>(
 				`${BackendCollections.USERS}/${userId}/${
@@ -73,7 +73,7 @@ export class ChargesDataService {
 	}
 
 	deleteCharge(id: string) {
-		const userId = this.authQuery.getSnapshot().userId;
+		const userId = this.authQuery.getValue().userId;
 
 		const chargeDoc = this.db
 			.collection<ICharge>(
@@ -87,7 +87,7 @@ export class ChargesDataService {
 	}
 
 	addCharge(chargeData: Partial<ICharge>) {
-		const userId = this.authQuery.getSnapshot().userId;
+		const userId = this.authQuery.getValue().userId;
 		const newChargeId = this.db.createId();
 
 		const newChargeDoc = this.db
@@ -118,7 +118,7 @@ export class ChargesDataService {
 	}
 
 	updateCharge(id: string, chargeData: Partial<ICharge>) {
-		const userId = this.authQuery.getSnapshot().userId;
+		const userId = this.authQuery.getValue().userId;
 
 		const chargeDoc = this.db
 			.collection<ICharge>(

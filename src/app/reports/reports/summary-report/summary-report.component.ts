@@ -25,7 +25,7 @@ export class SummaryReportComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const report = this.reportQuery.getSnapshot().report;
+		const report = this.reportQuery.getValue().report;
 		if (report) {
 			this.dataSource = new MatTableDataSource(report.groups);
 			if (this.sort) {

@@ -26,7 +26,7 @@ export class ChargesStore extends EntityStore<ChargesState, ICharge> {
 	}
 
 	updateLastItem(lastItem: ICharge) {
-		this.updateRoot(state => {
+		this.update(state => {
 			return {
 				...state,
 				ui: {
@@ -38,7 +38,7 @@ export class ChargesStore extends EntityStore<ChargesState, ICharge> {
 	}
 
 	updateAllItemsLoaded(allItemsLoaded: boolean) {
-		this.updateRoot(state => {
+		this.update(state => {
 			return {
 				...state,
 				ui: {

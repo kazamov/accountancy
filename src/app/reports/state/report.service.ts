@@ -43,7 +43,7 @@ export class ReportService {
 						total: report.total
 					};
 
-					this.reportStore.setState(state => {
+					this.reportStore.update(state => {
 						return {
 							...state,
 							report: preparedReport
@@ -59,7 +59,7 @@ export class ReportService {
 	}
 
 	backwardToSearchForm() {
-		this.reportStore.setState(state => {
+		this.reportStore.update(state => {
 			return {
 				...state,
 				...createInitialState()
@@ -69,7 +69,7 @@ export class ReportService {
 	}
 
 	forwardToReport(searchCriteria: ISearchCriteria) {
-		this.reportStore.setState(state => {
+		this.reportStore.update(state => {
 			return {
 				...state,
 				criteria: searchCriteria

@@ -21,8 +21,7 @@ export class ReportResolver implements Resolve<boolean> {
 	resolve() {
 		this.categoriesService.getCategories();
 
-		const criteria: ISearchCriteria = this.reportQuery.getSnapshot()
-			.criteria;
+		const criteria: ISearchCriteria = this.reportQuery.getValue().criteria;
 		this.reportService.generateReport(criteria);
 
 		return combineLatest(

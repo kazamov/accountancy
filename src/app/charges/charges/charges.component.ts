@@ -52,7 +52,7 @@ export class ChargesComponent implements OnDestroy {
 	onLoadMoreCharges() {
 		if (this.viewport) {
 			if (
-				this.chargesQuery.getSnapshot().ui.allItemsLoaded ||
+				this.chargesQuery.getValue().ui.allItemsLoaded ||
 				this.processingLoading
 			) {
 				return;

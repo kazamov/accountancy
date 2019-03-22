@@ -11,7 +11,7 @@ export class CategoriesDataService {
 	constructor(private db: AngularFirestore, private authQuery: AuthQuery) {}
 
 	getCategories() {
-		const userId = this.authQuery.getSnapshot().userId;
+		const userId = this.authQuery.getValue().userId;
 
 		return this.db
 			.collection<ICategory>(
@@ -25,7 +25,7 @@ export class CategoriesDataService {
 	}
 
 	deleteCategory(id: string) {
-		const userId = this.authQuery.getSnapshot().userId;
+		const userId = this.authQuery.getValue().userId;
 
 		const categoryDoc = this.db
 			.collection<ICategory>(
@@ -39,7 +39,7 @@ export class CategoriesDataService {
 	}
 
 	addCategory(name: string) {
-		const userId = this.authQuery.getSnapshot().userId;
+		const userId = this.authQuery.getValue().userId;
 		const newCategoryId = this.db.createId();
 
 		const newCategoryDoc = this.db
@@ -61,7 +61,7 @@ export class CategoriesDataService {
 	}
 
 	updateCategory(id: string, name: string) {
-		const userId = this.authQuery.getSnapshot().userId;
+		const userId = this.authQuery.getValue().userId;
 
 		const categoryDoc = this.db
 			.collection<ICategory>(

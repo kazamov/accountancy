@@ -20,7 +20,7 @@ export class ChargesResolver implements Resolve<boolean> {
 	) {}
 
 	resolve() {
-		this.chargesStore.updateRoot(state => {
+		this.chargesStore.update(state => {
 			return {
 				...state,
 				ui: {

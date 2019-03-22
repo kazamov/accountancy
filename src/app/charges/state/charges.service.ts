@@ -17,7 +17,7 @@ export class ChargesService {
 	) {}
 
 	getCharges() {
-		const chargesUiSettings = this.chargesQuery.getSnapshot().ui;
+		const chargesUiSettings = this.chargesQuery.getValue().ui;
 
 		this.chargesStore.setLoading(true);
 		this.chargesDataService
