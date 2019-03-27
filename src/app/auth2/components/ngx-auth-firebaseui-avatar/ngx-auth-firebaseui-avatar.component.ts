@@ -4,8 +4,6 @@ import { User } from 'firebase';
 import { Observable, of } from 'rxjs';
 import { MatDialog } from '@angular/material';
 
-import { UserComponent } from '../../components/ngx-auth-firebaseui-user/user.component';
-
 export interface LinkMenuItem {
 	text: string;
 	icon?: string;
@@ -59,7 +57,7 @@ export class NgxAuthFirebaseuiAvatarComponent implements OnInit {
 	}
 
 	openProfile() {
-		this.dialog.open(UserComponent);
+		// this.dialog.open(UserComponent);
 	}
 
 	async signOut() {

@@ -98,11 +98,11 @@ export class AuthComponent implements OnInit, OnChanges, OnDestroy {
 	authProvider = AuthProvider;
 	passwordResetWished = false;
 
-	public signInFormGroup: FormGroup | null = null;
-	public signUpFormGroup: FormGroup | null = null;
-	public resetPasswordFormGroup: FormGroup | null = null;
+	public signInFormGroup: FormGroup = new FormGroup({});
+	public signUpFormGroup: FormGroup = new FormGroup({});
+	public resetPasswordFormGroup: FormGroup = new FormGroup({});
 
-	onErrorSubscription: Subscription | null = null;
+	onErrorSubscription: Subscription = Subscription.EMPTY;
 	authenticationError = false;
 
 	passReset = false;
@@ -110,13 +110,13 @@ export class AuthComponent implements OnInit, OnChanges, OnDestroy {
 
 	authProviders = AuthProvider;
 
-	signInEmailFormControl: AbstractControl | null = null;
-	sigInPasswordFormControl: AbstractControl | null = null;
+	signInEmailFormControl: AbstractControl = new FormControl();
+	sigInPasswordFormControl: AbstractControl = new FormControl();
 
-	sigUpEmailFormControl: AbstractControl | null = null;
-	sigUpPasswordFormControl: AbstractControl | null = null;
-	sigUpPasswordConfirmationFormControl: AbstractControl | null = null;
-	resetPasswordEmailFormControl: AbstractControl | null = null;
+	sigUpEmailFormControl: AbstractControl = new FormControl();
+	sigUpPasswordFormControl: AbstractControl = new FormControl();
+	sigUpPasswordConfirmationFormControl: AbstractControl = new FormControl();
+	resetPasswordEmailFormControl: AbstractControl = new FormControl();
 
 	constructor(
 		@Inject(PLATFORM_ID) private platformId: Object,
@@ -187,20 +187,17 @@ export class AuthComponent implements OnInit, OnChanges, OnDestroy {
 			this.dialogRef
 				.afterClosed()
 				.subscribe((result: LegalityDialogResult) => {
-					// console.log('this.dialogRef.afterClosed(): ', result);
 					if (result && result.checked) {
-						this._afterSignUpMiddleware(result.authProvider).then(
-							() => {
-								if (this.signUpFormGroup) {
-									this.signUpFormGroup.reset();
-								}
+						this._afterSignUpMiddleware().then(() => {
+							if (this.signUpFormGroup) {
+								this.signUpFormGroup.reset();
 							}
-						);
+						});
 					}
 					this.dialogRef = null;
 				});
 		} else {
-			this._afterSignUpMiddleware(authProvider).then(() => {
+			this._afterSignUpMiddleware().then(() => {
 				if (this.signUpFormGroup) {
 					this.signUpFormGroup.reset();
 				}
@@ -215,10 +212,6 @@ export class AuthComponent implements OnInit, OnChanges, OnDestroy {
 				password: this.signUpFormGroup.value.password
 			});
 		}
-	}
-
-	public async signUpAnonymously() {
-		return await this.authProcess.signInWith(this.authProvider.ANONYMOUS);
 	}
 
 	public resetPassword() {
@@ -271,10 +264,7 @@ export class AuthComponent implements OnInit, OnChanges, OnDestroy {
 		});
 	}
 
-	private _afterSignUpMiddleware(authProvider?: AuthProvider) {
-		if (authProvider === this.authProvider.ANONYMOUS) {
-			return this.signUpAnonymously();
-		}
+	private _afterSignUpMiddleware() {
 		return this.signUp();
 	}
 }

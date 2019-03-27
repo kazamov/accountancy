@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { NgModule, ModuleWithProviders, Inject, Provider } from '@angular/core';
+import { NgModule, ModuleWithProviders, Inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthComponent } from './components/ngx-auth-firebaseui/auth.component';
-import { UserComponent } from './components/ngx-auth-firebaseui-user/user.component';
 import { AuthProvidersComponent } from './components/providers/auth.providers.component';
 import { EmailConfirmationComponent } from './components/email-confirmation/email-confirmation.component';
 import {
@@ -12,11 +11,7 @@ import {
 } from './interfaces/config.interface';
 import { FirestoreSyncService } from './services/firestore-sync.service';
 import { AuthProcessService } from './services/auth-process.service';
-import {
-	FirebaseAppConfig,
-	FirebaseOptionsToken,
-	FirebaseNameOrConfigToken
-} from '@angular/fire';
+import { FirebaseAppConfig, FirebaseOptionsToken } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
@@ -82,7 +77,6 @@ import { NgxAuthFirebaseUIConfigToken } from './auth-config.token';
 	],
 	exports: [
 		AuthComponent,
-		UserComponent,
 		NgxAuthFirebaseuiAvatarComponent,
 		AuthProvidersComponent,
 		EmailConfirmationComponent,
@@ -92,43 +86,33 @@ import { NgxAuthFirebaseUIConfigToken } from './auth-config.token';
 	],
 	declarations: [
 		AuthComponent,
-		UserComponent,
 		NgxAuthFirebaseuiAvatarComponent,
 		AuthProvidersComponent,
 		EmailConfirmationComponent,
 		LegalityDialogComponent
 	],
-	entryComponents: [UserComponent, LegalityDialogComponent]
+	entryComponents: [LegalityDialogComponent]
 })
 export class NgxAuthFirebaseUIModule {
 	static forRoot(
 		configFactory: FirebaseAppConfig,
-		appNameFactory?: () => string,
 		config: NgxAuthFirebaseUIConfig = defaultAuthFirebaseUIConfig
 	): ModuleWithProviders {
-		const providers: Provider[] = [
-			{
-				provide: FirebaseOptionsToken,
-				useValue: configFactory
-			},
-			{
-				provide: NgxAuthFirebaseUIConfigToken,
-				useValue: config
-			},
-			AuthProcessService,
-			FirestoreSyncService,
-			LoggedInGuard
-		];
-		if (appNameFactory) {
-			providers.push({
-				provide: FirebaseNameOrConfigToken,
-				useFactory: appNameFactory
-			});
-		}
-
 		return {
 			ngModule: NgxAuthFirebaseUIModule,
-			providers: providers
+			providers: [
+				{
+					provide: FirebaseOptionsToken,
+					useValue: configFactory
+				},
+				{
+					provide: NgxAuthFirebaseUIConfigToken,
+					useValue: config
+				},
+				AuthProcessService,
+				FirestoreSyncService,
+				LoggedInGuard
+			]
 		};
 	}
 
