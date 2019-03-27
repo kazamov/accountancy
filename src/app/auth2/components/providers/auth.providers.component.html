@@ -1,0 +1,55 @@
+<div
+	class="buttons-classic"
+	[fxLayout]="layout"
+	fxLayout.xs="column"
+	[fxLayoutAlign]="layout == 'row' ? 'space-around center' : 'stretch'"
+>
+	<button
+		*ngIf="
+			providers === authProvider.ALL ||
+			providers.includes(authProvider.Google)
+		"
+		mat-stroked-button
+		class="google-classic"
+		[ngClass.xs]="{ 'space-full-xs': true }"
+		(click)="authProcess.signInWith(authProvider.Google)"
+	>
+		Google
+	</button>
+	<button
+		*ngIf="
+			providers === authProvider.ALL ||
+			providers.includes(authProvider.Facebook)
+		"
+		mat-stroked-button
+		class="facebook-classic"
+		[ngClass.xs]="{ 'space-full-xs': true }"
+		(click)="authProcess.signInWith(authProvider.Facebook)"
+	>
+		Facebook
+	</button>
+	<button
+		*ngIf="
+			providers === authProvider.ALL ||
+			providers.includes(authProvider.Twitter)
+		"
+		mat-stroked-button
+		class="twitter-classic"
+		[ngClass.xs]="{ 'space-full-xs': true }"
+		(click)="authProcess.signInWith(authProvider.Twitter)"
+	>
+		Twitter
+	</button>
+	<button
+		*ngIf="
+			providers === authProvider.ALL ||
+			providers.includes(authProvider.Github)
+		"
+		mat-stroked-button
+		class="github-classic"
+		[ngClass.xs]="{ 'space-full-xs': true }"
+		(click)="authProcess.signInWith(authProvider.Github)"
+	>
+		GitHub
+	</button>
+</div>

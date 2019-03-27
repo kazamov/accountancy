@@ -5,7 +5,11 @@
 	></mat-progress-bar>
 </div>
 <mat-toolbar color="primary">
-	<button mat-icon-button (click)="sidenav.toggle()">
+	<button
+		*ngIf="(isAuthenticated$ | async)"
+		mat-icon-button
+		(click)="sidenav.toggle()"
+	>
 		<mat-icon>menu</mat-icon>
 	</button>
 	<span>Бухгалтерия</span>
@@ -18,58 +22,21 @@
 		role="navigation"
 	>
 		<mat-nav-list>
-			<a
-				*ngIf="(isAuthenticated$ | async)"
-				mat-list-item
-				routerLink="/charges"
-				(click)="sidenav.close()"
-			>
+			<a mat-list-item routerLink="/charges" (click)="sidenav.close()">
 				<mat-icon class="nav-item-icon">monetization_on</mat-icon>
 				<span class="nav-caption">Расходы</span>
 			</a>
-			<a
-				*ngIf="(isAuthenticated$ | async)"
-				mat-list-item
-				routerLink="/reports"
-				(click)="sidenav.close()"
-			>
+			<a mat-list-item routerLink="/reports" (click)="sidenav.close()">
 				<mat-icon class="nav-item-icon">assessment</mat-icon>
 				<span class="nav-caption">Отчет</span>
 			</a>
-			<a
-				*ngIf="(isAuthenticated$ | async)"
-				mat-list-item
-				routerLink="/categories"
-				(click)="sidenav.close()"
-			>
+			<a mat-list-item routerLink="/categories" (click)="sidenav.close()">
 				<mat-icon class="nav-item-icon">font_download</mat-icon>
 				<span class="nav-caption">Категории</span>
 			</a>
-			<a
-				*ngIf="(isAuthenticated$ | async)"
-				mat-list-item
-				(click)="sidenav.close() && onLogout()"
-			>
+			<a mat-list-item (click)="sidenav.close() && onLogout()">
 				<mat-icon class="nav-item-icon">exit_to_app</mat-icon>
 				<span class="nav-caption">Выйти</span>
-			</a>
-			<a
-				*ngIf="!(isAuthenticated$ | async)"
-				mat-list-item
-				routerLink="/signin"
-				(click)="sidenav.close()"
-			>
-				<mat-icon class="nav-item-icon">exit_to_app</mat-icon>
-				<span class="nav-caption">Войти в аккаунт</span>
-			</a>
-			<a
-				*ngIf="!(isAuthenticated$ | async)"
-				mat-list-item
-				routerLink="/signup"
-				(click)="sidenav.close()"
-			>
-				<mat-icon class="nav-item-icon">account_box</mat-icon>
-				<span class="nav-caption">Регистрация</span>
 			</a>
 		</mat-nav-list>
 	</mat-sidenav>

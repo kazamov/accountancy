@@ -3,7 +3,7 @@ import { take } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ICategory } from 'data';
 
-import { AuthQuery } from '../../auth/state/auth.query';
+import { AuthQuery } from '../../auth2/state/auth.query';
 import { BackendCollections } from '../../shared/backend-collections.enum';
 
 @Injectable()
@@ -11,11 +11,11 @@ export class CategoriesDataService {
 	constructor(private db: AngularFirestore, private authQuery: AuthQuery) {}
 
 	getCategories() {
-		const userId = this.authQuery.getValue().userId;
+		const userData = this.authQuery.getValue().userData;
 
 		return this.db
 			.collection<ICategory>(
-				`${BackendCollections.USERS}/${userId}/${
+				`${BackendCollections.USERS}/${userData ? userData.uid : ''}/${
 					BackendCollections.CATEGORIES
 				}`,
 				collectionRef => collectionRef.orderBy('name')
@@ -25,11 +25,11 @@ export class CategoriesDataService {
 	}
 
 	deleteCategory(id: string) {
-		const userId = this.authQuery.getValue().userId;
+		const userData = this.authQuery.getValue().userData;
 
 		const categoryDoc = this.db
 			.collection<ICategory>(
-				`${BackendCollections.USERS}/${userId}/${
+				`${BackendCollections.USERS}/${userData ? userData.uid : ''}/${
 					BackendCollections.CATEGORIES
 				}`
 			)
@@ -39,12 +39,12 @@ export class CategoriesDataService {
 	}
 
 	addCategory(name: string) {
-		const userId = this.authQuery.getValue().userId;
+		const userData = this.authQuery.getValue().userData;
 		const newCategoryId = this.db.createId();
 
 		const newCategoryDoc = this.db
 			.collection<ICategory>(
-				`${BackendCollections.USERS}/${userId}/${
+				`${BackendCollections.USERS}/${userData ? userData.uid : ''}/${
 					BackendCollections.CATEGORIES
 				}`
 			)
@@ -61,11 +61,11 @@ export class CategoriesDataService {
 	}
 
 	updateCategory(id: string, name: string) {
-		const userId = this.authQuery.getValue().userId;
+		const userData = this.authQuery.getValue().userData;
 
 		const categoryDoc = this.db
 			.collection<ICategory>(
-				`${BackendCollections.USERS}/${userId}/${
+				`${BackendCollections.USERS}/${userData ? userData.uid : ''}/${
 					BackendCollections.CATEGORIES
 				}`
 			)

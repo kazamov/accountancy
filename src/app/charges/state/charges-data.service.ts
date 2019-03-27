@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { take, map } from 'rxjs/operators';
 import { ICharge } from 'data';
 
-import { AuthQuery } from '../../auth/state/auth.query';
+import { AuthQuery } from '../../auth2/state/auth.query';
 import { BackendCollections } from '../../shared/backend-collections.enum';
 
 @Injectable()
@@ -11,11 +11,11 @@ export class ChargesDataService {
 	constructor(private db: AngularFirestore, private authQuery: AuthQuery) {}
 
 	getCharges(pageSize: number, lastItem: ICharge | null) {
-		const userId = this.authQuery.getValue().userId;
+		const userData = this.authQuery.getValue().userData;
 
 		return this.db
 			.collection<ICharge>(
-				`${BackendCollections.USERS}/${userId}/${
+				`${BackendCollections.USERS}/${userData ? userData.uid : ''}/${
 					BackendCollections.CHARGES
 				}`,
 				collectionRef => {
@@ -49,10 +49,10 @@ export class ChargesDataService {
 	}
 
 	getCharge(id: string) {
-		const userId = this.authQuery.getValue().userId;
+		const userData = this.authQuery.getValue().userData;
 		const chargeDocRef = this.db
 			.collection<ICharge>(
-				`${BackendCollections.USERS}/${userId}/${
+				`${BackendCollections.USERS}/${userData ? userData.uid : ''}/${
 					BackendCollections.CHARGES
 				}`
 			)
@@ -73,11 +73,11 @@ export class ChargesDataService {
 	}
 
 	deleteCharge(id: string) {
-		const userId = this.authQuery.getValue().userId;
+		const userData = this.authQuery.getValue().userData;
 
 		const chargeDoc = this.db
 			.collection<ICharge>(
-				`${BackendCollections.USERS}/${userId}/${
+				`${BackendCollections.USERS}/${userData ? userData.uid : ''}/${
 					BackendCollections.CHARGES
 				}`
 			)
@@ -87,12 +87,12 @@ export class ChargesDataService {
 	}
 
 	addCharge(chargeData: Partial<ICharge>) {
-		const userId = this.authQuery.getValue().userId;
+		const userData = this.authQuery.getValue().userData;
 		const newChargeId = this.db.createId();
 
 		const newChargeDoc = this.db
 			.collection<ICharge>(
-				`${BackendCollections.USERS}/${userId}/${
+				`${BackendCollections.USERS}/${userData ? userData.uid : ''}/${
 					BackendCollections.CHARGES
 				}`
 			)
@@ -118,11 +118,11 @@ export class ChargesDataService {
 	}
 
 	updateCharge(id: string, chargeData: Partial<ICharge>) {
-		const userId = this.authQuery.getValue().userId;
+		const userData = this.authQuery.getValue().userData;
 
 		const chargeDoc = this.db
 			.collection<ICharge>(
-				`${BackendCollections.USERS}/${userId}/${
+				`${BackendCollections.USERS}/${userData ? userData.uid : ''}/${
 					BackendCollections.CHARGES
 				}`
 			)

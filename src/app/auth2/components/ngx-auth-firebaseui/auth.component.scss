@@ -1,0 +1,36 @@
+.mat-card {
+	margin: 2rem;
+}
+
+.space-top {
+	margin-top: 0.5rem;
+}
+
+.space-top-providers {
+	margin-top: 1.8rem;
+}
+
+.full-width {
+	width: 100%;
+}
+
+.cut-text {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.divider {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	mat-divider {
+		width: 100%;
+		&:nth-of-type(1) {
+			margin-right: 10px;
+		}
+		&:nth-last-of-type(1) {
+			margin-left: 10px;
+		}
+	}
+}

@@ -18,12 +18,11 @@ import { CategoriesStore } from './categories/state/categories.store';
 import { CategoriesService } from './categories/state/categories.service';
 import { CategoriesDataService } from './categories/state/categories-data.service';
 import { CategoriesResolver } from './categories/state/categories.resolver';
-import { AuthModule } from './auth/auth.module';
-import { AuthService } from './auth/state/auth.service';
-import { AuthStore } from './auth/state/auth.store';
-import { AuthQuery } from './auth/state/auth.query';
-import { AuthGuard } from './auth/state/auth.guard';
-import { LoginGuard } from './auth/state/login.guard';
+import { AuthStore } from './auth2/state/auth.store';
+import { AuthQuery } from './auth2/state/auth.query';
+import { AuthGuard } from './auth2/state/auth.guard';
+import { LoginGuard } from './auth2/state/login.guard';
+import { NgxAuthFirebaseUIModule } from './auth2/auth2.module';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -35,9 +34,10 @@ import { LoginGuard } from './auth/state/login.guard';
 		}),
 		environment.production ? [] : AkitaNgDevtools.forRoot(),
 		AngularFireModule.initializeApp(environment.firebaseConfig),
+		NgxAuthFirebaseUIModule.forRoot(environment.firebaseConfig),
 		AngularFireAuthModule,
 		MaterialModule,
-		AuthModule,
+		// AuthModule,
 		AppRoutingModule
 	],
 	providers: [
@@ -48,7 +48,6 @@ import { LoginGuard } from './auth/state/login.guard';
 		CategoriesService,
 		CategoriesDataService,
 		CategoriesResolver,
-		AuthService,
 		AuthStore,
 		AuthQuery,
 		AngularFireAuth,

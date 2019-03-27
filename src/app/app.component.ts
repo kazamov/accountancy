@@ -9,8 +9,8 @@ import {
 
 import { UiService } from './ui.service';
 import { Observable } from 'rxjs';
-import { AuthQuery } from './auth/state/auth.query';
-import { AuthService } from './auth/state/auth.service';
+import { AuthQuery } from './auth2/state/auth.query';
+import { AuthProcessService } from './auth2/services/auth-process.service';
 
 @Component({
 	selector: 'app-root',
@@ -25,11 +25,11 @@ export class AppComponent implements OnInit, AfterViewInit {
 		private uiService: UiService,
 		private router: Router,
 		private authQuery: AuthQuery,
-		private authService: AuthService,
+		private authService: AuthProcessService,
 		private swUpdate: SwUpdate
 	) {
 		this.isAuthenticated$ = this.authQuery.select(state =>
-			Boolean(state.userId)
+			Boolean(state.userData)
 		);
 		if (this.swUpdate.isEnabled) {
 			this.swUpdate.available.subscribe(() => {
