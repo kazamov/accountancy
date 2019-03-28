@@ -1,25 +1,19 @@
-import { EventEmitter, Inject, Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { firebase } from '@firebase/app';
 import '@firebase/auth';
 import { User, UserInfo } from 'firebase/app';
+import UserCredential = firebase.auth.UserCredential;
 
 import {
 	ICredentials,
 	ISignInProcess,
 	ISignUpProcess
 } from '../interfaces/main.interface';
-import {
-	defaultAuthFirebaseUIConfig,
-	NgxAuthFirebaseUIConfig
-} from '../interfaces/config.interface';
 import { FirestoreSyncService } from './firestore-sync.service';
 import { Accounts } from '../enums';
-
-import UserCredential = firebase.auth.UserCredential;
-import { NgxAuthFirebaseUIConfigToken } from '../auth-config.token';
 import { AuthStore } from '../state/auth.store';
 import { AuthQuery } from '../state/auth.query';
 import { AppUserInfo } from '../interfaces/app-user-info.interface';
@@ -30,14 +24,11 @@ export const twitterAuthProvider = new firebase.auth!.TwitterAuthProvider();
 export const githubAuthProvider = new firebase.auth!.GithubAuthProvider();
 
 export enum AuthProvider {
-	ALL = 'all',
-	ANONYMOUS = 'anonymous',
 	EmailAndPassword = 'firebase',
 	Google = 'google',
 	Facebook = 'facebook',
 	Twitter = 'twitter',
-	Github = 'github',
-	PhoneNumber = 'phoneNumber'
+	Github = 'github'
 }
 
 @Injectable()
@@ -53,8 +44,6 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 	messageOnAuthError = '';
 
 	constructor(
-		@Inject(NgxAuthFirebaseUIConfigToken)
-		public config: NgxAuthFirebaseUIConfig,
 		public afa: AngularFireAuth,
 		private _snackBar: MatSnackBar,
 		private _fireStoreService: FirestoreSyncService,
@@ -62,8 +51,6 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 		private authQuery: AuthQuery,
 		private router: Router
 	) {
-		this.config = Object.assign(defaultAuthFirebaseUIConfig, this.config);
-
 		this.authStore.setLoading(true);
 		this.afa.authState.subscribe(user => {
 			const userData: AppUserInfo | null = user
@@ -89,7 +76,7 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 	}
 
 	/**
-	 * Reset the password of the ngx-auth-firebaseui-user via email
+	 * Reset the password of the auth-firebaseui-user via email
 	 *
 	 * @param email - the email to reset
 	 * @returns
@@ -114,16 +101,11 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 		provider: AuthProvider,
 		credentials?: ICredentials
 	) {
-		console.log('this.config on signInWith', this.config);
 		try {
 			this.isLoading = true;
 			let signInResult: UserCredential | any;
 
 			switch (provider) {
-				case AuthProvider.ANONYMOUS:
-					signInResult = (await this.afa.auth.signInAnonymously()) as UserCredential;
-					break;
-
 				case AuthProvider.EmailAndPassword:
 					if (credentials) {
 						signInResult = (await this.afa.auth.signInWithEmailAndPassword(
@@ -159,11 +141,6 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 						githubAuthProvider
 					)) as UserCredential;
 					break;
-
-				case AuthProvider.PhoneNumber:
-					// coming soon - see feature/sms branch
-					break;
-
 				default:
 					throw new Error(
 						`${
@@ -175,7 +152,6 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 		} catch (err) {
 			this.handleError(err);
 			console.error(err);
-			// this._snackBar.open(err.message, 'OK', {duration: 5000});
 			this.onErrorEmitter.next(err);
 		} finally {
 			this.isLoading = false;
@@ -184,9 +160,9 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 
 	/**
 	 * Sign up new users via email and password.
-	 * After that the ngx-auth-firebaseui-user should verify and confirm an email sent via the firebase
+	 * After that the auth-firebaseui-user should verify and confirm an email sent via the firebase
 	 *
-	 * @param name - the name if the new ngx-auth-firebaseui-user
+	 * @param name - the name if the new auth-firebaseui-user
 	 * @param credentials
 	 * @returns
 	 */
@@ -200,31 +176,27 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 			const user = userCredential.user;
 
 			if (user) {
-				if (this.config.enableFirestoreSync) {
-					const providers: Partial<
-						UserInfo
-					>[] = (user.providerData.filter(data =>
-						Boolean(data)
-					) as UserInfo[]).map(data => {
-						return {
-							providerId: data.providerId
-						};
-					});
+				const providers: Partial<
+					UserInfo
+				>[] = (user.providerData.filter(data =>
+					Boolean(data)
+				) as UserInfo[]).map(data => {
+					return {
+						providerId: data.providerId
+					};
+				});
 
-					await this._fireStoreService
-						.getUserDocRefByUID(user.uid)
-						.set({
-							uid: user.uid,
-							displayName: name,
-							email: user.email,
-							photoURL: user.photoURL,
-							phoneNumber: user.phoneNumber,
-							emailVerified: user.emailVerified,
-							providers: providers
-						} as AppUserInfo);
+				await this._fireStoreService.getUserDocRefByUID(user.uid).set({
+					uid: user.uid,
+					displayName: name,
+					email: user.email,
+					photoURL: user.photoURL,
+					phoneNumber: user.phoneNumber,
+					emailVerified: user.emailVerified,
+					providers: providers
+				} as AppUserInfo);
 
-					await this.updateProfile(user, name, user.photoURL || '');
-				}
+				await this.updateProfile(user, name, user.photoURL || '');
 
 				await user.sendEmailVerification();
 				this.emailConfirmationSent = true;
@@ -252,11 +224,11 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 	}
 
 	/**
-	 * Update the profile (name + photo url) of the authenticated ngx-auth-firebaseui-user in the
+	 * Update the profile (name + photo url) of the authenticated auth-firebaseui-user in the
 	 * firebase authentication feature (not in firestore)
 	 *
-	 * @param name - the new name of the authenticated ngx-auth-firebaseui-user
-	 * @param photoURL - the new photo url of the authenticated ngx-auth-firebaseui-user
+	 * @param name - the new name of the authenticated auth-firebaseui-user
+	 * @param photoURL - the new photo url of the authenticated auth-firebaseui-user
 	 * @returns
 	 */
 	public async updateProfile(
@@ -318,31 +290,25 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 		const user = userCredential.user;
 		if (user) {
 			this.onSuccessEmitter.next(user);
-			if (this.config.enableFirestoreSync) {
-				try {
-					await this._fireStoreService.updateUserData(
-						this.parseUserInfo(user)
-					);
-				} catch (e) {
-					console.error(
-						`Error occurred while updating user data with firestore: ${e}`
-					);
-				}
+			try {
+				await this._fireStoreService.updateUserData(
+					this.parseUserInfo(user)
+				);
+			} catch (e) {
+				console.error(
+					`Error occurred while updating user data with firestore: ${e}`
+				);
 			}
 		}
 	}
 
 	handleError(error: any) {
 		this.onErrorEmitter.next(error);
-		if (this.config.toastMessageOnAuthError) {
-			this._snackBar.open(
-				this.messageOnAuthError
-					? this.messageOnAuthError
-					: error.message,
-				'OK',
-				{ duration: 5000 }
-			);
-		}
+		this._snackBar.open(
+			this.messageOnAuthError ? this.messageOnAuthError : error.message,
+			'OK',
+			{ duration: 5000 }
+		);
 		console.error(error);
 	}
 }

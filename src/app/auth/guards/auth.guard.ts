@@ -3,7 +3,7 @@ import { CanLoad, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { tap, take, catchError } from 'rxjs/operators';
 
-import { AuthQuery } from './auth.query';
+import { AuthQuery } from '../state/auth.query';
 
 @Injectable()
 export class AuthGuard implements CanLoad {

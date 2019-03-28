@@ -7,11 +7,11 @@ import { MaterialModule } from './material.module';
 
 @NgModule({
 	declarations: [CategoryNamePipe],
-	imports: [CommonModule, MaterialModule, ReactiveFormsModule],
+	imports: [CommonModule, ReactiveFormsModule, MaterialModule],
 	exports: [
 		CommonModule,
-		MaterialModule,
 		ReactiveFormsModule,
+		MaterialModule,
 		CategoryNamePipe
 	]
 })

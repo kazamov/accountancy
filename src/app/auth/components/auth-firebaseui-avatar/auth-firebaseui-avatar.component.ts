@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from 'firebase';
 import { Observable, of } from 'rxjs';
@@ -11,19 +11,16 @@ export interface LinkMenuItem {
 }
 
 @Component({
-	selector: 'ngx-auth-firebaseui-avatar',
-	templateUrl: './ngx-auth-firebaseui-avatar.component.html',
-	styleUrls: ['./ngx-auth-firebaseui-avatar.component.scss']
+	selector: 'app-auth-firebaseui-avatar',
+	templateUrl: './auth-firebaseui-avatar.component.html',
+	styleUrls: ['./auth-firebaseui-avatar.component.scss']
 })
-export class NgxAuthFirebaseuiAvatarComponent implements OnInit {
+export class AuthFirebaseuiAvatarComponent implements OnInit {
 	@Input()
 	canLogout = true;
 
 	@Input()
 	links: LinkMenuItem[] = [];
-
-	@Output()
-	onSignOut: EventEmitter<void> = new EventEmitter();
 
 	user: User | null = null;
 	user$: Observable<User | null> = of();
@@ -63,8 +60,6 @@ export class NgxAuthFirebaseuiAvatarComponent implements OnInit {
 	async signOut() {
 		try {
 			await this.afa.auth.signOut();
-			// Sign-out successful.
-			this.onSignOut.emit();
 		} catch (e) {
 			// An error happened.
 			console.error('An error happened while signing out!', e);

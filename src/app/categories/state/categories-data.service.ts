@@ -3,7 +3,7 @@ import { take } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ICategory } from 'data';
 
-import { AuthQuery } from '../../auth2/state/auth.query';
+import { AuthQuery } from '../../auth/state/auth.query';
 import { BackendCollections } from '../../shared/backend-collections.enum';
 
 @Injectable()

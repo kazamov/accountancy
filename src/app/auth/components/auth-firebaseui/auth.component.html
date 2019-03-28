@@ -211,10 +211,7 @@
 					<form
 						[formGroup]="signUpFormGroup"
 						(ngSubmit)="
-							signUpFormGroup.valid &&
-								processLegalSignUP(
-									authProvider.EmailAndPassword
-								)
+							signUpFormGroup.valid && processLegalSignUP()
 						"
 					>
 						<div fxLayout="column" fxLayoutAlign="center">
@@ -328,17 +325,6 @@
 							</button>
 						</div>
 					</form>
-
-					<button
-						*ngIf="guestEnabled"
-						mat-button
-						style="margin-top: 20px"
-						[color]="color"
-						(click)="processLegalSignUP(authProvider.ANONYMOUS)"
-					>
-						<mat-icon>fingerprint</mat-icon>
-						continue as guest
-					</button>
 				</mat-card-content>
 
 				<mat-card-footer *ngIf="authProcess.isLoading">
@@ -348,11 +334,11 @@
 
 			<!--confirm template-->
 			<ng-template #confirm>
-				<ngx-auth-firebaseui-email-confirmation
+				<app-auth-firebaseui-email-confirmation
 					[email]="authProcess.emailToConfirm"
 					[goBackURL]="goBackURL"
 				>
-				</ngx-auth-firebaseui-email-confirmation>
+				</app-auth-firebaseui-email-confirmation>
 			</ng-template>
 		</mat-card>
 	</mat-tab>
@@ -362,7 +348,7 @@
 	<span>или</span>
 	<mat-divider></mat-divider>
 </div>
-<ngx-auth-firebaseui-providers
+<app-auth-firebaseui-providers
 	[providers]="providers"
 	class="space-top-providers"
-></ngx-auth-firebaseui-providers>
+></app-auth-firebaseui-providers>

@@ -7,10 +7,10 @@ import {
 	NavigationEnd
 } from '@angular/router';
 
-import { UiService } from './ui.service';
+import { UiService } from './core/ui.service';
 import { Observable } from 'rxjs';
-import { AuthQuery } from './auth2/state/auth.query';
-import { AuthProcessService } from './auth2/services/auth-process.service';
+import { AuthQuery } from './auth/state/auth.query';
+import { AuthProcessService } from './auth/services/auth-process.service';
 
 @Component({
 	selector: 'app-root',

@@ -21,7 +21,7 @@ export enum Layout {
 }
 
 @Component({
-	selector: 'ngx-auth-firebaseui-providers',
+	selector: 'app-auth-firebaseui-providers',
 	templateUrl: 'auth.providers.component.html',
 	styleUrls: ['auth.providers.component.scss']
 })
@@ -33,7 +33,7 @@ export class AuthProvidersComponent {
 	layout: string = Layout.ROW;
 
 	@Input()
-	providers: string[] | string = AuthProvider.ALL; //  google, facebook, twitter, github
+	providers: string[] = [AuthProvider.Google, AuthProvider.Facebook]; //  google, facebook, twitter, github
 
 	themes = Theme;
 	authProvider = AuthProvider;

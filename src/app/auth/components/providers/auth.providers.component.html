@@ -5,10 +5,7 @@
 	[fxLayoutAlign]="layout == 'row' ? 'space-around center' : 'stretch'"
 >
 	<button
-		*ngIf="
-			providers === authProvider.ALL ||
-			providers.includes(authProvider.Google)
-		"
+		*ngIf="providers.includes(authProvider.Google)"
 		mat-stroked-button
 		class="google-classic"
 		[ngClass.xs]="{ 'space-full-xs': true }"
@@ -17,10 +14,7 @@
 		Google
 	</button>
 	<button
-		*ngIf="
-			providers === authProvider.ALL ||
-			providers.includes(authProvider.Facebook)
-		"
+		*ngIf="providers.includes(authProvider.Facebook)"
 		mat-stroked-button
 		class="facebook-classic"
 		[ngClass.xs]="{ 'space-full-xs': true }"
@@ -29,10 +23,7 @@
 		Facebook
 	</button>
 	<button
-		*ngIf="
-			providers === authProvider.ALL ||
-			providers.includes(authProvider.Twitter)
-		"
+		*ngIf="providers.includes(authProvider.Twitter)"
 		mat-stroked-button
 		class="twitter-classic"
 		[ngClass.xs]="{ 'space-full-xs': true }"
@@ -41,10 +32,7 @@
 		Twitter
 	</button>
 	<button
-		*ngIf="
-			providers === authProvider.ALL ||
-			providers.includes(authProvider.Github)
-		"
+		*ngIf="providers.includes(authProvider.Github)"
 		mat-stroked-button
 		class="github-classic"
 		[ngClass.xs]="{ 'space-full-xs': true }"

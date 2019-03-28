@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { take, tap, map } from 'rxjs/operators';
 
-import { AuthQuery } from './auth.query';
+import { AuthQuery } from '../state/auth.query';
 
 @Injectable()
 export class LoginGuard implements CanActivate {

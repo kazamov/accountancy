@@ -5,7 +5,6 @@ import {
 	OnChanges,
 	OnDestroy,
 	OnInit,
-	Output,
 	PLATFORM_ID,
 	SimpleChanges
 } from '@angular/core';
@@ -15,11 +14,7 @@ import {
 	FormGroup,
 	Validators
 } from '@angular/forms';
-import {
-	MatDialog,
-	MatDialogRef,
-	MatFormFieldAppearance
-} from '@angular/material';
+import { MatDialog, MatFormFieldAppearance } from '@angular/material';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { isPlatformBrowser } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -28,16 +23,6 @@ import {
 	AuthProcessService,
 	AuthProvider
 } from '../../services/auth-process.service';
-import { LegalityDialogComponent } from '../../components/legality-dialog/legality-dialog.component';
-import {
-	LegalityDialogParams,
-	LegalityDialogResult
-} from '../../interfaces/legality.dialog.intreface';
-import {
-	defaultAuthFirebaseUIConfig,
-	NgxAuthFirebaseUIConfig
-} from '../../interfaces/config.interface';
-import { NgxAuthFirebaseUIConfigToken } from '../../auth-config.token';
 
 export const EMAIL_REGEX = new RegExp(
 	[
@@ -51,7 +36,7 @@ export const EMAIL_REGEX = new RegExp(
 export const PHONE_NUMBER_REGEX = new RegExp(/^\+(?:[0-9] ?){6,14}[0-9]$/);
 
 @Component({
-	selector: 'ngx-auth-firebaseui',
+	selector: 'app-auth-firebaseui',
 	templateUrl: 'auth.component.html',
 	styleUrls: ['auth.component.scss']
 })
@@ -72,15 +57,6 @@ export class AuthComponent implements OnInit, OnChanges, OnDestroy {
 	resetPasswordEnabled = true;
 
 	@Input()
-	guestEnabled = false;
-
-	@Input()
-	tosUrl = '';
-
-	@Input()
-	privacyPolicyUrl = '';
-
-	@Input()
 	goBackURL = '';
 
 	@Input()
@@ -88,12 +64,6 @@ export class AuthComponent implements OnInit, OnChanges, OnDestroy {
 
 	@Input()
 	messageOnAuthError = '';
-
-	@Output()
-	onSuccess: any;
-
-	@Output()
-	onError: any;
 
 	authProvider = AuthProvider;
 	passwordResetWished = false;
@@ -106,7 +76,6 @@ export class AuthComponent implements OnInit, OnChanges, OnDestroy {
 	authenticationError = false;
 
 	passReset = false;
-	dialogRef: MatDialogRef<LegalityDialogComponent> | null = null;
 
 	authProviders = AuthProvider;
 
@@ -120,21 +89,14 @@ export class AuthComponent implements OnInit, OnChanges, OnDestroy {
 
 	constructor(
 		@Inject(PLATFORM_ID) private platformId: Object,
-		@Inject(NgxAuthFirebaseUIConfigToken)
-		private config: NgxAuthFirebaseUIConfig,
 		public auth: AngularFireAuth,
 		public authProcess: AuthProcessService,
 		public dialog: MatDialog
-	) {
-		this.onSuccess = authProcess.onSuccessEmitter;
-		this.onError = authProcess.onErrorEmitter;
-	}
+	) {}
 
 	public ngOnInit(): void {
-		this.config = Object.assign(defaultAuthFirebaseUIConfig, this.config);
-
 		if (isPlatformBrowser(this.platformId)) {
-			this.onErrorSubscription = this.onError.subscribe(
+			this.onErrorSubscription = this.authProcess.onErrorEmitter.subscribe(
 				() => (this.authenticationError = true)
 			);
 		}
@@ -173,36 +135,12 @@ export class AuthComponent implements OnInit, OnChanges, OnDestroy {
 		event.stopImmediatePropagation();
 	}
 
-	public processLegalSignUP(authProvider: AuthProvider) {
-		if (this.tosUrl || this.privacyPolicyUrl) {
-			const params: LegalityDialogParams = {
-				tosUrl: this.tosUrl,
-				privacyPolicyUrl: this.privacyPolicyUrl,
-				authProvider: authProvider
-			};
-
-			this.dialogRef = this.dialog.open(LegalityDialogComponent, {
-				data: params
-			});
-			this.dialogRef
-				.afterClosed()
-				.subscribe((result: LegalityDialogResult) => {
-					if (result && result.checked) {
-						this._afterSignUpMiddleware().then(() => {
-							if (this.signUpFormGroup) {
-								this.signUpFormGroup.reset();
-							}
-						});
-					}
-					this.dialogRef = null;
-				});
-		} else {
-			this._afterSignUpMiddleware().then(() => {
-				if (this.signUpFormGroup) {
-					this.signUpFormGroup.reset();
-				}
-			});
-		}
+	public processLegalSignUP() {
+		this._afterSignUpMiddleware().then(() => {
+			if (this.signUpFormGroup) {
+				this.signUpFormGroup.reset();
+			}
+		});
 	}
 
 	public async signUp() {
