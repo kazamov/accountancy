@@ -14,7 +14,7 @@ import {
 	FormGroup,
 	Validators
 } from '@angular/forms';
-import { MatDialog, MatFormFieldAppearance } from '@angular/material';
+import { MatFormFieldAppearance } from '@angular/material';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { isPlatformBrowser } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -33,17 +33,12 @@ export const EMAIL_REGEX = new RegExp(
 	].join('')
 );
 
-export const PHONE_NUMBER_REGEX = new RegExp(/^\+(?:[0-9] ?){6,14}[0-9]$/);
-
 @Component({
 	selector: 'app-auth-firebaseui',
 	templateUrl: 'auth.component.html',
 	styleUrls: ['auth.component.scss']
 })
 export class AuthComponent implements OnInit, OnChanges, OnDestroy {
-	@Input()
-	providers: string[] | string = [AuthProvider.Google, AuthProvider.Facebook]; //  google, facebook, twitter, github as array or all as one single string
-
 	@Input()
 	appearance: MatFormFieldAppearance = 'standard';
 
@@ -65,7 +60,6 @@ export class AuthComponent implements OnInit, OnChanges, OnDestroy {
 	@Input()
 	messageOnAuthError = '';
 
-	authProvider = AuthProvider;
 	passwordResetWished = false;
 
 	public signInFormGroup: FormGroup = new FormGroup({});
@@ -90,8 +84,7 @@ export class AuthComponent implements OnInit, OnChanges, OnDestroy {
 	constructor(
 		@Inject(PLATFORM_ID) private platformId: Object,
 		public auth: AngularFireAuth,
-		public authProcess: AuthProcessService,
-		public dialog: MatDialog
+		public authProcess: AuthProcessService
 	) {}
 
 	public ngOnInit(): void {
@@ -172,9 +165,7 @@ export class AuthComponent implements OnInit, OnChanges, OnDestroy {
 		this.signInFormGroup.registerControl(
 			'password',
 			(this.sigInPasswordFormControl = new FormControl('', [
-				Validators.required,
-				Validators.minLength(6),
-				Validators.maxLength(25)
+				Validators.required
 			]))
 		);
 	}

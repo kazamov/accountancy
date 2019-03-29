@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { AngularFireAuthModule, AngularFireAuth } from '@angular/fire/auth';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AuthComponent } from './components/auth-firebaseui/auth.component';
 import { AuthProvidersComponent } from './components/providers/auth.providers.component';
@@ -16,6 +17,7 @@ import { SharedModule } from '../shared/shared.module';
 @NgModule({
 	imports: [
 		SharedModule,
+		HttpClientModule,
 		// FLEX_LAYOUT
 		FlexLayoutModule,
 		// ANGULAR MATERIAL EXTENSIONS

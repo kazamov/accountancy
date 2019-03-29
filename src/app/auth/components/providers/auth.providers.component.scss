@@ -1,86 +1,29 @@
-$google: #db4437;
-$facebook: #385899;
-$twitter: #1da1f2;
-$github: #000000;
-$phone: #02bd7e;
+$facebook: #4267b2;
 
-:host {
-	display: block;
-
-	.mat-icon {
-		vertical-align: inherit;
-	}
+.providers {
+	padding-left: 2rem;
+	padding-right: 2rem;
 }
 
 .space-full-xs {
 	width: 100%;
-	margin: 0.4rem;
+	margin: 0.5rem;
 }
 
-.facebook-filled {
-	mat-icon {
-		fill: $facebook;
-	}
+.space-full-xs:nth-of-type(1) {
+	margin-top: 2rem;
 }
 
-.twitter-filled {
-	mat-icon {
-		fill: $twitter;
-	}
-}
-
-.buttons-raised {
-	button {
-		color: white !important;
+.provider-button {
+	.mat-button-wrapper {
+		display: grid;
+		grid-template-columns: max-content 1fr;
+		justify-content: center;
+		align-items: center;
 	}
 
-	.google-raised {
-		background-color: $google;
-	}
-
-	.facebook-raised {
+	&.facebook {
+		color: white;
 		background-color: $facebook;
-	}
-
-	.twitter-raised {
-		background-color: $twitter;
-	}
-
-	.github-raised {
-		background-color: $github;
-	}
-
-	.phone-raised {
-		background-color: $phone;
-	}
-}
-
-.buttons-classic {
-	button.google-classic {
-		color: $google !important;
-	}
-
-	.facebook-classic {
-		color: $facebook !important;
-	}
-
-	.twitter-classic {
-		color: $twitter !important;
-	}
-
-	.github-classic {
-		color: $github !important;
-	}
-
-	.phone-classic {
-		color: $phone;
-	}
-}
-
-.icon-white {
-	color: white;
-
-	mat-icon {
-		fill: white;
 	}
 }

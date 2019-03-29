@@ -1,43 +1,25 @@
 <div
-	class="buttons-classic"
+	class="providers"
 	[fxLayout]="layout"
 	fxLayout.xs="column"
 	[fxLayoutAlign]="layout == 'row' ? 'space-around center' : 'stretch'"
 >
 	<button
-		*ngIf="providers.includes(authProvider.Google)"
-		mat-stroked-button
-		class="google-classic"
-		[ngClass.xs]="{ 'space-full-xs': true }"
-		(click)="authProcess.signInWith(authProvider.Google)"
-	>
-		Google
-	</button>
-	<button
-		*ngIf="providers.includes(authProvider.Facebook)"
-		mat-stroked-button
-		class="facebook-classic"
+		mat-raised-button
+		class="provider-button facebook"
 		[ngClass.xs]="{ 'space-full-xs': true }"
 		(click)="authProcess.signInWith(authProvider.Facebook)"
 	>
-		Facebook
+		<mat-icon svgIcon="facebook"></mat-icon>
+		Войти через Facebook
 	</button>
 	<button
-		*ngIf="providers.includes(authProvider.Twitter)"
-		mat-stroked-button
-		class="twitter-classic"
+		mat-raised-button
+		class="provider-button google"
 		[ngClass.xs]="{ 'space-full-xs': true }"
-		(click)="authProcess.signInWith(authProvider.Twitter)"
+		(click)="authProcess.signInWith(authProvider.Google)"
 	>
-		Twitter
-	</button>
-	<button
-		*ngIf="providers.includes(authProvider.Github)"
-		mat-stroked-button
-		class="github-classic"
-		[ngClass.xs]="{ 'space-full-xs': true }"
-		(click)="authProcess.signInWith(authProvider.Github)"
-	>
-		GitHub
+		<mat-icon svgIcon="google-colored"></mat-icon>
+		Войти через Google
 	</button>
 </div>

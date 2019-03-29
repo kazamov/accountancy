@@ -32,7 +32,6 @@
 							matInput
 							[readonly]="passReset"
 							formControlName="email"
-							title="Reset e-mail address to password"
 							required
 						/>
 						<mat-icon matSuffix [color]="color">email</mat-icon>
@@ -43,7 +42,7 @@
 								)
 							"
 						>
-							E-mail is required to reset the password!
+							Поле e-mail обязательное для сброса пароля
 						</mat-error>
 						<mat-error
 							*ngIf="
@@ -52,7 +51,7 @@
 								)
 							"
 						>
-							Please enter a valid e-mail address
+							Недопустимый адрес электронной почты
 						</mat-error>
 					</mat-form-field>
 				</mat-card-content>
@@ -98,10 +97,10 @@
 				>
 					<div fxLayout="column" fxLayoutAlign="center">
 						<mat-form-field [appearance]="appearance">
-							<mat-label>E-mail</mat-label>
+							<mat-label>Почта</mat-label>
 							<input
 								matInput
-								placeholder="E-mail"
+								placeholder="Почта"
 								formControlName="email"
 								required
 							/>
@@ -111,33 +110,27 @@
 									signInEmailFormControl.hasError('required')
 								"
 							>
-								E-mail is required
+								Поле e-mail не может быть пустым
 							</mat-error>
 							<mat-error
 								*ngIf="
 									signInEmailFormControl.hasError('pattern')
 								"
 							>
-								Please enter a valid e-mail address
+								Недопустимый адрес электронной почты
 							</mat-error>
 						</mat-form-field>
 
 						<mat-form-field [appearance]="appearance">
-							<mat-label>Password</mat-label>
+							<mat-label>Пароль</mat-label>
 							<input
 								matInput
 								type="password"
 								placeholder="Password"
-								minlength="6"
-								maxlength="25"
 								formControlName="password"
 								required
 							/>
 							<mat-icon matSuffix [color]="color">lock</mat-icon>
-
-							<mat-hint align="end" aria-live="polite">
-								{{ signInFormGroup.value.password.length }} / 25
-							</mat-hint>
 							<mat-error
 								*ngIf="
 									sigInPasswordFormControl.hasError(
@@ -145,25 +138,7 @@
 									)
 								"
 							>
-								Please do not forget the password
-							</mat-error>
-							<mat-error
-								*ngIf="
-									sigInPasswordFormControl.hasError(
-										'minlength'
-									)
-								"
-							>
-								The password must be at least 6 characters long.
-							</mat-error>
-							<mat-error
-								*ngIf="
-									sigInPasswordFormControl.hasError(
-										'maxlength'
-									)
-								"
-							>
-								The password must not exceed 25 characters
+								Поле пароль не может быть пустым
 							</mat-error>
 						</mat-form-field>
 
@@ -217,12 +192,13 @@
 						<div fxLayout="column" fxLayoutAlign="center">
 							<!--email-->
 							<mat-form-field [appearance]="appearance">
-								<mat-label>E-mail</mat-label>
+								<mat-label>Почта</mat-label>
 								<input
 									matInput
-									placeholder="E-mail"
+									placeholder="Почта"
 									type="email"
 									[formControl]="sigUpEmailFormControl"
+									required
 								/>
 								<mat-icon matSuffix [color]="color"
 									>email</mat-icon
@@ -234,7 +210,7 @@
 										)
 									"
 								>
-									E-mail is required
+									Поле e-mail не может быть пустым
 								</mat-error>
 								<mat-error
 									*ngIf="
@@ -250,11 +226,11 @@
 							<!--password-->
 							<div fxLayout="column">
 								<mat-form-field [appearance]="appearance">
-									<mat-label>Password</mat-label>
+									<mat-label>Пароль</mat-label>
 									<input
 										matInput
 										type="password"
-										placeholder="password"
+										placeholder="Пароль"
 										name="password"
 										[formControl]="sigUpPasswordFormControl"
 										required
@@ -279,7 +255,7 @@
 										"
 										class="cut-text"
 									>
-										Please do not forget the password
+										Поле пароль не может быть пустым
 									</mat-error>
 
 									<mat-error
@@ -290,8 +266,8 @@
 										"
 										class="cut-text"
 									>
-										The password must be at least 6
-										characters long.
+										Длина пароля должна быть не меньше 6
+										символов
 									</mat-error>
 									<mat-error
 										*ngIf="
@@ -301,8 +277,8 @@
 										"
 										class="cut-text"
 									>
-										The password can not be longer than 25
-										characters.
+										Длина пароля должна быть не больше 25
+										символов
 									</mat-error>
 								</mat-form-field>
 
@@ -348,7 +324,4 @@
 	<span>или</span>
 	<mat-divider></mat-divider>
 </div>
-<app-auth-firebaseui-providers
-	[providers]="providers"
-	class="space-top-providers"
-></app-auth-firebaseui-providers>
+<app-auth-firebaseui-providers></app-auth-firebaseui-providers>
