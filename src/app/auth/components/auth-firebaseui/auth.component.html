@@ -155,7 +155,6 @@
 				</form>
 				<div fxLayoutAlign="center">
 					<button
-						*ngIf="resetPasswordEnabled"
 						mat-button
 						class="space-top"
 						[color]="color"
@@ -172,7 +171,7 @@
 	</mat-tab>
 
 	<!--tab register-->
-	<mat-tab label="Регистрация" *ngIf="registrationEnabled">
+	<mat-tab label="Регистрация">
 		<mat-card>
 			<div
 				*ngIf="

@@ -46,12 +46,6 @@ export class AuthComponent implements OnInit, OnChanges, OnDestroy {
 	tabIndex: number | null = null;
 
 	@Input()
-	registrationEnabled = true;
-
-	@Input()
-	resetPasswordEnabled = true;
-
-	@Input()
 	goBackURL = '';
 
 	@Input()
