@@ -24,7 +24,7 @@ export class ReportResolver implements Resolve<boolean> {
 		const criteria: ISearchCriteria = this.reportQuery.getValue().criteria;
 		this.reportService.generateReport(criteria);
 
-		return combineLatest(
+		return combineLatest([
 			this.reportQuery.selectLoading().pipe(
 				filter(isLoading => !isLoading),
 				take(1)
@@ -33,7 +33,7 @@ export class ReportResolver implements Resolve<boolean> {
 				filter(isLoading => !isLoading),
 				take(1)
 			)
-		).pipe(
+		]).pipe(
 			take(1),
 			map(
 				([isReportLoaded, isCategoriesLoaded]) =>

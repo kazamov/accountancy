@@ -1,4 +1,4 @@
-<div class="progress-bar-container" *ngIf="(isLoading$ | async)">
+<div class="progress-bar-container" *ngIf="isLoading$ | async">
 	<mat-progress-bar
 		[mode]="'indeterminate'"
 		[color]="'accent'"
@@ -6,7 +6,7 @@
 </div>
 <mat-toolbar color="primary">
 	<button
-		*ngIf="(isAuthenticated$ | async)"
+		*ngIf="isAuthenticated$ | async"
 		mat-icon-button
 		(click)="sidenav.toggle()"
 	>

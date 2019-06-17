@@ -2,7 +2,7 @@
 	<p *ngIf="!(count$ | async)">У вас нет ни одной категории</p>
 	<mat-list role="list">
 		<app-category-list-item
-			*ngFor="let category of (categories$ | async)"
+			*ngFor="let category of categories$ | async"
 			[category]="category"
 			(deleteCategory)="onCategoryDeleteStart($event)"
 			(updateCategory)="onCategoryUpdateStart($event)"

@@ -28,7 +28,7 @@
 		<mat-label>Категория</mat-label>
 		<mat-select matInput [formControlName]="'category'" required>
 			<mat-option
-				*ngFor="let category of (categories$ | async)"
+				*ngFor="let category of categories$ | async"
 				[value]="category.id"
 			>
 				{{ category.name }}

@@ -35,7 +35,7 @@ export class ChargesResolver implements Resolve<boolean> {
 		this.chargesService.getCharges();
 		this.categoriesService.getCategories();
 
-		return combineLatest(
+		return combineLatest([
 			this.chargesQuery.selectLoading().pipe(
 				filter(isLoading => !isLoading),
 				take(1)
@@ -44,7 +44,7 @@ export class ChargesResolver implements Resolve<boolean> {
 				filter(isLoading => !isLoading),
 				take(1)
 			)
-		).pipe(
+		]).pipe(
 			take(1),
 			map(
 				([isChargesLoaded, isCategoriesLoaded]) =>

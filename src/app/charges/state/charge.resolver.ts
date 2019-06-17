@@ -27,7 +27,7 @@ export class ChargeResolver implements Resolve<ICharge | null> {
 			this.chargesService.getCharge(id);
 			this.categoriesService.getCategories();
 
-			return combineLatest(
+			return combineLatest([
 				this.chargesQuery.selectEntity<ICharge>(id).pipe(
 					filter(ch => Boolean(ch)),
 					take(1)
@@ -36,7 +36,7 @@ export class ChargeResolver implements Resolve<ICharge | null> {
 					filter(isLoading => !isLoading),
 					take(1)
 				)
-			).pipe(
+			]).pipe(
 				take(1),
 				map(([chargeData]) => chargeData)
 			);

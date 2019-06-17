@@ -1,4 +1,4 @@
-<ng-container *ngIf="(charges$ | async) as charges">
+<ng-container *ngIf="charges$ | async as charges">
 	<cdk-virtual-scroll-viewport
 		itemSize="160"
 		(scrolledIndexChange)="onLoadMoreCharges()"
