@@ -23,7 +23,7 @@ export class ChargesComponent implements OnDestroy {
 	allChargesLoaded$: Observable<boolean>;
 	chargesSubscription: Subscription;
 
-	@ViewChild(CdkVirtualScrollViewport)
+	@ViewChild(CdkVirtualScrollViewport, { static: false })
 	viewport: CdkVirtualScrollViewport | null = null;
 
 	private processingLoading = false;

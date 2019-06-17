@@ -22,7 +22,7 @@ export class ChargeFormComponent implements OnInit {
 	form: FormGroup;
 	categories$: Observable<ICategory[]>;
 
-	@ViewChild(MatDatepicker)
+	@ViewChild(MatDatepicker, { static: true })
 	picker: MatDatepicker<Date> | null = null;
 
 	@Input()

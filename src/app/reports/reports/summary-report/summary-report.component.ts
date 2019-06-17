@@ -15,7 +15,7 @@ export class SummaryReportComponent implements OnInit {
 	dataSource: MatTableDataSource<IPreparedGroup>;
 	total = 0;
 
-	@ViewChild(MatSort) sort: MatSort | null = null;
+	@ViewChild(MatSort, { static: true }) sort: MatSort | null = null;
 
 	constructor(
 		private reportQuery: ReportQuery,
