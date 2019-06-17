@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { MatDatepicker } from '@angular/material';
+import { MatDatepicker } from '@angular/material/datepicker';
 
 import { ReportService } from '../../state/report.service';
 

@@ -14,7 +14,7 @@ import {
 	FormGroup,
 	Validators
 } from '@angular/forms';
-import { MatFormFieldAppearance } from '@angular/material';
+import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { isPlatformBrowser } from '@angular/common';
 import { Subscription } from 'rxjs';
