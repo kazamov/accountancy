@@ -6,17 +6,22 @@ import { AuthGuard } from './auth/guards/auth.guard';
 const routes: Routes = [
 	{
 		path: 'charges',
-		loadChildren: './charges/charges.module#ChargesModule',
+		loadChildren: () =>
+			import('./charges/charges.module').then(m => m.ChargesModule),
 		canLoad: [AuthGuard]
 	},
 	{
 		path: 'categories',
-		loadChildren: './categories/categories.module#CategoriesModule',
+		loadChildren: () =>
+			import('./categories/categories.module').then(
+				m => m.CategoriesModule
+			),
 		canLoad: [AuthGuard]
 	},
 	{
 		path: 'reports',
-		loadChildren: './reports/reports.module#ReportsModule',
+		loadChildren: () =>
+			import('./reports/reports.module').then(m => m.ReportsModule),
 		canLoad: [AuthGuard]
 	},
 	{ path: '', redirectTo: 'charges', pathMatch: 'full' }
