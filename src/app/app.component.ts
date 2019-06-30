@@ -6,6 +6,7 @@ import {
 	NavigationCancel,
 	NavigationEnd
 } from '@angular/router';
+import '@firebase/firestore';
 
 import { UiService } from './core/ui.service';
 import { Observable } from 'rxjs';
