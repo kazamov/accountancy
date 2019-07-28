@@ -1,0 +1,68 @@
+<ng-container *ngIf="user$ | async as user">
+	<div class="profile-container">
+		<ng-container *ngIf="user.photoURL; else elseBlock">
+			<img class="avatar" [src]="user.photoURL" />
+		</ng-container>
+		<ng-template #elseBlock>
+			<mat-icon class="avatar unknown-user">person</mat-icon>
+		</ng-template>
+
+		<h3>{{ user.displayName }}</h3>
+		<h4>{{ user.email }}</h4>
+
+		<div
+			class="providers"
+			fxLayout="row"
+			fxLayout.xs="column"
+			fxLayoutAlign="space-around center"
+		>
+			<ng-container
+				*ngIf="facebookLinked(user.providers); else elseFacebook"
+			>
+				<button
+					mat-raised-button
+					class="provider-button facebook"
+					[ngClass.xs]="{ 'space-full-xs': true }"
+					(click)="authProcess.unlinkFrom('facebook.com')"
+				>
+					<mat-icon svgIcon="facebook"></mat-icon>
+					Отсоединить от Facebook
+				</button>
+			</ng-container>
+			<ng-template #elseFacebook>
+				<button
+					mat-raised-button
+					class="provider-button facebook"
+					[ngClass.xs]="{ 'space-full-xs': true }"
+					(click)="authProcess.linkTo(authProvider.Facebook)"
+				>
+					<mat-icon svgIcon="facebook"></mat-icon>
+					Соединить с Facebook
+				</button>
+			</ng-template>
+
+			<ng-container *ngIf="googleLinked(user.providers); else elseGoogle">
+				<button
+					mat-raised-button
+					class="provider-button google"
+					[ngClass.xs]="{ 'space-full-xs': true }"
+					(click)="authProcess.unlinkFrom('google.com')"
+				>
+					<mat-icon svgIcon="google-colored"></mat-icon>
+					Отсоединить от Google
+				</button>
+			</ng-container>
+			<ng-template #elseGoogle>
+				<button
+					mat-raised-button
+					class="provider-button google"
+					[ngClass.xs]="{ 'space-full-xs': true }"
+					(click)="authProcess.linkTo(authProvider.Google)"
+				>
+					<mat-icon svgIcon="google-colored"></mat-icon>
+					Соединить с Google
+				</button>
+			</ng-template>
+		</div>
+	</div>
+</ng-container>

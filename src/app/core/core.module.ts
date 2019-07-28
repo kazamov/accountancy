@@ -16,7 +16,6 @@ import { CategoriesResolver } from '../categories/state/categories.resolver';
 import { AuthStore } from '../auth/state/auth.store';
 import { AuthQuery } from '../auth/state/auth.query';
 import { AuthGuard } from '../auth/guards/auth.guard';
-import { LoginGuard } from '../auth/guards/login.guard';
 import { environment } from 'src/environments/environment';
 
 @NgModule({
@@ -46,7 +45,6 @@ import { environment } from 'src/environments/environment';
 		AuthStore,
 		AuthQuery,
 		AuthGuard,
-		LoginGuard,
 		AngularFirestore
 	]
 })

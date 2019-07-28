@@ -36,7 +36,6 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 	onSuccessEmitter: EventEmitter<any> = new EventEmitter<any>();
 	onErrorEmitter: EventEmitter<any> = new EventEmitter<any>();
 
-	isLoading = false;
 	emailConfirmationSent = false;
 
 	emailToConfirm = '';
@@ -52,15 +51,7 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 		private router: Router
 	) {
 		this.authStore.setLoading(true);
-		this.afa.authState.subscribe(user => {
-			const userData: AppUserInfo | null = user
-				? this.parseUserInfo(user)
-				: null;
-			this.authStore.update({
-				userData: userData
-			});
-			this.authStore.setLoading(false);
-		});
+		this.afa.authState.subscribe(this.updateUserState.bind(this));
 
 		this.authQuery.isAuthenticated$.subscribe(isAuthenticated => {
 			if (isAuthenticated) {
@@ -102,7 +93,6 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 		credentials?: ICredentials
 	) {
 		try {
-			this.isLoading = true;
 			let signInResult: UserCredential | any;
 
 			switch (provider) {
@@ -130,17 +120,6 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 					)) as UserCredential;
 					break;
 
-				case AuthProvider.Twitter:
-					signInResult = (await this.afa.auth.signInWithPopup(
-						twitterAuthProvider
-					)) as UserCredential;
-					break;
-
-				case AuthProvider.Github:
-					signInResult = (await this.afa.auth.signInWithPopup(
-						githubAuthProvider
-					)) as UserCredential;
-					break;
 				default:
 					throw new Error(
 						`${
@@ -153,8 +132,56 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 			this.handleError(err);
 			console.error(err);
 			this.onErrorEmitter.next(err);
-		} finally {
-			this.isLoading = false;
+		}
+	}
+
+	public async linkTo(provider: AuthProvider) {
+		try {
+			let userCredential: UserCredential | null = null;
+			switch (provider) {
+				case AuthProvider.Google:
+					if (this.afa.auth.currentUser) {
+						userCredential = await this.afa.auth.currentUser.linkWithPopup(
+							googleAuthProvider
+						);
+					}
+					break;
+
+				case AuthProvider.Facebook:
+					if (this.afa.auth.currentUser) {
+						userCredential = await this.afa.auth.currentUser.linkWithPopup(
+							facebookAuthProvider
+						);
+					}
+					break;
+				default:
+					throw new Error(
+						`${
+							AuthProvider[provider as any]
+						} is not available as auth provider`
+					);
+			}
+
+			if (userCredential) {
+				this.updateUserState(userCredential.user);
+			}
+		} catch (error) {
+			this.handleError(error);
+			console.error(error);
+			this.onErrorEmitter.next(error);
+		}
+	}
+
+	public async unlinkFrom(providerId: string) {
+		try {
+			if (this.afa.auth.currentUser) {
+				const user = await this.afa.auth.currentUser.unlink(providerId);
+				this.updateUserState(user);
+			}
+		} catch (error) {
+			this.handleError(error);
+			console.error(error);
+			this.onErrorEmitter.next(error);
 		}
 	}
 
@@ -168,7 +195,6 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 	 */
 	public async signUp(name: string, credentials: ICredentials) {
 		try {
-			this.isLoading = true;
 			const userCredential: UserCredential = await this.afa.auth.createUserWithEmailAndPassword(
 				credentials.email,
 				credentials.password
@@ -208,8 +234,6 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 			}
 		} catch (err) {
 			this.handleError(err);
-		} finally {
-			this.isLoading = false;
 		}
 	}
 
@@ -242,30 +266,6 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 		});
 	}
 
-	public async deleteAccount(user: User): Promise<void> {
-		return await user.delete();
-	}
-
-	public parseUserInfo(user: User): AppUserInfo {
-		let providers: Partial<UserInfo>[] = [];
-		if (user.providerData.length > 0) {
-			providers = user.providerData.map(data => {
-				return {
-					providerId: data ? data.providerId : ''
-				};
-			});
-		}
-		return {
-			uid: user.uid,
-			displayName: user.displayName,
-			email: user.email,
-			phoneNumber: user.phoneNumber,
-			photoURL: user.photoURL,
-			emailVerified: user.emailVerified,
-			providers: providers
-		};
-	}
-
 	public getUserPhotoUrl(): string {
 		const user: firebase.User | null = this.afa.auth.currentUser;
 
@@ -286,6 +286,26 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 		return `assets/user/${image}.svg`;
 	}
 
+	private parseUserInfo(user: User): AppUserInfo {
+		let providers: Partial<UserInfo>[] = [];
+		if (user.providerData.length > 0) {
+			providers = user.providerData.map(data => {
+				return {
+					providerId: data ? data.providerId : ''
+				};
+			});
+		}
+		return {
+			uid: user.uid,
+			displayName: user.displayName,
+			email: user.email,
+			phoneNumber: user.phoneNumber,
+			photoURL: user.photoURL,
+			emailVerified: user.emailVerified,
+			providers: providers
+		};
+	}
+
 	async handleSuccess(userCredential: UserCredential) {
 		const user = userCredential.user;
 		if (user) {
@@ -302,7 +322,7 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 		}
 	}
 
-	handleError(error: any) {
+	private handleError(error: any) {
 		this.onErrorEmitter.next(error);
 		this._snackBar.open(
 			this.messageOnAuthError ? this.messageOnAuthError : error.message,
@@ -310,5 +330,15 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 			{ duration: 5000 }
 		);
 		console.error(error);
+	}
+
+	private updateUserState(user: User | null) {
+		const userData: AppUserInfo | null = user
+			? this.parseUserInfo(user)
+			: null;
+		this.authStore.update({
+			userData: userData
+		});
+		this.authStore.setLoading(false);
 	}
 }

@@ -13,6 +13,7 @@ import { AuthProcessService } from './services/auth-process.service';
 import { AuthFirebaseuiAvatarComponent } from './components/auth-firebaseui-avatar/auth-firebaseui-avatar.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
 	imports: [
@@ -31,7 +32,8 @@ import { SharedModule } from '../shared/shared.module';
 		AuthComponent,
 		AuthFirebaseuiAvatarComponent,
 		AuthProvidersComponent,
-		EmailConfirmationComponent
+		EmailConfirmationComponent,
+		ProfileComponent
 	],
 	providers: [AuthProcessService, FirestoreSyncService, AngularFireAuth]
 })

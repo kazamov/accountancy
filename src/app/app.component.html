@@ -22,6 +22,10 @@
 		role="navigation"
 	>
 		<mat-nav-list>
+			<a mat-list-item routerLink="/profile" (click)="sidenav.close()">
+				<mat-icon class="nav-item-icon">person</mat-icon>
+				<span class="nav-caption">Профайл</span>
+			</a>
 			<a mat-list-item routerLink="/charges" (click)="sidenav.close()">
 				<mat-icon class="nav-item-icon">monetization_on</mat-icon>
 				<span class="nav-caption">Расходы</span>

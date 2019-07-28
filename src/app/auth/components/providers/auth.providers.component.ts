@@ -1,15 +1,11 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
+
 import {
 	AuthProcessService,
 	AuthProvider
 } from '../../services/auth-process.service';
-
-export enum Layout {
-	ROW = 'row',
-	COLUMN = 'column'
-}
 
 @Component({
 	selector: 'app-auth-firebaseui-providers',
@@ -18,12 +14,6 @@ export enum Layout {
 	encapsulation: ViewEncapsulation.None
 })
 export class AuthProvidersComponent {
-	@Input()
-	layout: string = Layout.ROW;
-
-	@Input()
-	providers: string[] = [AuthProvider.Google, AuthProvider.Facebook]; //  google, facebook, twitter, github
-
 	authProvider = AuthProvider;
 
 	constructor(
