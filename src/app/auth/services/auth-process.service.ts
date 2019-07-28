@@ -36,6 +36,7 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 	onSuccessEmitter: EventEmitter<any> = new EventEmitter<any>();
 	onErrorEmitter: EventEmitter<any> = new EventEmitter<any>();
 
+	isLoading = false;
 	emailConfirmationSent = false;
 
 	emailToConfirm = '';
@@ -93,6 +94,7 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 		credentials?: ICredentials
 	) {
 		try {
+			this.isLoading = true;
 			let signInResult: UserCredential | any;
 
 			switch (provider) {
@@ -132,11 +134,14 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 			this.handleError(err);
 			console.error(err);
 			this.onErrorEmitter.next(err);
+		} finally {
+			this.isLoading = false;
 		}
 	}
 
 	public async linkTo(provider: AuthProvider) {
 		try {
+			this.isLoading = true;
 			let userCredential: UserCredential | null = null;
 			switch (provider) {
 				case AuthProvider.Google:
@@ -169,11 +174,14 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 			this.handleError(error);
 			console.error(error);
 			this.onErrorEmitter.next(error);
+		} finally {
+			this.isLoading = false;
 		}
 	}
 
 	public async unlinkFrom(providerId: string) {
 		try {
+			this.isLoading = true;
 			if (this.afa.auth.currentUser) {
 				const user = await this.afa.auth.currentUser.unlink(providerId);
 				this.updateUserState(user);
@@ -182,6 +190,8 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 			this.handleError(error);
 			console.error(error);
 			this.onErrorEmitter.next(error);
+		} finally {
+			this.isLoading = false;
 		}
 	}
 
@@ -195,6 +205,7 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 	 */
 	public async signUp(name: string, credentials: ICredentials) {
 		try {
+			this.isLoading = true;
 			const userCredential: UserCredential = await this.afa.auth.createUserWithEmailAndPassword(
 				credentials.email,
 				credentials.password
@@ -234,6 +245,8 @@ export class AuthProcessService implements ISignInProcess, ISignUpProcess {
 			}
 		} catch (err) {
 			this.handleError(err);
+		} finally {
+			this.isLoading = false;
 		}
 	}
 
